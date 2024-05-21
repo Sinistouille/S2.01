@@ -20,7 +20,6 @@ public class ListeFromage extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField Image_Fromage;
 
 	/**
 	 * Launch the application.
@@ -54,9 +53,8 @@ public class ListeFromage extends JFrame {
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new GridLayout(4, 1, 0, 0));
 		
-		Image_Fromage = new JTextField();
-		panel.add(Image_Fromage);
-		Image_Fromage.setColumns(10);
+		JLabel ImageFromage = new JLabel("");
+		panel.add(ImageFromage);
 		
 		JPanel Type_Fromage = new JPanel();
 		panel.add(Type_Fromage);
@@ -71,10 +69,10 @@ public class ListeFromage extends JFrame {
 		JCheckBox Vache = new JCheckBox("Vache");
 		Type_Fromage.add(Vache);
 		
-		JButton Panier = new JButton("New button");
+		JButton Panier = new JButton("Panier");
 		panel.add(Panier);
 		
-		JLabel Livraison_Gratuite = new JLabel("New label");
+		JLabel Livraison_Gratuite = new JLabel("Somme a payer avant livraison");
 		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(Livraison_Gratuite);
 		
