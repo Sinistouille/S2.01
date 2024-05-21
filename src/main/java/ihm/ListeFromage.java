@@ -11,16 +11,16 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JTable;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 public class ListeFromage extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTable table;
+	private JTextField Image_Fromage;
 
 	/**
 	 * Launch the application.
@@ -54,38 +54,37 @@ public class ListeFromage extends JFrame {
 		contentPane.add(panel, BorderLayout.WEST);
 		panel.setLayout(new GridLayout(4, 1, 0, 0));
 		
-		textField = new JTextField();
-		panel.add(textField);
-		textField.setColumns(10);
+		Image_Fromage = new JTextField();
+		panel.add(Image_Fromage);
+		Image_Fromage.setColumns(10);
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-		panel_2.setLayout(new GridLayout(1, 3, 0, 0));
+		JPanel Type_Fromage = new JPanel();
+		panel.add(Type_Fromage);
+		Type_Fromage.setLayout(new GridLayout(1, 3, 0, 0));
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("New check box");
-		panel_2.add(chckbxNewCheckBox);
+		JCheckBox Chévre = new JCheckBox("Chévre");
+		Type_Fromage.add(Chévre);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("New check box");
-		panel_2.add(chckbxNewCheckBox_1);
+		JCheckBox Brebis = new JCheckBox("Brebis");
+		Type_Fromage.add(Brebis);
 		
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("New check box");
-		panel_2.add(chckbxNewCheckBox_2);
+		JCheckBox Vache = new JCheckBox("Vache");
+		Type_Fromage.add(Vache);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel.add(btnNewButton_2);
+		JButton Panier = new JButton("New button");
+		panel.add(Panier);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel.add(lblNewLabel);
+		JLabel Livraison_Gratuite = new JLabel("New label");
+		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(Livraison_Gratuite);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane);
-		
-		table = new JTable();
-		panel_1.add(table);
+		JScrollPane Liste_Fromage = new JScrollPane();
+		Liste_Fromage.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panel_1.add(Liste_Fromage);
 	}
 
 }
