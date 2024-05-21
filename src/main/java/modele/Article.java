@@ -29,6 +29,12 @@ public class Article {
 	public String getClé() {
 		return this.clé;
 	}
+	public void préempterQuantité(int q) {
+		this.quantitéEnStock -= q;
+	}
+	public void rendreQuantité(int q) {
+		this.quantitéEnStock += q;
+	}
 
 	public void setQuantitéEnStock(int quantitéEnStock) {
 		this.quantitéEnStock = quantitéEnStock;
@@ -43,6 +49,10 @@ public class Article {
 			return this.fromage.getDésignation() + ", " + this.clé
 			        + ", Prix TTC : " + this.getPrixTTC() + " €";
 		}
+	}
+	
+	public String toStringIHM() {
+		return "";
 	}
 
 	public String toStringAvecStock() {
