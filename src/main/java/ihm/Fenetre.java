@@ -1,22 +1,41 @@
 package ihm;
 
-import javax.swing.*;
+import java.awt.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class Fenetre extends JFrame {
 
-    public static void main(String[] args) {
-        new Fenetre();
-    }
-    public Fenetre() {
-        init();
-    }
-    public void init() {
-        this.setTitle("Fromagerie");
-        this.setSize(1000, 800);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setResizable(true);
-        this.setContentPane(new JPanel());
-        this.setVisible(true);
-    }
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Fenetre frame = new Fenetre();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Fenetre() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 700, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+	}
+
 }
