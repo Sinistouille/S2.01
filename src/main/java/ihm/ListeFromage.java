@@ -84,6 +84,9 @@ public class ListeFromage extends JFrame {
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
+		JButton Quitter = new JButton("Quitter");
+		panel_1.add(Quitter, BorderLayout.SOUTH);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 		
@@ -118,16 +121,6 @@ public class ListeFromage extends JFrame {
 				{null, null},
 				{null, null},
 				{null, null},
-				{"g", null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{"ff", null},
 				{null, null},
 				{null, null},
 			},
