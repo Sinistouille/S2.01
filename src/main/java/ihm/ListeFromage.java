@@ -62,13 +62,13 @@ public class ListeFromage extends JFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(new GridLayout(1, 3, 0, 0));
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Vache");
+		JCheckBox chckbxNewCheckBox = new JCheckBox("New check box");
 		panel_2.add(chckbxNewCheckBox);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Brebis");
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("New check box");
 		panel_2.add(chckbxNewCheckBox_1);
 		
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Chèvre");
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("New check box");
 		panel_2.add(chckbxNewCheckBox_2);
 		
 		JButton btnNewButton_2 = new JButton("New button");
