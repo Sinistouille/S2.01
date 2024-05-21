@@ -29,8 +29,7 @@ public class TestFiltreTypeDeFromage {
 
 	@Test
 	public void testFromagesChèvre() {
-		List<Fromage> fromagesChèvre = mesArticles
-		        .fromagesAuLaitDe(TypeLait.CHEVRE);
+		List<Fromage> fromagesChèvre = mesArticles.fromagesAuLaitDe(TypeLait.CHEVRE);
 		assertEquals(22, fromagesChèvre.size());
 		if (!this.verify(fromagesChèvre, TypeLait.CHEVRE)) {
 			fail("un fromage du mauvais type trouvé dans le filtre !");

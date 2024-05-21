@@ -19,10 +19,10 @@ public class Fromages {
 	public String toStringFromagesEtArticles() {
 		StringBuffer enForme = new StringBuffer();
 		for (Fromage f : this.fromages) {
-			enForme.append(f.toString() + '\n');
+			enForme.append(f.toString()).append('\n');
 			if (f.nombreArticles() > 0) {
 				for (Article article : f.getArticles()) {
-					enForme.append(article.toString() + '\n');
+					enForme.append(article.toString()).append('\n');
 				}
 			}
 		}
@@ -43,7 +43,13 @@ public class Fromages {
 
 	// A compléter !
 	public List<Fromage> fromagesAuLaitDe(TypeLait lait) {
-		return null;
+		List<Fromage> fromages = new LinkedList<>();
+		for(Fromage f : this.fromages) {
+			if (f.getTypeFromage() == lait) {
+				fromages.add(f);
+			}
+		}
+		return fromages;
 	}
 
 	public List<Fromage> getFromages() {
@@ -83,7 +89,7 @@ public class Fromages {
 			}
 			if (f.getNomImage() == null) {
 				enForme.append(
-				        "Pas de nom d'image pour " + f.toString() + '\n');
+						"Pas de nom d'image pour " + f.toString() + '\n');
 			}
 		}
 		return enForme.toString();
