@@ -55,7 +55,7 @@ public class ListeFromage extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.WEST);
-		panel.setLayout(new GridLayout(4, 1, 0, 0));
+		panel.setLayout(new GridLayout(4, 0, 0, 0));
 		
 		JLabel ImageFromage = new JLabel("");
 		panel.add(ImageFromage);
