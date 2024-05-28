@@ -1,17 +1,21 @@
 package ihm;
 
+import ihm.FenetreFacture;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.rendering.ImageType;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class FenetreFacture extends JFrame {
-    private String pdfPath;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String pdfPath;
 
     public FenetreFacture(String pdfPath) {
         this.pdfPath = pdfPath;
@@ -46,7 +50,7 @@ public class FenetreFacture extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            PDFViewer viewer = new PDFViewer("facture.pdf");
+        	FenetreFacture viewer = new FenetreFacture("facture.pdf");
             viewer.setVisible(true);
         });
     }
