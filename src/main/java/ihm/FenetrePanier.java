@@ -18,6 +18,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 
 public class FenetrePanier extends JFrame {
 
@@ -44,7 +46,7 @@ public class FenetrePanier extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -55,10 +57,14 @@ public class FenetrePanier extends JFrame {
 		panel_6.add(Transporteur);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Colissimo", "Chronorelais", "Chronofresh"}));
 		panel_6.add(comboBox);
 		
 		JLabel lblNewLabel_12 = new JLabel("Frais de port offert dès 120€ d'achat");
 		panel_6.add(lblNewLabel_12);
+		
+		JPanel panel_7 = new JPanel();
+		panel.add(panel_7);
 		
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2);
@@ -101,24 +107,22 @@ public class FenetrePanier extends JFrame {
 		panel_2.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel ViderPanier = new JLabel("Vider le panier");
-		ViderPanier.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel_4.add(ViderPanier);
+		JButton Valider = new JButton("Valider le panier");
+		panel_4.add(Valider);
 		
-		JLabel ValiderPanier = new JLabel("Valider le panier");
-		ValiderPanier.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel_4.add(ValiderPanier);
+		JButton Vider = new JButton("Vider le panier");
+		panel_4.add(Vider);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Récapitulatif");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_1.add(lblNewLabel);
+		JLabel Recapitulatif = new JLabel("Récapitulatif");
+		Recapitulatif.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_1.add(Recapitulatif);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.WEST);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -132,9 +136,6 @@ public class FenetrePanier extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(table);
-		
-		JPanel panel_5 = new JPanel();
-		scrollPane.setColumnHeaderView(panel_5);
 	}
 
 }

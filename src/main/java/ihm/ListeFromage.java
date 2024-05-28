@@ -33,6 +33,8 @@ import modele.Panier;
 import modele.TypeLait;
 
 import javax.swing.JScrollBar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListeFromage extends JFrame {
 
@@ -117,6 +119,12 @@ public class ListeFromage extends JFrame {
 		panel_1.add(panel_2, BorderLayout.SOUTH);
 		
 		JButton BoutonQuitter = new JButton("Quitter");
+		BoutonQuitter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		panel_2.add(BoutonQuitter);
 		
 		JScrollPane scrollPane = new JScrollPane();
