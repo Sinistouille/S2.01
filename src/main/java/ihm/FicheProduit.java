@@ -148,12 +148,4 @@ public class FicheProduit extends JFrame {
     private void updateTotalPrix() {
         totalPrixLabel.setText("Total : " + calculerTotalPrix() + "€");
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new FicheProduit().setVisible(true);
-            }
-        });
-    }
 }
