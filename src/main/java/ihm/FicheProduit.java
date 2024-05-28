@@ -1,6 +1,5 @@
 package ihm;
 
-package ihm;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
