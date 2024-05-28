@@ -13,7 +13,7 @@ import java.io.IOException;
 public class FenetreFacture extends JFrame {
     private String pdfPath;
 
-    public PDFViewer(String pdfPath) {
+    public FenetreFacture(String pdfPath) {
         this.pdfPath = pdfPath;
         setTitle("Visualisation de la facture PDF");
         setSize(800, 600);

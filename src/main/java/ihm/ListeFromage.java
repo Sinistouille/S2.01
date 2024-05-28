@@ -72,18 +72,19 @@ public class ListeFromage extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
+		//Panel principal
+		this.setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.WEST);
-		panel.setLayout(new GridLayout(4, 0, 0, 0));
+		JPanel panel_Principal = new JPanel();
+		contentPane.add(panel_Principal, BorderLayout.WEST);
+		panel_Principal.setLayout(new GridLayout(4, 0, 0, 0));
 		
 		JLabel ImageFromage = new JLabel("");
-		panel.add(ImageFromage);
+		panel_Principal.add(ImageFromage);
 		
 		JPanel Type_Fromage = new JPanel();
-		panel.add(Type_Fromage);
+		panel_Principal.add(Type_Fromage);
 		Type_Fromage.setLayout(new GridLayout(1, 3, 0, 0));
 		
 		JCheckBox checkbox_Chevre = new JCheckBox("Chévre");
@@ -97,7 +98,7 @@ public class ListeFromage extends JFrame {
 		this.checkboxs[2] = checkbox_Vache;
 		
 		JButton boutonPanier = new JButton("Panier");
-		panel.add(boutonPanier);
+		panel_Principal.add(boutonPanier);
 		boutonPanier.addActionListener(new ActionListener() {
 
 			@Override
@@ -109,7 +110,7 @@ public class ListeFromage extends JFrame {
 		});
 		JLabel Livraison_Gratuite = new JLabel("Somme a payer avant livraison");
 		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(Livraison_Gratuite);
+		panel_Principal.add(Livraison_Gratuite);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
