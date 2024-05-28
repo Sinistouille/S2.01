@@ -56,6 +56,14 @@ public class Fromages {
 		Collections.sort(this.fromages);
 		return this.fromages;
 	}
+	
+	public String[][] arrayFromages(){
+		String[][] tabFromages = new String[this.getFromages().size()][2];
+		for(int i = 0; i < this.getFromages().size(); i++) {
+			tabFromages[i][0] = this.getFromages().get(i).getDésignation();
+		}
+		return tabFromages;
+	}
 
 	public Fromage getFromage(String désignation) {
 		for (Fromage f : this.fromages) {

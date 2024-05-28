@@ -17,6 +17,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import modele.Fromages;
+import modele.GenerationFromages;
+
 import javax.swing.JScrollBar;
 
 public class ListeFromage extends JFrame {
@@ -24,6 +28,7 @@ public class ListeFromage extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private Fromages listeFromages;
 
 	/**
 	 * Launch the application.
@@ -45,6 +50,7 @@ public class ListeFromage extends JFrame {
 	 * Create the frame.
 	 */
 	public ListeFromage() {
+		this.listeFromages = GenerationFromages.générationBaseFromages();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
@@ -95,42 +101,22 @@ public class ListeFromage extends JFrame {
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
+			this.listeFromages.arrayFromages(),
 			new String[] {
-				"New column", "New column"
-			}
-		));
+				"Fromages"
+			}		
+		){
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		});
 		scrollPane.setViewportView(table);
 	}
 
