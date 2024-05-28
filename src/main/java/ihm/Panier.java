@@ -33,6 +33,7 @@ public class Panier extends JFrame {
 	 * Create the frame.
 	 */
 	public Panier() {
+		setTitle("Ô fromage - Panier");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
@@ -117,7 +118,7 @@ public class Panier extends JFrame {
 		panel_1.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		contentPane.add(scrollPane, BorderLayout.WEST);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(

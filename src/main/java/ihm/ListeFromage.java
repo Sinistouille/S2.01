@@ -53,6 +53,7 @@ public class ListeFromage extends JFrame {
 	 * Create the frame.
 	 */
 	public ListeFromage() {
+		setTitle("Ô fromage - Liste Fromages");
 		this.listeFromages = GenerationFromages.générationBaseFromages();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
