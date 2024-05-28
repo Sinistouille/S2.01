@@ -58,7 +58,11 @@ public class Fromages {
 	}
 	
 	public String[][] arrayFromages(List<TypeLait> laits){
-		String[][] tabFromages = new String[this.getFromages().size()][2];
+		int nombreFromages = 0;
+		for(TypeLait t : laits) {
+			nombreFromages += this.fromagesAuLaitDe(t).size();
+		}
+		String[][] tabFromages = new String[nombreFromages][2];
 		int i = 0;
 		for(Fromage c : this.fromages) {
 			if(laits.contains(c.getTypeFromage())) {
