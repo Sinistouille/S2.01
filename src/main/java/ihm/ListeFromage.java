@@ -157,7 +157,7 @@ public class ListeFromage extends JFrame {
 	}
 	private void setupCheckbox() {
 		for(JCheckBox c : this.checkboxs) {
-			c.setEnabled(true);
+			c.setSelected(true);
 			c.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent e) {
