@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -19,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import modele.Fromages;
+import ihm.Panier;
 import modele.GenerationFromages;
 
 import javax.swing.JScrollBar;
@@ -79,9 +82,18 @@ public class ListeFromage extends JFrame {
 		JCheckBox Vache = new JCheckBox("Vache");
 		Type_Fromage.add(Vache);
 		
-		JButton Panier = new JButton("Panier");
-		panel.add(Panier);
-		
+		JButton boutonPanier = new JButton("Panier");
+		panel.add(boutonPanier);
+		boutonPanier.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Panier p = new Panier();
+				p.setVisible(true);
+				System.out.println("FEUR");
+				
+			}
+		});
 		JLabel Livraison_Gratuite = new JLabel("Somme a payer avant livraison");
 		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(Livraison_Gratuite);
