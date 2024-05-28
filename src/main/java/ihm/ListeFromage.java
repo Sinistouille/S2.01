@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import modele.*;
+
 import modele.Fromages;
 import ihm.FenetrePanier;
 import modele.GenerationFromages;
@@ -35,6 +37,7 @@ import modele.TypeLait;
 import javax.swing.JScrollBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class ListeFromage extends JFrame {
 
@@ -105,7 +108,6 @@ public class ListeFromage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				FenetrePanier p = new FenetrePanier();
 				p.setVisible(true);
-				
 			}
 		});
 		JLabel Livraison_Gratuite = new JLabel("Somme a payer avant livraison");
@@ -132,6 +134,26 @@ public class ListeFromage extends JFrame {
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		table.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				FicheProduit p = new FicheProduit();
+				p.setVisible(true);
+			}
+		});
+		table.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				FicheProduit p = new FicheProduit();
+				p.setVisible(true);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				FicheProduit p = new FicheProduit();
+				p.setVisible(true);
+			}
+		});
 		scrollPane.setViewportView(table);
 		setupCheckbox();
 		reload();
