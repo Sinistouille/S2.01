@@ -25,6 +25,8 @@ public class FenetrePanier extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	private int nombreElement=14;
 
 	/**
 	 * Launch the application.
@@ -125,51 +127,42 @@ public class FenetrePanier extends JFrame {
 		
 		JPanel ContenuPanier = new JPanel();
 		scrollPane.setViewportView(ContenuPanier);
-		ContenuPanier.setLayout(new GridLayout(2, 0, 0, 0));
+		ContenuPanier.setLayout(new GridLayout(nombreElement, 0, 0, 0));
 		
-		JPanel Element0 = new JPanel();
-		ContenuPanier.add(Element0);
-		Element0.setLayout(new GridLayout(0, 5, 0, 0));
+		for(int i=0;i<nombreElement;i++) {
+			extracted(ContenuPanier);
+		}
+	}
+
+	private void extracted(JPanel ContenuPanier) {
+		JPanel Element = new JPanel();
+		ContenuPanier.add(Element);
+		Element.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JLabel ImageElement0 = new JLabel("New label");
-		Element0.add(ImageElement0);
+		JLabel ImageElement = new JLabel("New label");
+		Element.add(ImageElement);
 		
-		JPanel TexteElement04 = new JPanel();
-		Element0.add(TexteElement04);
-		TexteElement04.setLayout(new GridLayout(3, 0, 0, 0));
+		JPanel TexteElement = new JPanel();
+		Element.add(TexteElement);
+		TexteElement.setLayout(new GridLayout(3, 0, 0, 0));
 		
-		JLabel NomElement0 = new JLabel("New label");
-		TexteElement04.add(NomElement0);
+		JLabel NomElement = new JLabel("New label");
+		TexteElement.add(NomElement);
 		
-		JLabel PoidsElement0 = new JLabel("New label");
-		TexteElement04.add(PoidsElement0);
+		JLabel PoidsElement = new JLabel("New label");
+		TexteElement.add(PoidsElement);
 		
-		JLabel PrixUnitElement0 = new JLabel("New label");
-		TexteElement04.add(PrixUnitElement0);
+		JLabel PrixUnitElement = new JLabel("New label");
+		TexteElement.add(PrixUnitElement);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
-		Element0.add(comboBox_1);
+		JComboBox QuantiteElement = new JComboBox();
+		Element.add(QuantiteElement);
 		
-		JPanel Element1 = new JPanel();
-		ContenuPanier.add(Element1);
-		Element1.setLayout(new GridLayout(0, 5, 0, 0));
+		JLabel PrixTotalElement = new JLabel("New label");
+		Element.add(PrixTotalElement);
 		
-		JLabel ImageElement1 = new JLabel("New label");
-		Element1.add(ImageElement1);
-		
-		JPanel TexteElement1 = new JPanel();
-		Element1.add(TexteElement1);
-		TexteElement1.setLayout(new GridLayout(3, 0, 0, 0));
-		
-		JLabel NomElement1 = new JLabel("New label");
-		TexteElement1.add(NomElement1);
-		
-		JLabel PoidsElement1 = new JLabel("New label");
-		TexteElement1.add(PoidsElement1);
-		
-		JLabel PrixUnitElement1 = new JLabel("New label");
-		TexteElement1.add(PrixUnitElement1);
+		JLabel SupprimerElement = new JLabel("New label");
+		Element.add(SupprimerElement);
 	}
 
 }
