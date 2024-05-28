@@ -5,28 +5,48 @@ import java.util.TreeMap;
 
 public class Panier {
 	
-	private Map<Fromage,Integer> paniers;
+	private Map<Article,Integer> panier;
 	
 	public Panier() {
-		paniers = new TreeMap<>();
+		panier = new TreeMap<>();
 	}
 	
-	public void ajouterFromage(Fromage f, int q) {
-		if(paniers.get(f) - q <= 0) {
-			paniers.remove(f);
+	/*
+	 * ajouterArticle : ajoute au panier l'article a de la quantité q
+	 */
+	public void ajouterArticle(Article a, int q) {
+		if(this.panier.get(a) - q <= 0) {
+			this.panier.remove(a);
 		}
 		else {
-			paniers.put(f,q);
+			this.panier.put(a,q);
 		}
 	}
 	
-	public int retirerFromage(Fromage f) {
-		return paniers.remove(f);
+	/*
+	 * retirerArticle : retire un article a de la liste this.panier
+	 */
+	public int retirerArticle(Article a) {
+		return this.panier.remove(a);
 	}
 	
-	public Map<Fromage,Integer> getPanier() {
-		return this.paniers;
+	/*
+	 * getPanier : retourne le panier, this.panier
+	 */
+	public Map<Article,Integer> getPanier() {
+		return this.panier;
 	}
 	
+	/*
+	 * getPrix : retourne le prix du panier
+	 * parcourt la liste des articles et multilplie le prix de chaque par la quantité
+	 */
+	public float getPrix() {
+		float prix = 0;
+		for(Article a : panier.keySet()) {
+			prix += a.getPrixTTC() * panier.get(a);
+		}
+		return prix;
+	}
 	
 }
