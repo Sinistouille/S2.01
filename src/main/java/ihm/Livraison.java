@@ -7,7 +7,12 @@ import java.awt.event.ActionListener;
 
 public class Livraison extends JFrame {
 
-    private JTextField prenomField;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField prenomField;
     private JTextField nomField;
     private JTextField emailField;
     private JTextField phoneField;
@@ -137,7 +142,8 @@ public class Livraison extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Livraison().setVisible(true);
+                Livraison l = new Livraison();
+                l.setVisible(true);
             }
         });
     }
