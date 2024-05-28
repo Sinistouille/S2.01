@@ -57,10 +57,14 @@ public class Fromages {
 		return this.fromages;
 	}
 	
-	public String[][] arrayFromages(){
+	public String[][] arrayFromages(List<TypeLait> laits){
 		String[][] tabFromages = new String[this.getFromages().size()][2];
-		for(int i = 0; i < this.getFromages().size(); i++) {
-			tabFromages[i][0] = this.getFromages().get(i).getDésignation();
+		int i = 0;
+		for(Fromage c : this.fromages) {
+			if(laits.contains(c.getTypeFromage())) {
+				tabFromages[i][0] = c.getDésignation();
+				i += 1;
+			}
 		}
 		return tabFromages;
 	}

@@ -5,10 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -21,8 +27,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import modele.Fromages;
-import ihm.Panier;
+import ihm.FenetrePanier;
 import modele.GenerationFromages;
+import modele.Panier;
+import modele.TypeLait;
 
 import javax.swing.JScrollBar;
 
@@ -32,6 +40,8 @@ public class ListeFromage extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private Fromages listeFromages;
+	private Panier panier;
+	private JCheckBox[] checkboxs = new JCheckBox[3];
 
 	/**
 	 * Launch the application.
@@ -74,14 +84,15 @@ public class ListeFromage extends JFrame {
 		panel.add(Type_Fromage);
 		Type_Fromage.setLayout(new GridLayout(1, 3, 0, 0));
 		
-		JCheckBox Chévre = new JCheckBox("Chévre");
-		Type_Fromage.add(Chévre);
-		
-		JCheckBox Brebis = new JCheckBox("Brebis");
-		Type_Fromage.add(Brebis);
-		
-		JCheckBox Vache = new JCheckBox("Vache");
-		Type_Fromage.add(Vache);
+		JCheckBox checkbox_Chevre = new JCheckBox("Chévre");
+		Type_Fromage.add(checkbox_Chevre);
+		this.checkboxs[0] = checkbox_Chevre;
+		JCheckBox checkbox_Brebis = new JCheckBox("Brebis");
+		Type_Fromage.add(checkbox_Brebis);
+		this.checkboxs[1] = checkbox_Brebis;
+		JCheckBox checkbox_Vache = new JCheckBox("Vache");
+		Type_Fromage.add(checkbox_Vache);
+		this.checkboxs[2] = checkbox_Vache;
 		
 		JButton boutonPanier = new JButton("Panier");
 		panel.add(boutonPanier);
@@ -89,7 +100,7 @@ public class ListeFromage extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Panier p = new Panier();
+				FenetrePanier p = new FenetrePanier();
 				p.setVisible(true);
 				
 			}
@@ -112,15 +123,13 @@ public class ListeFromage extends JFrame {
 		panel_1.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			this.listeFromages.arrayFromages(),
-			new String[] {
-				"Fromages"
-			}		
-		){
-		    /**
-			 * 
-			 */
+		scrollPane.setViewportView(table);
+		setupCheckbox();
+		reload();
+	}
+	
+	private void reload() {
+		DefaultTableModel model = new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -128,8 +137,33 @@ public class ListeFromage extends JFrame {
 		       //all cells false
 		       return false;
 		    }
+		};
+		List<TypeLait> laits = new ArrayList<>();
+		if(this.checkboxs[0].isSelected()) {
+			laits.add(TypeLait.CHEVRE);
+		}
+		if(this.checkboxs[1].isSelected()) {
+			laits.add(TypeLait.BREBIS);
+		}
+		if(this.checkboxs[2].isSelected()) {
+			laits.add(TypeLait.VACHE);
+		}
+		model.setDataVector(
+				this.listeFromages.arrayFromages(laits),
+				new String[] {
+				"Fromages"
 		});
-		scrollPane.setViewportView(table);
+		this.table.setModel(model);
 	}
-
+	private void setupCheckbox() {
+		for(JCheckBox c : this.checkboxs) {
+			c.setEnabled(true);
+			c.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					reload();
+				}
+			});
+		}
+	}
 }

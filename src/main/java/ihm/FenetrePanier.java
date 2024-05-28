@@ -19,7 +19,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 
-public class Panier extends JFrame {
+public class FenetrePanier extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,7 +32,7 @@ public class Panier extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Panier() {
+	public FenetrePanier() {
 		setTitle("Ô fromage - Panier");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
