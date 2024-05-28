@@ -13,6 +13,9 @@ import javax.swing.JTable;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import modele.*;
+
 import javax.swing.JComboBox;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
@@ -130,32 +133,33 @@ public class FenetrePanier extends JFrame {
 		ContenuPanier.setLayout(new GridLayout(nombreElement, 0, 0, 0));
 		
 		for(int i=0;i<nombreElement;i++) {
-			extracted(ContenuPanier);
+			ligneTableau(ContenuPanier, article);
 		}
 	}
 
-	private void extracted(JPanel ContenuPanier) {
+	private void ligneTableau(JPanel ContenuPanier, Article article) {
 		JPanel Element = new JPanel();
 		ContenuPanier.add(Element);
 		Element.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JLabel ImageElement = new JLabel("New label");
+		JLabel ImageElement = new JLabel(article.getFromage().getNomImage());
 		Element.add(ImageElement);
 		
 		JPanel TexteElement = new JPanel();
 		Element.add(TexteElement);
 		TexteElement.setLayout(new GridLayout(3, 0, 0, 0));
 		
-		JLabel NomElement = new JLabel("New label");
+		JLabel NomElement = new JLabel(article.getFromage().getDésignation());
 		TexteElement.add(NomElement);
 		
 		JLabel PoidsElement = new JLabel("New label");
 		TexteElement.add(PoidsElement);
 		
-		JLabel PrixUnitElement = new JLabel("New label");
+		JLabel PrixUnitElement = new JLabel(article.toStringPrix());
 		TexteElement.add(PrixUnitElement);
 		
 		JComboBox QuantiteElement = new JComboBox();
+		QuantiteElement.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "67", "8", "9", "7", "5", "1"}));
 		Element.add(QuantiteElement);
 		
 		JLabel PrixTotalElement = new JLabel("New label");
