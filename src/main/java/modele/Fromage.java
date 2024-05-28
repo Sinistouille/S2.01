@@ -3,7 +3,7 @@ package modele;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Fromage implements Comparable<Fromage> {
+public abstract class Fromage implements Comparable<Fromage> {
 
 	private String désignation;
 	private String nomImage;

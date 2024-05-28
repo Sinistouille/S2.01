@@ -1,5 +1,4 @@
 package ihm;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,24 +6,23 @@ import java.awt.event.ActionListener;
 
 public class FicheProduit extends JFrame {
 
-    private JLabel NomFromage;
-    private JLabel PoidsFromage;
-    private JRadioButton cut250g;
-    private JRadioButton cut500g;
-    private JRadioButton cut1kg;
-    private ButtonGroup weightGroup;
-    private JLabel PrixUnitaire;
-    private JComboBox<Integer> Quantité;
+    private JLabel nomFromageLabel;
+    private JLabel poidsLabel;
+    private JRadioButton coupe250g;
+    private JRadioButton coupe500g;
+    private JRadioButton coupe1kg;
+    private ButtonGroup groupePoids;
+    private JLabel prixUnitaireLabel;
+    private JComboBox<Integer> quantiteComboBox;
     private JTextArea descriptionArea;
-    private JLabel Total;
-    private JButton AjouterAuPanier;
-    private JButton Annuler;
-    private JLabel ImageFromage;
+    private JLabel totalPrixLabel;
+    private JButton ajouterPanierButton;
+    private JButton annulerButton;
+    private JLabel imageFromage;
 
-    private String fromageName = ".";
-    private String fromageDescription = ".";
-    private double unitPrice = 0;
-    private JLabel label;
+    private String nomFromage = "Nom";
+    private String descriptionFromage = "Description.";
+    private double prixUnitaire = 5.20;
 
     public FicheProduit() {
         setTitle("Ô fromage - Fiche produit");
@@ -32,127 +30,130 @@ public class FicheProduit extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
-        NomFromage = new JLabel("");
-        NomFromage.setFont(new Font("Arial", Font.BOLD, 24));
-        PoidsFromage = new JLabel("");
-        PoidsFromage.setFont(new Font("Arial", Font.ITALIC, 18));
+        nomFromageLabel = new JLabel(nomFromage);
+        nomFromageLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
-        cut250g = new JRadioButton("à la coupe - 250g", true);
-        cut500g = new JRadioButton("à la coupe - 500g");
-        cut1kg = new JRadioButton("à la coupe - 1kg");
-        weightGroup = new ButtonGroup();
-        weightGroup.add(cut250g);
-        weightGroup.add(cut500g);
-        weightGroup.add(cut1kg);
-        Quantité = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});
-        Quantité.setSelectedIndex(1); // default quantity is 2
+        poidsLabel = new JLabel("Poids");
+        poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
 
-        ImageFromage = new JLabel(new ImageIcon("path_to_image/roquefort.png"));
+        coupe250g = new JRadioButton("à la coupe - 250g", true);
+        coupe500g = new JRadioButton("à la coupe - 500g");
+        coupe1kg = new JRadioButton("à la coupe - 1kg");
+        groupePoids = new ButtonGroup();
+        groupePoids.add(coupe250g);
+        groupePoids.add(coupe500g);
+        groupePoids.add(coupe1kg);
 
-        descriptionArea = new JTextArea(forFromageDescription());
+        prixUnitaireLabel = new JLabel("Prix unitaire : €");
+        quantiteComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});
+        quantiteComboBox.setSelectedIndex(1); // Quantité par défaut est 2
+
+        imageFromage = new JLabel(new ImageIcon("lien"));
+
+        descriptionArea = new JTextArea(getDescriptionFromage());
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
         descriptionArea.setEditable(false);
         JScrollPane descriptionScrollPane = new JScrollPane(descriptionArea);
 
-        Total = new JLabel("Total : " + calculateTotalPrice() + "€");
-        AjouterAuPanier = new JButton("Ajouter le panier");
-        Annuler = new JButton("Annuler");
+        // Panneau supérieur avec le nom du fromage et le poids
+        JPanel panneauHaut = new JPanel(new BorderLayout());
+        panneauHaut.add(nomFromageLabel, BorderLayout.NORTH);
+        panneauHaut.add(poidsLabel, BorderLayout.SOUTH);
 
-        AjouterAuPanier.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Action when 'Ajouter le panier' button is clicked
-            }
-        });
+        // Panneau de sélection du poids
+        JPanel panneauPoids = new JPanel(new GridLayout(3, 1));
+        panneauPoids.add(coupe250g);
+        panneauPoids.add(coupe500g);
+        panneauPoids.add(coupe1kg);
 
-        Annuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Action when 'Annuler' button is clicked
-                System.exit(0);
-            }
-        });
+        // Panneau de sélection du prix et de la quantité
+        JPanel panneauPrix = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panneauPrix.add(new JLabel("Quantité "));
+        panneauPrix.add(quantiteComboBox);
 
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.add(NomFromage, BorderLayout.NORTH);
-        topPanel.add(PoidsFromage, BorderLayout.CENTER);
+        JPanel panneauMilieu = new JPanel(new GridLayout(3, 1));
+        panneauMilieu.add(panneauPoids);
+        panneauMilieu.add(prixUnitaireLabel);
+        panneauMilieu.add(panneauPrix);
 
-        JPanel Poids = new JPanel(new GridLayout(3, 1));
-        Poids.add(cut250g);
-        Poids.add(cut500g);
-        Poids.add(cut1kg);
+        // Panneau d'image
+        JPanel panneauImage = new JPanel(new BorderLayout());
+        panneauImage.add(imageFromage, BorderLayout.CENTER);
 
-        JPanel Prix = new JPanel();
-        SpringLayout sl_Prix = new SpringLayout();
-        sl_Prix.putConstraint(SpringLayout.NORTH, Quantité, 228, SpringLayout.NORTH, Prix);
-        sl_Prix.putConstraint(SpringLayout.WEST, Quantité, 65, SpringLayout.WEST, Prix);
-        sl_Prix.putConstraint(SpringLayout.SOUTH, Quantité, 456, SpringLayout.NORTH, Prix);
-        sl_Prix.putConstraint(SpringLayout.EAST, Quantité, 130, SpringLayout.WEST, Prix);
-        Prix.setLayout(sl_Prix);
+        // Panneau principal combinant panneauAction et panneauImage
+        JPanel panneauPrincipal = new JPanel(new BorderLayout());
+        panneauPrincipal.add(panneauHaut, BorderLayout.NORTH);
+        panneauPrincipal.add(panneauMilieu, BorderLayout.WEST);
+        panneauPrincipal.add(panneauImage, BorderLayout.CENTER);
+
+        // Panneau de description
+        JPanel panneauDescription = new JPanel(new BorderLayout());
+        panneauDescription.setBorder(BorderFactory.createTitledBorder("Description"));
+        panneauDescription.add(descriptionScrollPane, BorderLayout.CENTER);
+
+        // Ajout des panneaux au frame
+        getContentPane().add(panneauPrincipal, BorderLayout.CENTER);
+        getContentPane().add(panneauDescription, BorderLayout.SOUTH);
         
-        label = new JLabel("");
-        sl_Prix.putConstraint(SpringLayout.NORTH, label, 0, SpringLayout.NORTH, Prix);
-        sl_Prix.putConstraint(SpringLayout.WEST, label, 65, SpringLayout.WEST, Prix);
-        sl_Prix.putConstraint(SpringLayout.SOUTH, label, 228, SpringLayout.NORTH, Prix);
-        sl_Prix.putConstraint(SpringLayout.EAST, label, 130, SpringLayout.WEST, Prix);
-        Prix.add(label);
-        JLabel label_1 = new JLabel("Quantité ");
-        sl_Prix.putConstraint(SpringLayout.NORTH, label_1, 228, SpringLayout.NORTH, Prix);
-        sl_Prix.putConstraint(SpringLayout.WEST, label_1, 0, SpringLayout.WEST, Prix);
-        sl_Prix.putConstraint(SpringLayout.SOUTH, label_1, 456, SpringLayout.NORTH, Prix);
-        sl_Prix.putConstraint(SpringLayout.EAST, label_1, 65, SpringLayout.WEST, Prix);
-        Prix.add(label_1);
-        Prix.add(Quantité);
+                totalPrixLabel = new JLabel("Total : " + calculerTotalPrix() + "€");
+                ajouterPanierButton = new JButton("Ajouter le panier");
+                annulerButton = new JButton("Annuler");
+                
+                        ajouterPanierButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // Action lors du clic sur le bouton 'Ajouter le panier'
+                            }
+                        });
+                        
+                                annulerButton.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        // Action lors du clic sur le bouton 'Annuler'
+                                        System.exit(0);
+                                    }
+                                });
+                                
+                                        // Panneau pour le prix total, le bouton ajouter au panier et le bouton annuler
+                                        JPanel panneauAction = new JPanel(new GridLayout(3, 1));
+                                        panneauDescription.add(panneauAction, BorderLayout.EAST);
+                                        panneauAction.add(totalPrixLabel);
+                                        panneauAction.add(ajouterPanierButton);
+                                        panneauAction.add(annulerButton);
 
-        JPanel middlePanel = new JPanel(new BorderLayout());
-        middlePanel.add(Poids, BorderLayout.NORTH);
-        middlePanel.add(Prix, BorderLayout.CENTER);
-        
-                PrixUnitaire = new JLabel("Prix unitaire : ");
-                Prix.add(PrixUnitaire);
-                sl_Prix.putConstraint(SpringLayout.NORTH, PrixUnitaire, 0, SpringLayout.NORTH, Prix);
-                sl_Prix.putConstraint(SpringLayout.WEST, PrixUnitaire, 0, SpringLayout.WEST, Prix);
-                sl_Prix.putConstraint(SpringLayout.SOUTH, PrixUnitaire, 228, SpringLayout.NORTH, Prix);
-
-        JPanel descriptionPanel = new JPanel(new BorderLayout());
-        descriptionPanel.add(descriptionScrollPane, BorderLayout.CENTER);
-
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.add(Total, BorderLayout.WEST);
-        bottomPanel.add(AjouterAuPanier, BorderLayout.CENTER);
-        bottomPanel.add(Annuler, BorderLayout.EAST);
-
-        getContentPane().add(topPanel, BorderLayout.NORTH);
-        getContentPane().add(middlePanel, BorderLayout.WEST);
-        getContentPane().add(ImageFromage, BorderLayout.CENTER);
-        getContentPane().add(descriptionPanel, BorderLayout.SOUTH);
-        getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-
-        // Update total price when quantity or weight changes
-        Quantité.addActionListener(e -> updateTotalPrice());
-        cut250g.addActionListener(e -> updateTotalPrice());
-        cut500g.addActionListener(e -> updateTotalPrice());
-        cut1kg.addActionListener(e -> updateTotalPrice());
+        // Mise à jour du prix total lorsque la quantité ou le poids change
+        quantiteComboBox.addActionListener(e -> updateTotalPrix());
+        coupe250g.addActionListener(e -> updateTotalPrix());
+        coupe500g.addActionListener(e -> updateTotalPrix());
+        coupe1kg.addActionListener(e -> updateTotalPrix());
     }
 
-    private String forFromageDescription() {
-        // Update this method to return the description based on selected cheese
-        return fromageDescription;
+    private String getDescriptionFromage() {
+        // Mettre à jour cette méthode pour renvoyer la description en fonction du fromage sélectionné
+        return descriptionFromage;
     }
 
-    private double calculateTotalPrice() {
-        int quantity = (Integer) Quantité.getSelectedItem();
-        double selectedWeightPrice = unitPrice;
-        if (cut500g.isSelected()) {
-            selectedWeightPrice = 10.40; // Example price for 500g
-        } else if (cut1kg.isSelected()) {
-            selectedWeightPrice = 20.80; // Example price for 1kg
+    private double calculerTotalPrix() {
+        int quantite = (Integer) quantiteComboBox.getSelectedItem();
+        double prixPoidsSelectionne = prixUnitaire;
+        if (coupe500g.isSelected()) {
+            prixPoidsSelectionne = prixUnitaire * 2; // Prix pour 500g
+        } else if (coupe1kg.isSelected()) {
+            prixPoidsSelectionne = prixUnitaire * 4; // Prix pour 1kg
         }
-        return quantity * selectedWeightPrice;
+        return quantite * prixPoidsSelectionne;
     }
 
-    private void updateTotalPrice() {
-        Total.setText("Total : " + calculateTotalPrice() + "€");
+    private void updateTotalPrix() {
+        totalPrixLabel.setText("Total : " + calculerTotalPrix() + "€");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new FicheProduit().setVisible(true);
+            }
+        });
     }
 }

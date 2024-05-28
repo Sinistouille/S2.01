@@ -18,12 +18,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 
 public class FenetrePanier extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -44,7 +45,7 @@ public class FenetrePanier extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -55,10 +56,14 @@ public class FenetrePanier extends JFrame {
 		panel_6.add(Transporteur);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Colissimo", "Chronorelais", "Chronofresh"}));
 		panel_6.add(comboBox);
 		
 		JLabel lblNewLabel_12 = new JLabel("Frais de port offert dès 120€ d'achat");
 		panel_6.add(lblNewLabel_12);
+		
+		JPanel panel_7 = new JPanel();
+		panel.add(panel_7);
 		
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2);
@@ -101,40 +106,70 @@ public class FenetrePanier extends JFrame {
 		panel_2.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel ViderPanier = new JLabel("Vider le panier");
-		ViderPanier.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel_4.add(ViderPanier);
+		JButton Valider = new JButton("Valider le panier");
+		panel_4.add(Valider);
 		
-		JLabel ValiderPanier = new JLabel("Valider le panier");
-		ValiderPanier.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel_4.add(ValiderPanier);
+		JButton Vider = new JButton("Vider le panier");
+		panel_4.add(Vider);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Récapitulatif");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_1.add(lblNewLabel);
+		JLabel Recapitulatif = new JLabel("Récapitulatif");
+		Recapitulatif.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_1.add(Recapitulatif);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.WEST);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
-		scrollPane.setViewportView(table);
+		JPanel ContenuPanier = new JPanel();
+		scrollPane.setViewportView(ContenuPanier);
+		ContenuPanier.setLayout(new GridLayout(2, 0, 0, 0));
 		
-		JPanel panel_5 = new JPanel();
-		scrollPane.setColumnHeaderView(panel_5);
+		JPanel Element0 = new JPanel();
+		ContenuPanier.add(Element0);
+		Element0.setLayout(new GridLayout(0, 5, 0, 0));
+		
+		JLabel ImageElement0 = new JLabel("New label");
+		Element0.add(ImageElement0);
+		
+		JPanel TexteElement04 = new JPanel();
+		Element0.add(TexteElement04);
+		TexteElement04.setLayout(new GridLayout(3, 0, 0, 0));
+		
+		JLabel NomElement0 = new JLabel("New label");
+		TexteElement04.add(NomElement0);
+		
+		JLabel PoidsElement0 = new JLabel("New label");
+		TexteElement04.add(PoidsElement0);
+		
+		JLabel PrixUnitElement0 = new JLabel("New label");
+		TexteElement04.add(PrixUnitElement0);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
+		Element0.add(comboBox_1);
+		
+		JPanel Element1 = new JPanel();
+		ContenuPanier.add(Element1);
+		Element1.setLayout(new GridLayout(0, 5, 0, 0));
+		
+		JLabel ImageElement1 = new JLabel("New label");
+		Element1.add(ImageElement1);
+		
+		JPanel TexteElement1 = new JPanel();
+		Element1.add(TexteElement1);
+		TexteElement1.setLayout(new GridLayout(3, 0, 0, 0));
+		
+		JLabel NomElement1 = new JLabel("New label");
+		TexteElement1.add(NomElement1);
+		
+		JLabel PoidsElement1 = new JLabel("New label");
+		TexteElement1.add(PoidsElement1);
+		
+		JLabel PrixUnitElement1 = new JLabel("New label");
+		TexteElement1.add(PrixUnitElement1);
 	}
 
 }
