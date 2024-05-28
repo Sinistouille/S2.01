@@ -155,12 +155,4 @@ public class FicheProduit extends JFrame {
     private void updateTotalPrice() {
         Total.setText("Total : " + calculateTotalPrice() + "€");
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new FicheProduit().setVisible(true);
-            }
-        });
-    }
 }
