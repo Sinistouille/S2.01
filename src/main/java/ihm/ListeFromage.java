@@ -91,7 +91,6 @@ public class ListeFromage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Panier p = new Panier();
 				p.setVisible(true);
-				System.out.println("FEUR");
 				
 			}
 		});
