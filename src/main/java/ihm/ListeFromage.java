@@ -107,7 +107,7 @@ public class ListeFromage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FenetrePanier p = new FenetrePanier();
-				p.setVisible(true);
+				//p.setVisible(true);
 			}
 		});
 		JLabel Livraison_Gratuite = new JLabel("Somme a payer avant livraison");
@@ -138,7 +138,7 @@ public class ListeFromage extends JFrame {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				FicheProduit p = new FicheProduit();
-				p.setVisible(true);
+				//p.setVisible(true);
 			}
 		});
 		table.addMouseListener(new MouseAdapter() {
@@ -146,12 +146,13 @@ public class ListeFromage extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				FicheProduit p = new FicheProduit();
-				p.setVisible(true);
+				//p.setVisible(true);
+				System.out.print("feur");
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
 				FicheProduit p = new FicheProduit();
-				p.setVisible(true);
+				//p.setVisible(true);
 			}
 		});
 		scrollPane.setViewportView(table);
