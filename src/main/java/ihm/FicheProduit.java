@@ -114,13 +114,12 @@ public class FicheProduit extends JFrame {
                                         System.exit(0);
                                     }
                                 });
-                                
                                         // Panneau pour le prix total, le bouton ajouter au panier et le bouton annuler
-                                        JPanel panneauAction = new JPanel(new GridLayout(3, 1));
-                                        panneauDescription.add(panneauAction, BorderLayout.EAST);
-                                        panneauAction.add(totalPrixLabel);
-                                        panneauAction.add(ajouterPanierButton);
-                                        panneauAction.add(annulerButton);
+                                JPanel panneauAction = new JPanel(new GridLayout(3, 1));
+                                panneauDescription.add(panneauAction, BorderLayout.EAST);
+                                panneauAction.add(totalPrixLabel);
+                                panneauAction.add(ajouterPanierButton);
+                                panneauAction.add(annulerButton);
 
         // Mise à jour du prix total lorsque la quantité ou le poids change
         quantiteComboBox.addActionListener(e -> updateTotalPrix());

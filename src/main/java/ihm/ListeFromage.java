@@ -147,7 +147,6 @@ public class ListeFromage extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				FicheProduit p = new FicheProduit();
 				//p.setVisible(true);
-				System.out.print("feur");
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
