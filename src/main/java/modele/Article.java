@@ -54,6 +54,10 @@ public class Article {
 	public String toStringIHM() {
 		return "";
 	}
+	
+	public String toStringPrix() {
+		return this.getPrixTTC()+" €";
+	}
 
 	public String toStringAvecStock() {
 		return this.toString() + ", Quantité en stock : "

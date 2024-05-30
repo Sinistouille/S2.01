@@ -12,20 +12,14 @@ import java.util.Map;
 
 public class GenerationFacture {
 
-    public void genererFacture(Panier panier, Livreur livreur, Contact contact) {
-        String dest = "facture.pdf";
+    public void genererFacture(Panier panier, String fichierPDF) {
         try {
-            PdfWriter writer = new PdfWriter(dest);
+            PdfWriter writer = new PdfWriter(fichierPDF);
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
 
-            // Ajouter les informations de contact
+            // Ajouter les informations de la facture
             document.add(new Paragraph("Facture"));
-            document.add(new Paragraph("Nom: " + contact.getNom()));
-            document.add(new Paragraph("Adresse: " + contact.getAdresse()));
-            document.add(new Paragraph("Téléphone: " + contact.getTelephone()));
-            document.add(new Paragraph("Email: " + contact.getEmail()));
-
             document.add(new Paragraph(" ")); // Ligne vide
 
             // Ajouter les articles du panier
@@ -35,17 +29,17 @@ public class GenerationFacture {
             table.addHeaderCell("Prix Unitaire");
             table.addHeaderCell("Total");
 
-            double totalGeneral = 0;
+            float totalGeneral = 0;
 
-            for (Map.Entry<Fromage, Integer> entry : panier.getArticles().entrySet()) {
-                Fromage fromage = entry.getKey();
+            for (Map.Entry<Article, Integer> entry : panier.getPanier().entrySet()) {
+                Article article = entry.getKey();
                 int quantite = entry.getValue();
-                double total = quantite * fromage.getPrix();
+                float total = quantite * article.getPrixTTC();
                 totalGeneral += total;
 
-                table.addCell(fromage.getNom());
+                table.addCell(article.getFromage().getDésignation());
                 table.addCell(String.valueOf(quantite));
-                table.addCell(String.valueOf(fromage.getPrix()));
+                table.addCell(String.valueOf(article.getPrixTTC()));
                 table.addCell(String.valueOf(total));
             }
 
@@ -53,14 +47,16 @@ public class GenerationFacture {
 
             document.add(new Paragraph(" ")); // Ligne vide
 
-            // Ajouter les frais de livraison et le total général
-            document.add(new Paragraph("Frais de livraison: " + livreur.getFraisLivraison()));
-            totalGeneral += livreur.getFraisLivraison();
-            document.add(new Paragraph("Total Général: " + totalGeneral));
+            // Ajouter le total général
+            document.add(new Paragraph("Total Général: " + totalGeneral + " €"));
 
             document.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static void main (String args[] ) {
+    	
     }
 }
