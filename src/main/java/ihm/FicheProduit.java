@@ -27,9 +27,6 @@ public class FicheProduit extends JFrame {
 
 	private JLabel nomFromageLabel;
 	private JLabel poidsLabel;
-	private JRadioButton coupe250g;
-	private JRadioButton coupe500g;
-	private JRadioButton coupe1kg;
 	private ButtonGroup groupePoids;
 	private JLabel prixUnitaireLabel;
 	private JComboBox<Integer> quantiteComboBox;
@@ -38,6 +35,7 @@ public class FicheProduit extends JFrame {
 	private JButton ajouterPanierButton;
 	private JButton annulerButton;
 	private JLabel imageFromage;
+	private JComboBox combobox;
 
 	private String nomFromage = "Nom";
 	private String descriptionFromage = "Description.";
@@ -55,13 +53,6 @@ public class FicheProduit extends JFrame {
 		this.poidsLabel = new JLabel("Poids");
 		this.poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
 
-		this.coupe250g = new JRadioButton("à la coupe - 250g", true);
-		this.coupe500g = new JRadioButton("à la coupe - 500g");
-		this.coupe1kg = new JRadioButton("à la coupe - 1kg");
-		this.groupePoids = new ButtonGroup();
-		this.groupePoids.add(this.coupe250g);
-		this.groupePoids.add(this.coupe500g);
-		this.groupePoids.add(this.coupe1kg);
 
 		this.prixUnitaireLabel = new JLabel("Prix unitaire : €");
 		this.quantiteComboBox = new JComboBox<>(new Integer[] { 1, 2, 3, 4, 5 });
@@ -82,9 +73,8 @@ public class FicheProduit extends JFrame {
 
 		// Panneau de sélection du poids
 		JPanel panneauPoids = new JPanel(new GridLayout(3, 1));
-		panneauPoids.add(this.coupe250g);
-		panneauPoids.add(this.coupe500g);
-		panneauPoids.add(this.coupe1kg);
+		this.combobox = new JComboBox<>(fromage.getArticles().toArray());
+		panneauPoids.add(combobox);
 
 		// Panneau de sélection du prix et de la quantité
 		JPanel panneauPrix = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -118,7 +108,7 @@ public class FicheProduit extends JFrame {
 		this.totalPrixLabel = new JLabel("Total : " + this.calculerTotalPrix() + "€");
 		this.ajouterPanierButton = new JButton("Ajouter le panier");
 		this.annulerButton = new JButton("Annuler");
-
+		
 		this.ajouterPanierButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -143,9 +133,6 @@ public class FicheProduit extends JFrame {
 
 		// Mise à jour du prix total lorsque la quantité ou le poids change
 		this.quantiteComboBox.addActionListener(e -> this.updateTotalPrix());
-		this.coupe250g.addActionListener(e -> this.updateTotalPrix());
-		this.coupe500g.addActionListener(e -> this.updateTotalPrix());
-		this.coupe1kg.addActionListener(e -> this.updateTotalPrix());
 	}
 
 	private String getDescriptionFromage() {
@@ -155,14 +142,7 @@ public class FicheProduit extends JFrame {
 	}
 
 	private double calculerTotalPrix() {
-		int quantite = (Integer) this.quantiteComboBox.getSelectedItem();
-		double prixPoidsSelectionne = this.prixUnitaire;
-		if (this.coupe500g.isSelected()) {
-			prixPoidsSelectionne = this.prixUnitaire * 2; // Prix pour 500g
-		} else if (this.coupe1kg.isSelected()) {
-			prixPoidsSelectionne = this.prixUnitaire * 4; // Prix pour 1kg
-		}
-		return quantite * prixPoidsSelectionne;
+		return 0.0;
 	}
 
 	private void updateTotalPrix() {
