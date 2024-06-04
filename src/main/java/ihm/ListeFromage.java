@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,6 +35,7 @@ public class ListeFromage extends JFrame {
     private Fromages listeFromages;
     private JCheckBox[] checkboxs = new JCheckBox[3];
     private Panier panier = new Panier();
+	private JLabel imageFromage;
 
     /**
 	 * Launch the application.
@@ -69,8 +72,8 @@ public class ListeFromage extends JFrame {
 		contentPane.add(panel_Principal, BorderLayout.WEST);
 		panel_Principal.setLayout(new GridLayout(4, 0, 0, 0));
 				
-		JLabel ImageFromage = new JLabel("");
-		panel_Principal.add(ImageFromage);
+		imageFromage = new JLabel("");
+		panel_Principal.add(imageFromage);
 				
 		JPanel Type_Fromage = new JPanel();
 		panel_Principal.add(Type_Fromage);
@@ -91,7 +94,7 @@ public class ListeFromage extends JFrame {
 		boutonPanier.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-			FenetrePanier p = new FenetrePanier( new Panier());
+			FenetrePanier p = new FenetrePanier(panier);
 			p.setVisible(true);
 		}
 	});
@@ -122,8 +125,7 @@ public class ListeFromage extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				String img = listeFromages.getFromage(table.getValueAt(table.getSelectedRow(),0).toString()).getNomImage();
-				ImageFromage.setIcon(new ImageIcon("src/main/resources/images/fromages/hauteur40/" + img + ".jpg"));
+				displayImg();
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
                     e.consume();
                     System.out.println(table.getValueAt(table.getSelectedRow(), 0));
@@ -131,12 +133,21 @@ public class ListeFromage extends JFrame {
     				p.setVisible(true);
     			}
 			}
+
+			
 		});
 		scrollPane.setViewportView(table);
 		setupCheckbox();
 		reload();
 	}
-
+	
+	private void displayImg() {
+		String img_path = "src/main/resources/images/fromages/hauteur200/" + listeFromages.getFromage(table.getValueAt(table.getSelectedRow(),0).toString()).getNomImage() + ".jpg";
+		Image image = new ImageIcon(img_path).getImage();
+		image = image.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+		this.imageFromage.setIcon(new ImageIcon(image));
+	}
+	
     private void reload() {
         DefaultTableModel model = new DefaultTableModel() {
             private static final long serialVersionUID = 1L;
