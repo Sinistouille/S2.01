@@ -131,6 +131,7 @@ public class ListeFromage extends JFrame {
 		scrollPane.setViewportView(table);
 		setupCheckbox();
 		reload();
+		System.out.println("push");
 	}
 
     private void reload() {
