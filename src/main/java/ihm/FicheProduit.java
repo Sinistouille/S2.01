@@ -54,7 +54,7 @@ public class FicheProduit extends JFrame {
 
 		this.prixUnitaireLabel = new JLabel("Prix unitaire : €");
 		this.quantiteComboBox = new JComboBox<>(new Integer[] { 1, 2, 3, 4, 5 });
-		this.quantiteComboBox.setSelectedIndex(1); // Quantité par défaut est 2
+		this.quantiteComboBox.setSelectedIndex(0); // Quantité par défaut est 2
 
 		this.imageFromage = new JLabel(new ImageIcon("lien"));
 
@@ -111,10 +111,11 @@ public class FicheProduit extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Action lors du clic sur le bouton 'Ajouter le panier'
-				
 				Article article = fromage.getArticles().get(combobox.getSelectedIndex());
 				int quantite = (int) quantiteComboBox.getSelectedItem();
+				System.out.println(quantite);
 				panier.ajouterArticle(article, quantite);
+				System.out.println(panier.getPanier().get(article));
 			}
 		});
 

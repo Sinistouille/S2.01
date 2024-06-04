@@ -16,12 +16,12 @@ public class Panier {
 	 * ajouterArticle : ajoute au panier l'article a de la quantité q
 	 */
 	public void ajouterArticle(Article a, int q) {
-		int quantite = 2;
-		System.out.println("feur");
+		int quantite = this.panier.containsKey(a) ? this.panier.get(a) : 0;
 		if ( quantite + q <= 0) {
 			this.panier.remove(a);
-		} else {
-			this.panier.put(a, q);
+		}
+		else {
+			this.panier.put(a, q + quantite);
 		}
 	}
 
