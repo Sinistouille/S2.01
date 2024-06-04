@@ -1,7 +1,10 @@
 package ihm;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,63 +33,105 @@ public class ListeFromage extends JFrame {
     private JCheckBox[] checkboxs = new JCheckBox[3];
 
     /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ListeFromage frame = new ListeFromage();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ListeFromage frame = new ListeFromage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
     /**
      * Create the frame.
      */
-    public ListeFromage() {
-        setTitle("Ô fromage - Liste Fromages");
-        this.listeFromages = GenerationFromages.générationBaseFromages();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 500);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	public ListeFromage() {
+		setTitle("Ô fromage - Liste Fromages");
+		this.listeFromages = GenerationFromages.générationBaseFromages();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        // Panel principal
-        this.setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout(0, 0));
-
-        JPanel panel_Principal = new JPanel();
-        contentPane.add(panel_Principal, BorderLayout.WEST);
-        panel_Principal.setLayout(new GridLayout(4, 0, 0, 0));
-
-        // Ajout des éléments restants ici...
-
-        JScrollPane scrollPane = new JScrollPane();
-        panel_1.add(scrollPane, BorderLayout.CENTER);
-
-        table = new JTable();
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int row = table.rowAtPoint(e.getPoint());
-                int col = table.columnAtPoint(e.getPoint());
-                if (row >= 0 && col >= 0) {
-                    FicheProduit ficheProduit = new FicheProduit();
-                    ficheProduit.setVisible(true);
-                    // Vous pouvez passer des informations à la page FicheProduit en fonction de la ligne cliquée
-                    // Par exemple : ficheProduit.setFromage(listeFromages.getFromageAt(row));
-                }
-            }
-        });
-        scrollPane.setViewportView(table);
-        setupCheckbox();
-        reload();
-    }
+		//Panel principal
+		this.setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+				
+		JPanel panel_Principal = new JPanel();
+		contentPane.add(panel_Principal, BorderLayout.WEST);
+		panel_Principal.setLayout(new GridLayout(4, 0, 0, 0));
+				
+		JLabel ImageFromage = new JLabel("");
+		panel_Principal.add(ImageFromage);
+				
+		JPanel Type_Fromage = new JPanel();
+		panel_Principal.add(Type_Fromage);
+		Type_Fromage.setLayout(new GridLayout(1, 3, 0, 0));
+				
+		JCheckBox checkbox_Chevre = new JCheckBox("Chévre");
+		Type_Fromage.add(checkbox_Chevre);
+		this.checkboxs[0] = checkbox_Chevre;
+		JCheckBox checkbox_Brebis = new JCheckBox("Brebis");
+		Type_Fromage.add(checkbox_Brebis);
+		this.checkboxs[1] = checkbox_Brebis;
+		JCheckBox checkbox_Vache = new JCheckBox("Vache");
+		Type_Fromage.add(checkbox_Vache);
+		this.checkboxs[2] = checkbox_Vache;
+				
+		JButton boutonPanier = new JButton("Panier");
+		panel_Principal.add(boutonPanier);
+		boutonPanier.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+			FenetrePanier p = new FenetrePanier();
+			p.setVisible(true);
+		}
+	});
+		JLabel Livraison_Gratuite = new JLabel("Somme a payer avant livraison");
+		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Principal.add(Livraison_Gratuite);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2, BorderLayout.SOUTH);
+		
+		JButton BoutonQuitter = new JButton("Quitter");
+		BoutonQuitter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		panel_2.add(BoutonQuitter);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel_1.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getClickCount() == 2 && !e.isConsumed()) {
+                    e.consume();
+                    System.out.println("Double Click");
+                    FicheProduit p = new FicheProduit();
+    				p.setVisible(true);
+    			}
+			}
+		});
+		scrollPane.setViewportView(table);
+		setupCheckbox();
+		reload();
+	}
 
     private void reload() {
         DefaultTableModel model = new DefaultTableModel() {

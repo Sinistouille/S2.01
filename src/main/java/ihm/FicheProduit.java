@@ -27,7 +27,7 @@ public class FicheProduit extends JFrame {
     public FicheProduit() {
         setTitle("Ô fromage - Fiche produit");
         setSize(700, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
         nomFromageLabel = new JLabel(nomFromage);
