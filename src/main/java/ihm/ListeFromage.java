@@ -125,11 +125,12 @@ public class ListeFromage extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				displayImg();
+				Fromage f = listeFromages.getFromage(table.getValueAt(table.getSelectedRow(),0).toString());
+				displayImg(f);
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
                     e.consume();
                     System.out.println(table.getValueAt(table.getSelectedRow(), 0));
-                    FicheProduit p = new FicheProduit();
+                    FicheProduit p = new FicheProduit(f);
     				p.setVisible(true);
     			}
 			}
@@ -141,8 +142,8 @@ public class ListeFromage extends JFrame {
 		reload();
 	}
 	
-	private void displayImg() {
-		String img_path = "src/main/resources/images/fromages/hauteur200/" + listeFromages.getFromage(table.getValueAt(table.getSelectedRow(),0).toString()).getNomImage() + ".jpg";
+	private void displayImg(Fromage f) {
+		String img_path = "src/main/resources/images/fromages/hauteur200/" + f.getNomImage() + ".jpg";
 		Image image = new ImageIcon(img_path).getImage();
 		image = image.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
 		this.imageFromage.setIcon(new ImageIcon(image));
