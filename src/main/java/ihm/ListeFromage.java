@@ -131,12 +131,11 @@ public class ListeFromage extends JFrame {
 		this.table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Fromage f = ListeFromage.this.listeFromages.getFromage(
-						ListeFromage.this.table.getValueAt(ListeFromage.this.table.getSelectedRow(), 0).toString());
+				Fromage f = listeFromages.getFromage(table.getValueAt(table.getSelectedRow(), 0).toString());
 				ListeFromage.this.displayImg(f);
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
 					e.consume();
-					System.out.println(ListeFromage.this.table.getValueAt(ListeFromage.this.table.getSelectedRow(), 0));
+					System.out.println(table.getValueAt(table.getSelectedRow(), 0));
 					FicheProduit p = new FicheProduit(panier,f);
 					p.setVisible(true);
 				}

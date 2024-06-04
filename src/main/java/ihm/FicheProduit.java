@@ -113,7 +113,10 @@ public class FicheProduit extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Action lors du clic sur le bouton 'Ajouter le panier'
-				panier.ajouterArticle(article, 1);
+				
+				Article article = fromage.getArticles().get(combobox.getSelectedIndex());
+				int quantite = (int) quantiteComboBox.getSelectedItem();
+				panier.ajouterArticle(article, quantite);
 			}
 		});
 
