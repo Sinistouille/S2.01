@@ -137,11 +137,7 @@ public class ListeFromage extends JFrame {
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
 					e.consume();
 					System.out.println(ListeFromage.this.table.getValueAt(ListeFromage.this.table.getSelectedRow(), 0));
-					FicheProduit p = new FicheProduit(ListeFromage.this.panier,
-							ListeFromage.this.listeFromages
-									.getFromage(ListeFromage.this.table
-											.getValueAt(ListeFromage.this.table.getSelectedRow(), 0).toString())
-									.getArticles().get(1));
+					FicheProduit p = new FicheProduit(panier,f);
 					p.setVisible(true);
 				}
 			}

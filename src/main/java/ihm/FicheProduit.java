@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import modele.Article;
+import modele.Fromage;
 import modele.Panier;
 
 public class FicheProduit extends JFrame {
@@ -42,7 +43,7 @@ public class FicheProduit extends JFrame {
 	private String descriptionFromage = "Description.";
 	private double prixUnitaire = 5.20;
 
-	public FicheProduit(Panier panier, Article article) {
+	public FicheProduit(Panier panier, Fromage fromage) {
 		this.setTitle("Ô fromage - Fiche produit");
 		this.setSize(700, 600);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

@@ -35,7 +35,7 @@ public class Livraison extends JFrame {
     public Livraison() {
         setTitle("Ô fromage Livraison");
         setSize(500, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
