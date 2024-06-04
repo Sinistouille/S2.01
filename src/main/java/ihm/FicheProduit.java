@@ -50,8 +50,6 @@ public class FicheProduit extends JFrame {
 
 		this.poidsLabel = new JLabel("Poids");
 		this.poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
-
-		this.prixUnitaireLabel = new JLabel("Prix unitaire : €");
 		this.quantiteComboBox = new JComboBox<>(new Integer[] { 1, 2, 3, 4, 5 });
 		this.quantiteComboBox.setSelectedIndex(1); // Quantité par défaut est 2
 
@@ -80,7 +78,9 @@ public class FicheProduit extends JFrame {
 
 		JPanel panneauMilieu = new JPanel(new GridLayout(3, 1));
 		panneauMilieu.add(panneauPoids);
-		panneauMilieu.add(this.prixUnitaireLabel);
+		
+				this.prixUnitaireLabel = new JLabel("Prix unitaire : €");
+				panneauPoids.add(prixUnitaireLabel);
 		panneauMilieu.add(panneauPrix);
 
 		// Panneau d'image

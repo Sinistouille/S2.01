@@ -36,37 +36,37 @@ public class Livraison extends JFrame {
         setTitle("Ô fromage Livraison");
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setLayout(new BorderLayout());
+        getContentPane().setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JPanel PanneauPrincipal = new JPanel();
+        PanneauPrincipal.setLayout(new BoxLayout(PanneauPrincipal, BoxLayout.Y_AXIS));
+        PanneauPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Title
-        JLabel titleLabel = new JLabel("Livraison");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(titleLabel);
+        JLabel Titre = new JLabel("Livraison");
+        Titre.setFont(new Font("Arial", Font.BOLD, 24));
+        Titre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        PanneauPrincipal.add(Titre);
 
         // Panel for form fields
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
-        formPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel Informations = new JPanel();
+        Informations.setLayout(new BoxLayout(Informations, BoxLayout.Y_AXIS));
+        Informations.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Adding components to formPanel
-        formPanel.add(createRowPanel("Titre", createTitlePanel()));
-        formPanel.add(createRowPanel("Prénom", prenomField = new JTextField(20)));
-        formPanel.add(createRowPanel("Nom", nomField = new JTextField(20)));
-        formPanel.add(createRowPanel("Adresse Email", emailField = new JTextField(20)));
-        formPanel.add(createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(20)));
-        formPanel.add(createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(20)));
-        formPanel.add(createRowPanel("Adresse", addressField = new JTextField(20)));
-        formPanel.add(createRowPanel("Complément d'adresse", address2Field = new JTextField(20)));
-        formPanel.add(createRowPanel("Code postal", postalCodeField = new JTextField(10)));
-        formPanel.add(createRowPanel("Ville", cityField = new JTextField(10)));
-        formPanel.add(createRowPanel("Pays", countryComboBox = new JComboBox<>(new String[]{"France"})));
+        Informations.add(createRowPanel("Titre", createTitlePanel()));
+        Informations.add(createRowPanel("Prénom", prenomField = new JTextField(20)));
+        Informations.add(createRowPanel("Nom", nomField = new JTextField(20)));
+        Informations.add(createRowPanel("Adresse Email", emailField = new JTextField(20)));
+        Informations.add(createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(20)));
+        Informations.add(createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(20)));
+        Informations.add(createRowPanel("Adresse", addressField = new JTextField(20)));
+        Informations.add(createRowPanel("Complément d'adresse", address2Field = new JTextField(20)));
+        Informations.add(createRowPanel("Code postal", postalCodeField = new JTextField(10)));
+        Informations.add(createRowPanel("Ville", cityField = new JTextField(10)));
+        Informations.add(createRowPanel("Pays", countryComboBox = new JComboBox<>(new String[]{"France"})));
 
-        panel.add(formPanel);
+        PanneauPrincipal.add(Informations);
 
         // Payment method panel
         JPanel paymentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -81,13 +81,13 @@ public class Livraison extends JFrame {
         paymentPanel.add(creditCardButton);
         paymentPanel.add(paypalButton);
         paymentPanel.add(checkButton);
-        panel.add(paymentPanel);
+        PanneauPrincipal.add(paymentPanel);
 
         // Newsletter subscription checkbox
         JPanel newsletterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         newsletterCheckBox = new JCheckBox("S'abonner à la Newsletter");
         newsletterPanel.add(newsletterCheckBox);
-        panel.add(newsletterPanel);
+        PanneauPrincipal.add(newsletterPanel);
 
         // Buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -95,10 +95,10 @@ public class Livraison extends JFrame {
         cancelButton = new JButton("Annuler");
         buttonPanel.add(validateButton);
         buttonPanel.add(cancelButton);
-        panel.add(buttonPanel);
+        PanneauPrincipal.add(buttonPanel);
 
         // Add panel to frame
-        add(panel, BorderLayout.CENTER);
+        getContentPane().add(PanneauPrincipal, BorderLayout.CENTER);
 
         // Event listeners
         validateButton.addActionListener(new ActionListener() {
@@ -120,9 +120,9 @@ public class Livraison extends JFrame {
 
     private JPanel createRowPanel(String labelText, JComponent field) {
         JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel label = new JLabel(labelText);
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
-        rowPanel.add(label);
+        JLabel lblCivilit = new JLabel("Civilité : ");
+        lblCivilit.setAlignmentX(Component.LEFT_ALIGNMENT);
+        rowPanel.add(lblCivilit);
         rowPanel.add(field);
         System.out.println("moi");
         return rowPanel;
@@ -130,7 +130,7 @@ public class Livraison extends JFrame {
     }
 
     private JPanel createTitlePanel() {
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        JPanel CivilitéPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         JRadioButton mrButton = new JRadioButton("Mr");
         JRadioButton mmeButton = new JRadioButton("Mme");
         JRadioButton mlleButton = new JRadioButton("Mlle");
@@ -138,9 +138,9 @@ public class Livraison extends JFrame {
         titleGroup.add(mrButton);
         titleGroup.add(mmeButton);
         titleGroup.add(mlleButton);
-        titlePanel.add(mrButton);
-        titlePanel.add(mmeButton);
-        titlePanel.add(mlleButton);
-        return titlePanel;
+        CivilitéPanel.add(mrButton);
+        CivilitéPanel.add(mmeButton);
+        CivilitéPanel.add(mlleButton);
+        return CivilitéPanel;
     }
 }

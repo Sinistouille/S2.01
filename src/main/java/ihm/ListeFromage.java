@@ -34,8 +34,8 @@ import modele.TypeLait;
 public class ListeFromage extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
+	private JPanel PanneauPrincipal;
+	private JTable Fromages;
 	private Fromages listeFromages;
 	private JCheckBox[] checkboxs = new JCheckBox[3];
 	private Panier panier = new Panier();
@@ -66,15 +66,15 @@ public class ListeFromage extends JFrame {
 		this.listeFromages = GenerationFromages.générationBaseFromages();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 600, 500);
-		this.contentPane = new JPanel();
-		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.PanneauPrincipal = new JPanel();
+		this.PanneauPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// Panel principal
-		this.setContentPane(this.contentPane);
-		this.contentPane.setLayout(new BorderLayout(0, 0));
+		this.setContentPane(this.PanneauPrincipal);
+		this.PanneauPrincipal.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_Principal = new JPanel();
-		this.contentPane.add(panel_Principal, BorderLayout.WEST);
+		this.PanneauPrincipal.add(panel_Principal, BorderLayout.WEST);
 		panel_Principal.setLayout(new GridLayout(4, 0, 0, 0));
 
 		this.imageFromage = new JLabel("");
@@ -94,12 +94,12 @@ public class ListeFromage extends JFrame {
 		Type_Fromage.add(checkbox_Vache);
 		this.checkboxs[2] = checkbox_Vache;
 				
-				JPanel panel = new JPanel();
-				panel_Principal.add(panel);
-				panel.setLayout(new BorderLayout(0, 0));
+				JPanel Panier = new JPanel();
+				panel_Principal.add(Panier);
+				Panier.setLayout(new BorderLayout(0, 0));
 				
 				JButton boutonPanier = new JButton("Panier");
-				panel.add(boutonPanier, BorderLayout.NORTH);
+				Panier.add(boutonPanier, BorderLayout.NORTH);
 		        boutonPanier.addActionListener(new ActionListener() {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
@@ -109,17 +109,17 @@ public class ListeFromage extends JFrame {
 		        });
 				JLabel Livraison_Gratuite = new JLabel(
 						"Il manque " + this.panier.getPrix() + " euros avant la livraison gratuite");
-				panel.add(Livraison_Gratuite, BorderLayout.SOUTH);
+				Panier.add(Livraison_Gratuite, BorderLayout.CENTER);
 				Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
 				
 
 
-		JPanel panel_1 = new JPanel();
-		this.contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel Selection = new JPanel();
+		this.PanneauPrincipal.add(Selection, BorderLayout.CENTER);
+		Selection.setLayout(new BorderLayout(0, 0));
 
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2, BorderLayout.SOUTH);
+		JPanel Annuler = new JPanel();
+		Selection.add(Annuler, BorderLayout.SOUTH);
 
 		JButton BoutonQuitter = new JButton("Quitter");
 		BoutonQuitter.addActionListener(new ActionListener() {
@@ -128,27 +128,27 @@ public class ListeFromage extends JFrame {
 				System.exit(0);
 			}
 		});
-		panel_2.add(BoutonQuitter);
+		Annuler.add(BoutonQuitter);
 
-		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, BorderLayout.CENTER);
+		JScrollPane ListeFromages = new JScrollPane();
+		Selection.add(ListeFromages, BorderLayout.CENTER);
 
-		this.table = new JTable();
-		this.table.addMouseListener(new MouseAdapter() {
+		this.Fromages = new JTable();
+		this.Fromages.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Fromage f = listeFromages.getFromage(table.getValueAt(table.getSelectedRow(), 0).toString());
+				Fromage f = listeFromages.getFromage(Fromages.getValueAt(Fromages.getSelectedRow(), 0).toString());
 				ListeFromage.this.displayImg(f);
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
 					e.consume();
-					System.out.println(table.getValueAt(table.getSelectedRow(), 0));
+					System.out.println(Fromages.getValueAt(Fromages.getSelectedRow(), 0));
 					FicheProduit p = new FicheProduit(panier,f);
 					p.setVisible(true);
 				}
 			}
 
 		});
-		scrollPane.setViewportView(this.table);
+		ListeFromages.setViewportView(this.Fromages);
 		this.setupCheckbox();
 		this.reload();
 	}
@@ -181,7 +181,7 @@ public class ListeFromage extends JFrame {
 			laits.add(TypeLait.VACHE);
 		}
 		model.setDataVector(this.listeFromages.arrayFromages(laits), new String[] { "Fromages" });
-		this.table.setModel(model);
+		this.Fromages.setModel(model);
 	}
 
 	private void setupCheckbox() {

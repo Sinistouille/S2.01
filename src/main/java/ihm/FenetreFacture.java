@@ -29,18 +29,18 @@ public class FenetreFacture extends JFrame {
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             int pageCount = document.getNumberOfPages();
 
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            JPanel Facture = new JPanel();
+            Facture.setLayout(new BoxLayout(Facture, BoxLayout.Y_AXIS));
 
             for (int i = 0; i < pageCount; i++) {
                 BufferedImage image = pdfRenderer.renderImageWithDPI(i, 300, ImageType.RGB);
                 ImageIcon icon = new ImageIcon(image);
                 JLabel label = new JLabel(icon);
-                panel.add(label);
+                Facture.add(label);
             }
 
-            JScrollPane scrollPane = new JScrollPane(panel);
-            getContentPane().add(scrollPane);
+            JScrollPane scrollFacture = new JScrollPane(Facture);
+            getContentPane().add(scrollFacture);
 
             document.close();
         } catch (IOException e) {
