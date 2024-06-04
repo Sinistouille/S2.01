@@ -93,20 +93,26 @@ public class ListeFromage extends JFrame {
 		JCheckBox checkbox_Vache = new JCheckBox("Vache");
 		Type_Fromage.add(checkbox_Vache);
 		this.checkboxs[2] = checkbox_Vache;
+				
+				JPanel panel = new JPanel();
+				panel_Principal.add(panel);
+				panel.setLayout(new BorderLayout(0, 0));
+				
+				JButton boutonPanier = new JButton("Panier");
+				panel.add(boutonPanier, BorderLayout.NORTH);
+		        boutonPanier.addActionListener(new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) {
+		                FenetrePanier p = new FenetrePanier(ListeFromage.this.panier);
+		                p.setVisible(true);
+		            }
+		        });
+				JLabel Livraison_Gratuite = new JLabel(
+						"Il manque " + this.panier.getPrix() + " euros avant la livraison gratuite");
+				panel.add(Livraison_Gratuite, BorderLayout.SOUTH);
+				Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
+				
 
-		JButton boutonPanier = new JButton("Panier");
-		panel_Principal.add(boutonPanier);
-		boutonPanier.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FenetrePanier p = new FenetrePanier(ListeFromage.this.panier);
-				p.setVisible(true);
-			}
-		});
-		JLabel Livraison_Gratuite = new JLabel(
-				"Il manque " + this.panier.getPrix() + " euros avant la livraison gratuite");
-		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Principal.add(Livraison_Gratuite);
 
 		JPanel panel_1 = new JPanel();
 		this.contentPane.add(panel_1, BorderLayout.CENTER);

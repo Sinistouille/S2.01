@@ -124,7 +124,9 @@ public class Livraison extends JFrame {
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         rowPanel.add(label);
         rowPanel.add(field);
+        System.out.println("moi");
         return rowPanel;
+
     }
 
     private JPanel createTitlePanel() {
