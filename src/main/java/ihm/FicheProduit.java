@@ -15,11 +15,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import modele.Article;
 import modele.Fromage;
 import modele.Panier;
 
@@ -53,7 +51,6 @@ public class FicheProduit extends JFrame {
 		this.poidsLabel = new JLabel("Poids");
 		this.poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
 
-
 		this.prixUnitaireLabel = new JLabel("Prix unitaire : €");
 		this.quantiteComboBox = new JComboBox<>(new Integer[] { 1, 2, 3, 4, 5 });
 		this.quantiteComboBox.setSelectedIndex(1); // Quantité par défaut est 2
@@ -74,7 +71,7 @@ public class FicheProduit extends JFrame {
 		// Panneau de sélection du poids
 		JPanel panneauPoids = new JPanel(new GridLayout(3, 1));
 		this.combobox = new JComboBox<>(fromage.getArticles().toArray());
-		panneauPoids.add(combobox);
+		panneauPoids.add(this.combobox);
 
 		// Panneau de sélection du prix et de la quantité
 		JPanel panneauPrix = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -108,7 +105,7 @@ public class FicheProduit extends JFrame {
 		this.totalPrixLabel = new JLabel("Total : " + this.calculerTotalPrix() + "€");
 		this.ajouterPanierButton = new JButton("Ajouter le panier");
 		this.annulerButton = new JButton("Annuler");
-		
+
 		this.ajouterPanierButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
