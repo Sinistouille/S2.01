@@ -23,6 +23,14 @@ public class Livraison extends JFrame {
     private JCheckBox newsletterCheckBox;
     private JButton validateButton;
     private JButton cancelButton;
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Livraison().setVisible(true);
+            }
+        });
+    }
 
     public Livraison() {
         setTitle("Ô fromage Livraison");
@@ -132,13 +140,5 @@ public class Livraison extends JFrame {
         titlePanel.add(mmeButton);
         titlePanel.add(mlleButton);
         return titlePanel;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Livraison().setVisible(true);
-            }
-        });
     }
 }
