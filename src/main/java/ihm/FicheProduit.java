@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import modele.Article;
 import modele.Fromage;
 import modele.Panier;
 
@@ -51,7 +52,7 @@ public class FicheProduit extends JFrame {
 		this.poidsLabel = new JLabel("Poids");
 		this.poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
 		this.quantiteComboBox = new JComboBox<>(new Integer[] { 1, 2, 3, 4, 5 });
-		this.quantiteComboBox.setSelectedIndex(1); // Quantité par défaut est 2
+		this.quantiteComboBox.setSelectedIndex(0); // Quantité par défaut est 2
 
 		this.imageFromage = new JLabel(new ImageIcon("lien"));
 
@@ -110,10 +111,11 @@ public class FicheProduit extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Action lors du clic sur le bouton 'Ajouter le panier'
-				
 				Article article = fromage.getArticles().get(combobox.getSelectedIndex());
 				int quantite = (int) quantiteComboBox.getSelectedItem();
+				System.out.println(quantite);
 				panier.ajouterArticle(article, quantite);
+				System.out.println(panier.getPanier().get(article));
 			}
 		});
 
@@ -121,7 +123,7 @@ public class FicheProduit extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Action lors du clic sur le bouton 'Annuler'
-				System.exit(0);
+				dispose();
 			}
 		});
 		// Panneau pour le prix total, le bouton ajouter au panier et le bouton annuler

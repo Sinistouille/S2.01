@@ -1,6 +1,6 @@
 package modele;
 
-public class Article {
+public class Article implements Comparable<Article>{
 
 	private Fromage fromage;
 	private String clé;
@@ -69,6 +69,13 @@ public class Article {
 		Article other = (Article) obj;
 		return (this.fromage.equals(other.fromage)
 		        && this.clé.equals(other.clé));
+	}
+
+
+	@Override
+	public int compareTo(Article o) {
+		// TODO Auto-generated method stub
+		return this.clé.compareTo(o.clé);
 	}
 
 }
