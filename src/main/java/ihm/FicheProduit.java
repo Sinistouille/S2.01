@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import modele.Article;
 import modele.Fromage;
 import modele.Panier;
 
@@ -121,7 +122,7 @@ public class FicheProduit extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Action lors du clic sur le bouton 'Annuler'
-				System.exit(0);
+				dispose();
 			}
 		});
 		// Panneau pour le prix total, le bouton ajouter au panier et le bouton annuler

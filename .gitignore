@@ -1,2 +1,3 @@
 target/classes/META-INF/maven/fr.iut-tlse3.fr/Sae-fromages-2024-Maven/pom.properties
 /.settings
+.classpath

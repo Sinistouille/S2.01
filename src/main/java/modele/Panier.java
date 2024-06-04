@@ -9,13 +9,16 @@ public class Panier {
 
 	public Panier() {
 		this.panier = new TreeMap<>();
+		
 	}
 
 	/*
 	 * ajouterArticle : ajoute au panier l'article a de la quantité q
 	 */
 	public void ajouterArticle(Article a, int q) {
-		if (this.panier.get(a) - q <= 0) {
+		int quantite = 2;
+		System.out.println("feur");
+		if ( quantite + q <= 0) {
 			this.panier.remove(a);
 		} else {
 			this.panier.put(a, q);
