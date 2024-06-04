@@ -48,5 +48,4 @@ public class Panier {
 		}
 		return prix;
 	}
-	
 }
