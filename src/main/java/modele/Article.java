@@ -59,10 +59,6 @@ public class Article implements Comparable<Article> {
 		}
 	}
 
-	public String toStringIHM() {
-		return "";
-	}
-
 	public String toStringPrix() {
 		return this.getPrixTTC() + " €";
 	}

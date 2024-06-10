@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class TestStock {
+public class TestArticle {
 
 	FromageALaCoupe f = new FromageALaCoupe("f");
 	Article a = new Article(this.f, "ff", 10f);
@@ -34,7 +34,12 @@ public class TestStock {
 	public void TestQuantitéPanier() {
 		this.a.setQuantitéEnStock(12);
 		this.a.préempterQuantité(4);
-		assertEquals(this.a.getQuantitéPanier(), "4");
+		assertEquals(this.a.getQuantitéPanier(), 4);
+	}
+
+	@Test
+	public void testToStringPrix() {
+		assertEquals(this.a.toStringPrix(), "10.0 €");
 	}
 
 }
