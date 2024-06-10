@@ -1,3 +1,4 @@
+/*
 package ihm;
 
 import ihm.FenetreFacture;
@@ -11,9 +12,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class FenetreFacture extends JFrame {
-    /**
+    */
+/**
 	 * 
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 	private String pdfPath;
 
@@ -55,3 +58,4 @@ public class FenetreFacture extends JFrame {
         });
     }
 }
+*/
