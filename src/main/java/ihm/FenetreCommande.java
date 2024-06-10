@@ -14,6 +14,11 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
 
 public class FenetreCommande extends JFrame {
 
@@ -59,13 +64,20 @@ public class FenetreCommande extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.SOUTH);
-		panel_2.setLayout(new BorderLayout(0, 0));
-		
-		JButton btnNewButton_1 = new JButton("PDF");
-		panel_2.add(btnNewButton_1, BorderLayout.EAST);
+		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JButton btnNewButton = new JButton("Imprimer");
-		panel_2.add(btnNewButton, BorderLayout.WEST);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_2.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("PDF");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		panel_2.add(btnNewButton_1);
 		
 		JPanel panel = new JPanel();
 		panel_1.add(panel, BorderLayout.NORTH);

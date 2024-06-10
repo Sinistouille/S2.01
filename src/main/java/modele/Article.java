@@ -14,7 +14,7 @@ public class Article implements Comparable<Article> {
 		this.clé = clé;
 		this.prixTTC = prixTTC;
 		this.quantitéEnStock = 0;
-		this.code = fromage.getDésignation().hashCode() + clé.hashCode();
+		this.code = (fromage.getDésignation() + clé).hashCode();
 	}
 
 	public Fromage getFromage() {

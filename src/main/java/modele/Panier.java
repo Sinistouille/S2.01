@@ -32,7 +32,7 @@ public class Panier {
         }
         if (quantite + q > 0) {
             this.panier.put(a, quantite + q);
-            System.out.println("SYSTEM.OUT : Bien ajouté");
+            System.out.println("SYSTEM.OUT : Bien ajouté au panier : " + a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a));
         } else if(quantite + q < 0){
             this.retirerArticle(a);
         }
@@ -70,6 +70,9 @@ public class Panier {
      * viderPanier : vide le panier
      */
     public void viderPanier() {
+        for (Article a : this.panier.keySet()) {
+            a.rendreQuantité(this.panier.get(a));
+        }
         this.panier.clear();
         JSONHelper.saveJSON(JSONHelper.savePanier(this),"panier.json");
     }

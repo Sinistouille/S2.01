@@ -104,7 +104,9 @@ public class FicheProduit extends JFrame {
 
 		this.totalPrixLabel = new JLabel("Total : " + this.calculerTotalPrix(fromage) + "€");
 		this.ajouterPanierButton = new JButton("Ajouter au panier");
+		ajouterPanierButton.setBackground(new Color(255, 255, 255));
 		this.annulerButton = new JButton("Annuler");
+		annulerButton.setBackground(new Color(255, 255, 255));
 
 		addListeners(panier, fromage, listeFromage);
 		// Panneau pour le prix total, le bouton ajouter au panier et le bouton annuler
@@ -129,8 +131,6 @@ public class FicheProduit extends JFrame {
             panier.ajouterArticle(article, quantite);
 			//mise à jour de la comboBox de quantité
 			updateModelQuantiteComboBox();
-			System.out.println("SYSTEM.OUT : Ajout de " + quantite + " " + article.getFromage().getDésignation() + ", " + article.getClé() + " au panier");
-			ListeFromage.afficherPanier(panier);
 			//mise à jour des frais de livraisons
 			listeFromage.updateLivraisonGratuite();
 

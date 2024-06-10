@@ -54,7 +54,6 @@ public class Livraison extends JFrame {
 
         // Panel for form fields
         JPanel Informations = new JPanel();
-        Informations.setLayout(new BorderLayout(0, 0));
         leftPanelInfo = new JPanel();
         rightPanelInfo = new JPanel();
         leftPanelInfo.setLayout(new GridLayout(0, 1, 0, 0));
@@ -62,19 +61,20 @@ public class Livraison extends JFrame {
 
         // Adding components to formPanel
         createRowPanel("Civilité", createTitlePanel(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Prénom", prenomField = new JTextField(), leftPanelInfo, rightPanelInfo);;
-        createRowPanel("Nom", nomField = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Adresse Email", emailField = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Adresse", addressField = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Complément d'adresse", address2Field = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Code postal", postalCodeField = new JTextField(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Ville", cityField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Prénom", prenomField = new JTextField(20), leftPanelInfo, rightPanelInfo);;
+        Informations.setLayout(new GridLayout(0, 2, 0, 0));
+        createRowPanel("Nom", nomField = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Adresse Email", emailField = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Adresse", addressField = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Complément d'adresse", address2Field = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Code postal", postalCodeField = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Ville", cityField = new JTextField(20), leftPanelInfo, rightPanelInfo);
         createRowPanel("Pays", countryComboBox = new JComboBox<>(new String[]{"France"}), leftPanelInfo, rightPanelInfo);
 
-        Informations.add(leftPanelInfo, BorderLayout.WEST);
-        Informations.add(rightPanelInfo, BorderLayout.CENTER);
+        Informations.add(leftPanelInfo);
+        Informations.add(rightPanelInfo);
         PanneauPrincipal.add(Informations);
 
         // Payment method panel

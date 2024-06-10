@@ -35,9 +35,7 @@ public class ListeFromage extends JFrame {
 	private JLabel labelImageFromage;
 	private JLabel Livraison_Gratuite;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -52,11 +50,10 @@ public class ListeFromage extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public ListeFromage() {
 		this.panier = new Panier();
+		this.Livraison_Gratuite = new JLabel("Il reste 120.00 euros avant la livraison gratuite");
 		this.setTitle("Ô fromage - Liste Fromages");
 		this.listeFromages = GenerationFromages.générationBaseFromages();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,18 +67,22 @@ public class ListeFromage extends JFrame {
 
 		// Panel principal
 		this.setContentPane(this.PanneauPrincipal);
-		this.PanneauPrincipal.setLayout(new BorderLayout(0, 0));
+
+		Image image = new ImageIcon(ImageHelper.accueilLoc("vitrine")).getImage();
+		image = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+		this.updateLivraisonGratuite();
+		PanneauPrincipal.setLayout(new BorderLayout(0, 0));
+
+		JPanel panelSelection = new JPanel();
+		PanneauPrincipal.add(panelSelection);
+		panelSelection.setLayout(new GridLayout(0, 2, 10, 0));
 
 		JPanel panel_Principal = new JPanel();
-		this.PanneauPrincipal.add(panel_Principal, BorderLayout.WEST);
+		panelSelection.add(panel_Principal);
 		panel_Principal.setLayout(new GridLayout(4, 0, 0, 0));
 
 		this.labelImageFromage = new JLabel("");
-
-        Image image = new ImageIcon(ImageHelper.accueilLoc("vitrine")).getImage();
-		image = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 		this.labelImageFromage.setIcon(new ImageIcon(image));
-
 		panel_Principal.add(this.labelImageFromage);
 
 		JPanel Type_Fromage = new JPanel();
@@ -98,34 +99,19 @@ public class ListeFromage extends JFrame {
 		Type_Fromage.add(checkbox_Vache);
 		this.checkboxs_types_fromages[2] = checkbox_Vache;
 
-		JPanel Panier = new JPanel();
-		panel_Principal.add(Panier);
-		Panier.setLayout(new BorderLayout(0, 0));
-
-		JButton boutonAfficherPanier = new JButton("Panier");
-		Panier.add(boutonAfficherPanier, BorderLayout.NORTH);
-		boutonAfficherPanier.addActionListener(e -> {
-			FenetrePanier p = new FenetrePanier(ListeFromage.this.panier);
-			p.setVisible(true);
-		});
-		this.Livraison_Gratuite = new JLabel();
-		this.updateLivraisonGratuite();
-		Panier.add(Livraison_Gratuite, BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		panel_Principal.add(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		Livraison_Gratuite.setBackground(new Color(0, 128, 255));
+		panel.add(Livraison_Gratuite);
 		Livraison_Gratuite.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JPanel Selection = new JPanel();
-		this.PanneauPrincipal.add(Selection, BorderLayout.CENTER);
-		Selection.setLayout(new BorderLayout(0, 0));
-
-		JPanel Annuler = new JPanel();
-		Selection.add(Annuler, BorderLayout.SOUTH);
-
-		JButton BoutonQuitter = new JButton("Quitter");
-		BoutonQuitter.addActionListener(e -> System.exit(0));
-		Annuler.add(BoutonQuitter);
+		JPanel panelListe = new JPanel();
+		panelSelection.add(panelListe);
+		panelListe.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane ListeFromages = new JScrollPane();
-		Selection.add(ListeFromages, BorderLayout.CENTER);
+		panelListe.add(ListeFromages, BorderLayout.CENTER);
 
 		this.Fromages = new JTable();
 		this.Fromages.addMouseListener(new MouseAdapter() {
@@ -142,6 +128,23 @@ public class ListeFromage extends JFrame {
 
 		});
 		ListeFromages.setViewportView(this.Fromages);
+
+		JPanel panelBoutons = new JPanel();
+		PanneauPrincipal.add(panelBoutons, BorderLayout.SOUTH);
+		panelBoutons.setLayout(new GridLayout(0, 2, 10, 0));
+
+		JButton boutonAfficherPanier = new JButton("Panier");
+		panelBoutons.add(boutonAfficherPanier);
+		boutonAfficherPanier.setBackground(new Color(0, 128, 255));
+
+		JButton BoutonQuitter = new JButton("Quitter");
+		panelBoutons.add(BoutonQuitter);
+		BoutonQuitter.setBackground(new Color(255, 128, 128));
+		BoutonQuitter.addActionListener(e -> System.exit(0));
+		boutonAfficherPanier.addActionListener(e -> {
+			FenetrePanier p = new FenetrePanier(ListeFromage.this.panier);
+			p.setVisible(true);
+		});
 		this.setupCheckbox();
 		this.reload();
 	}
