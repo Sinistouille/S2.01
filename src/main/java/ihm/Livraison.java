@@ -132,10 +132,7 @@ public class Livraison extends JFrame {
 
         leftline.add(lblCivilit);
         rightline.add(field);
-
-
         leftPanel.add(leftline);
-
         rightPanel.add(rightline);
     }
 
