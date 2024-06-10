@@ -1,0 +1,12 @@
+{
+    "MontantTVA": 1.68,
+    "PrixTotal": 8.4,
+    "Articles": {"-620583011": {
+        "TypeVente": "",
+        "Prix": 8.4,
+        "Quantité": 1,
+        "TypeLait": "BREBIS",
+        "Fromage": "L'Encalat"
+    }},
+    "Panier": 3
+}

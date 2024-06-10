@@ -6,12 +6,14 @@ public class Article implements Comparable<Article>{
 	private String clé;
 	private float prixTTC;
 	private int quantitéEnStock;
+	private int code;
 
 	public Article(Fromage fromage, String clé, float prixTTC) {
 		this.fromage = fromage;
 		this.clé = clé;
 		this.prixTTC = prixTTC;
 		this.quantitéEnStock = 0;
+		this.code = fromage.getDésignation().hashCode() + clé.hashCode();
 	}
 
 	public Fromage getFromage() {
@@ -75,7 +77,17 @@ public class Article implements Comparable<Article>{
 	@Override
 	public int compareTo(Article o) {
 		// TODO Auto-generated method stub
-		return this.clé.compareTo(o.clé);
+		return this.code - o.code;
+	}
+	public int getCode() {
+		return this.code;
+	}
+	public Integer[] tabQuantite(){
+		Integer[] tab = new Integer[this.quantitéEnStock+1];
+		for (int i = 0; i < this.quantitéEnStock+1; i++) {
+			tab[i] = i;
+		}
+		return tab;
 	}
 
 }

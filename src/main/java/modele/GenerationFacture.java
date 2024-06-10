@@ -1,3 +1,4 @@
+/*
 package modele;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -55,8 +56,9 @@ public class GenerationFacture {
             e.printStackTrace();
         }
     }
-    
+
     public static void main (String args[] ) {
-    	
+
     }
 }
+*/
