@@ -1,5 +1,7 @@
 package ihm;
 
+import modele.Panier;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,16 +25,18 @@ public class Livraison extends JFrame {
     private JCheckBox newsletterCheckBox;
     private JButton validateButton;
     private JButton cancelButton;
+    private JPanel leftPanelInfo;
+    private JPanel rightPanelInfo;
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Livraison().setVisible(true);
+                new Livraison(new Panier()).setVisible(true);
             }
         });
     }
 
-    public Livraison() {
+    public Livraison(Panier panier) {
         setTitle("Ô fromage Livraison");
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -50,22 +54,27 @@ public class Livraison extends JFrame {
 
         // Panel for form fields
         JPanel Informations = new JPanel();
-        Informations.setLayout(new BoxLayout(Informations, BoxLayout.Y_AXIS));
-        Informations.setAlignmentX(Component.LEFT_ALIGNMENT);
+        Informations.setLayout(new BorderLayout(0, 0));
+        leftPanelInfo = new JPanel();
+        rightPanelInfo = new JPanel();
+        leftPanelInfo.setLayout(new GridLayout(0, 1, 0, 0));
+        rightPanelInfo.setLayout(new GridLayout(0, 1, 0, 0));
 
         // Adding components to formPanel
-        Informations.add(createRowPanel("Titre", createTitlePanel()));
-        Informations.add(createRowPanel("Prénom", prenomField = new JTextField(20)));
-        Informations.add(createRowPanel("Nom", nomField = new JTextField(20)));
-        Informations.add(createRowPanel("Adresse Email", emailField = new JTextField(20)));
-        Informations.add(createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(20)));
-        Informations.add(createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(20)));
-        Informations.add(createRowPanel("Adresse", addressField = new JTextField(20)));
-        Informations.add(createRowPanel("Complément d'adresse", address2Field = new JTextField(20)));
-        Informations.add(createRowPanel("Code postal", postalCodeField = new JTextField(10)));
-        Informations.add(createRowPanel("Ville", cityField = new JTextField(10)));
-        Informations.add(createRowPanel("Pays", countryComboBox = new JComboBox<>(new String[]{"France"})));
+        createRowPanel("Civilité", createTitlePanel(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Prénom", prenomField = new JTextField(), leftPanelInfo, rightPanelInfo);;
+        createRowPanel("Nom", nomField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Adresse Email", emailField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Adresse", addressField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Complément d'adresse", address2Field = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Code postal", postalCodeField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Ville", cityField = new JTextField(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Pays", countryComboBox = new JComboBox<>(new String[]{"France"}), leftPanelInfo, rightPanelInfo);
 
+        Informations.add(leftPanelInfo, BorderLayout.WEST);
+        Informations.add(rightPanelInfo, BorderLayout.CENTER);
         PanneauPrincipal.add(Informations);
 
         // Payment method panel
@@ -101,32 +110,33 @@ public class Livraison extends JFrame {
         getContentPane().add(PanneauPrincipal, BorderLayout.CENTER);
 
         // Event listeners
-        validateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Action lors du clic sur le bouton 'Valider'
-                JOptionPane.showMessageDialog(Livraison.this, "Commande validée !");
-            }
+        validateButton.addActionListener(e -> {
+            // Action lors du clic sur le bouton 'Valider'
+            JOptionPane.showMessageDialog(Livraison.this, "Commande validée !");
         });
 
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Action lors du clic sur le bouton 'Annuler'
-                System.exit(0);
-            }
+        cancelButton.addActionListener(e -> {
+            // Action lors du clic sur le bouton 'Annuler'
+            System.exit(0);
         });
     }
 
-    private JPanel createRowPanel(String labelText, JComponent field) {
-        JPanel rowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblCivilit = new JLabel("Civilité : ");
-        lblCivilit.setAlignmentX(Component.LEFT_ALIGNMENT);
-        rowPanel.add(lblCivilit);
-        rowPanel.add(field);
-        System.out.println("moi");
-        return rowPanel;
+    private void createRowPanel(String labelText, JComponent field, JPanel leftPanel, JPanel rightPanel) {
+        JLabel lblCivilit = new JLabel(labelText + " : ");
 
+        JPanel leftline = new JPanel();
+        leftline.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        JPanel rightline = new JPanel();
+        rightline.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //lblCivilit.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        leftline.add(lblCivilit);
+        rightline.add(field);
+
+
+        leftPanel.add(leftline);
+
+        rightPanel.add(rightline);
     }
 
     private JPanel createTitlePanel() {
