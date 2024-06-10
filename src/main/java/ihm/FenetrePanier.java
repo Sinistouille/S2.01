@@ -1,25 +1,31 @@
 package ihm;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import data.FormatHelper;
-import data.ImageHelper;
-import data.JSONHelper;
-import modele.*;
-import org.json.JSONObject;
+import modele.Article;
+import modele.Panier;
 
 public class FenetrePanier extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private final JLabel FraisDePort;
 	private JPanel contentPane;
 
 	private int nombreElement = 14;
-
 
 	/**
 	 * Launch the application.
@@ -30,8 +36,6 @@ public class FenetrePanier extends JFrame {
 	 */
 	public FenetrePanier(Panier panier) {
 		this.setTitle("Ô fromage - Panier");
-		ListeFromage.afficherPanier(panier);
-		JSONHelper.saveJSON(JSONHelper.savePanier(panier));
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setBounds(100, 100, 600, 500);
 		this.contentPane = new JPanel();
@@ -44,74 +48,78 @@ public class FenetrePanier extends JFrame {
 		this.contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new GridLayout(0, 3, 0, 0));
 
-		JPanel panelLivraison = new JPanel();
-		panelLivraison.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
-		panel.add(panelLivraison);
-		panelLivraison.setLayout(new GridLayout(3, 1, 0, 0));
-		//combobox with all livreur
-		JComboBox<Livreur> comboBoxLivreurs = new JComboBox<>(Livreur.values());
-		comboBoxLivreurs.addActionListener(e -> {
-			Livreur livreur = (Livreur) comboBoxLivreurs.getSelectedItem();
-			this.reAfficheLivraison(livreur);
-		});
+		JPanel panel_6 = new JPanel();
+		panel_6.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
+		panel.add(panel_6);
+		panel_6.setLayout(new GridLayout(3, 1, 0, 0));
 
-		JLabel labelTransporteur = new JLabel("Transporteur");
-		panelLivraison.add(labelTransporteur);
-		panelLivraison.add(comboBoxLivreurs);
+		JLabel Transporteur = new JLabel("Transporteur");
+		panel_6.add(Transporteur);
 
-		JLabel labelFraisDePort = new JLabel("Frais de port offert dès 120€ d'achat");
-		panelLivraison.add(labelFraisDePort);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Colissimo", "Chronorelais", "Chronofresh" }));
+		panel_6.add(comboBox);
 
-		JPanel panelMilieu = new JPanel();
-		panel.add(panelMilieu);
+		JLabel lblNewLabel_12 = new JLabel("Frais de port offert dès 120€ d'achat");
+		panel_6.add(lblNewLabel_12);
 
-		JPanel panelPrixBoutons = new JPanel();
-		panel.add(panelPrixBoutons);
-		panelPrixBoutons.setLayout(new GridLayout(2, 0, 0, 0));
+		JPanel panel_7 = new JPanel();
+		panel.add(panel_7);
 
-		JPanel panelDetailsPrix = new JPanel();
-		panelDetailsPrix.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
-		panelPrixBoutons.add(panelDetailsPrix);
-		panelDetailsPrix.setLayout(new GridLayout(4, 2, 0, 0));
+		JPanel panel_2 = new JPanel();
+		panel.add(panel_2);
+		panel_2.setLayout(new GridLayout(2, 0, 0, 0));
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
+		panel_2.add(panel_3);
+		panel_3.setLayout(new GridLayout(4, 2, 0, 0));
 
 		JLabel SousTotalHT = new JLabel("Sous total HT");
-		panelDetailsPrix.add(SousTotalHT);
+		panel_3.add(SousTotalHT);
 
-		JLabel labelPrixHT = new JLabel();
-		labelPrixHT.setHorizontalAlignment(SwingConstants.TRAILING);
-		panelDetailsPrix.add(labelPrixHT);
+		JLabel PrixHT = new JLabel("126.00€");
+		PrixHT.setHorizontalAlignment(SwingConstants.TRAILING);
+		panel_3.add(PrixHT);
 
-		JLabel labelTauxTVA = new JLabel("TVA (20%)");
-		panelDetailsPrix.add(labelTauxTVA);
+		JLabel TVA = new JLabel("TVA (20%)");
+		panel_3.add(TVA);
 
-		JLabel labelMontantTVA = new JLabel();
-		labelMontantTVA.setHorizontalAlignment(SwingConstants.TRAILING);
-		panelDetailsPrix.add(labelMontantTVA);
+		JLabel PrixTVA = new JLabel("25.20€");
+		PrixTVA.setHorizontalAlignment(SwingConstants.TRAILING);
+		panel_3.add(PrixTVA);
 
-		this.FraisDePort = new JLabel("Frais de port");
-		panelDetailsPrix.add(FraisDePort);
+		JLabel FraisDePort = new JLabel("Frais de port");
+		panel_3.add(FraisDePort);
 
 		JLabel PrixFraisDePort = new JLabel("Gratuit");
 		PrixFraisDePort.setHorizontalAlignment(SwingConstants.TRAILING);
-		panelDetailsPrix.add(PrixFraisDePort);
+		panel_3.add(PrixFraisDePort);
 
 		JLabel TotalTTC = new JLabel("Total TTC");
-		panelDetailsPrix.add(TotalTTC);
+		panel_3.add(TotalTTC);
 
-		JLabel PrixTTC = new JLabel();
+		JLabel PrixTTC = new JLabel("151.20€");
 		PrixTTC.setHorizontalAlignment(SwingConstants.TRAILING);
-		panelDetailsPrix.add(PrixTTC);
+		panel_3.add(PrixTTC);
 
-		JPanel panelBoutonsPanier = new JPanel();
-		panelPrixBoutons.add(panelBoutonsPanier);
-		panelBoutonsPanier.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel panel_4 = new JPanel();
+		panel_2.add(panel_4);
+		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
 
-		JButton boutonValiderPanier = new JButton("Valider le panier");
-		panelBoutonsPanier.add(boutonValiderPanier);
+		JButton Valider = new JButton("Valider le panier");
+		panel_4.add(Valider);
 
-		JButton boutonViderPanier = new JButton("Vider le panier");
-		panelBoutonsPanier.add(boutonViderPanier);
-
+		JButton Vider = new JButton("Vider le panier");
+		Vider.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (Article a : panier.getPanier().keySet()) {
+					panier.retirerArticle(a);
+				}
+			}
+		});
+		panel_4.add(Vider);
 
 		JPanel panel_1 = new JPanel();
 		this.contentPane.add(panel_1, BorderLayout.NORTH);
@@ -127,68 +135,43 @@ public class FenetrePanier extends JFrame {
 		JPanel ContenuPanier = new JPanel();
 		scrollPane.setViewportView(ContenuPanier);
 		ContenuPanier.setLayout(new GridLayout(this.nombreElement, 0, 0, 0));
-		afficherTableau(panier, ContenuPanier);
-		boutonViderPanier.addActionListener(e -> {
-			panier.viderPanier();
-			affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
-			this.afficherTableau(panier, ContenuPanier);
-		});
-		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
-	}
 
-	private void reAfficheLivraison(Livreur livreur) {
-
-	}
-
-	private void affichePrix(Panier panier, JLabel labelMontantTVA, JLabel labelPrixHT, JLabel PrixTTC) {
-		labelMontantTVA.setText(FormatHelper.df.format(panier.getPrix()*0.2) + "€");
-		PrixTTC.setText(panier.getPrix() + FormatHelper.df.format(panier.getPrix()*0.2) + "€");
-		labelPrixHT.setText(panier.getPrix() + "€");
-	}
-
-	private void afficherTableau(Panier panier, JPanel contenuPanier) {
-		contenuPanier.removeAll();
-		contenuPanier.repaint();
 		for (Article a : panier.getPanier().keySet()) {
-			this.ligneTableau(contenuPanier, a, panier.getPanier().get(a));
+			this.ligneTableau(ContenuPanier, a);
 		}
 	}
 
-	private void ligneTableau(JPanel tablePanier, Article article, int quantite) {
-		//création de la ligne
-		JPanel nouvelleLigneFromage = new JPanel();
-		tablePanier.add(nouvelleLigneFromage);
-		nouvelleLigneFromage.setLayout(new GridLayout(0, 5, 0, 0));
+	private void ligneTableau(JPanel ContenuPanier, Article article) {
+		JPanel Element = new JPanel();
+		ContenuPanier.add(Element);
+		Element.setLayout(new GridLayout(0, 5, 0, 0));
 
-		//image du fromage
-		JLabel labelImageFromage = new JLabel();
-		nouvelleLigneFromage.add(labelImageFromage);
-		ImageHelper.displayImage(labelImageFromage, article.getFromage(),100,100);
+		JLabel ImageElement = new JLabel(article.getFromage().getNomImage());
+		Element.add(ImageElement);
 
-		//JPanel pour les textes
 		JPanel TexteElement = new JPanel();
-		nouvelleLigneFromage.add(TexteElement);
+		Element.add(TexteElement);
 		TexteElement.setLayout(new GridLayout(3, 0, 0, 0));
 
-		JLabel titreFromage = new JLabel(article.getFromage().getDésignation() + ", " + article.getFromage().getTypeFromage().getTypeDeLait());
-		TexteElement.add(titreFromage);
+		JLabel NomElement = new JLabel(article.getFromage().getDésignation());
+		TexteElement.add(NomElement);
 
-		JLabel PoidsElement = new JLabel(article.getClé());
+		JLabel PoidsElement = new JLabel("New label");
 		TexteElement.add(PoidsElement);
 
 		JLabel PrixUnitElement = new JLabel(article.toStringPrix());
 		TexteElement.add(PrixUnitElement);
 
-		JTextField QuantiteElement = new JTextField();
-		QuantiteElement.setText(String.valueOf(quantite));
-		QuantiteElement.setBorder(null);
-		QuantiteElement.setBackground(null);
-		nouvelleLigneFromage.add(QuantiteElement);
+		JComboBox QuantiteElement = new JComboBox();
+		QuantiteElement.setModel(
+				new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "67", "8", "9", "7", "5", "1" }));
+		Element.add(QuantiteElement);
 
-		JLabel prixTotalLigneFromage = new JLabel(article.getPrixTTC() * quantite + "€");
-		nouvelleLigneFromage.add(prixTotalLigneFromage);
+		JLabel PrixTotalElement = new JLabel("New label");
+		Element.add(PrixTotalElement);
 
 		JLabel SupprimerElement = new JLabel("New label");
-		nouvelleLigneFromage.add(SupprimerElement);
+		Element.add(SupprimerElement);
 	}
+
 }
