@@ -3,6 +3,8 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -109,6 +111,14 @@ public class FenetrePanier extends JFrame {
 		panel_4.add(Valider);
 
 		JButton Vider = new JButton("Vider le panier");
+		Vider.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (Article a : panier.getPanier().keySet()) {
+					panier.retirerArticle(a);
+				}
+			}
+		});
 		panel_4.add(Vider);
 
 		JPanel panel_1 = new JPanel();
