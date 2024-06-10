@@ -31,4 +31,5 @@ public class ImageHelper {
     public static String dataLoc(String chemin){
         return projetLoc("/data/" + chemin);
     }
+
 }

@@ -1,11 +1,5 @@
 {
-    "PrixTotal": 17.400002,
-    "Articles": {"-2146864329": {
-        "TypeVente": "",
-        "Prix": 2.9,
-        "Quantité": 6,
-        "TypeLait": "CHEVRE",
-        "Fromage": "Rocamadour"
-    }},
+    "PrixTotal": 0,
+    "Articles": {},
     "Panier": 3
 }
