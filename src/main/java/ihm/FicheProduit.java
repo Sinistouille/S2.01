@@ -174,4 +174,5 @@ public class FicheProduit extends JFrame {
 	private void updateModelQuantiteComboBox(){
 		this.quantiteComboBox.setModel(new DefaultComboBoxModel<>(((Article) this.articleComboBox.getSelectedItem()).tabQuantite()));
 	}
+
 }

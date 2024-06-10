@@ -1,12 +1,12 @@
 {
-    "MontantTVA": 0,
-    "PrixTotal": 0,
-    "Articles": {"1672822891": {
-        "TypeVente": "250 g",
-        "Prix": 10.95,
-        "Quantité": 0,
+    "MontantTVA": 1.68,
+    "PrixTotal": 8.4,
+    "Articles": {"-620583011": {
+        "TypeVente": "",
+        "Prix": 8.4,
+        "Quantité": 1,
         "TypeLait": "BREBIS",
-        "Fromage": "Roquefort Carles"
+        "Fromage": "L'Encalat"
     }},
     "Panier": 3
 }

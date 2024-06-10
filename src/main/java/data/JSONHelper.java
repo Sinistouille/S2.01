@@ -26,7 +26,7 @@ public class JSONHelper {
     public static JSONObject savePanier(Panier panier){
         JSONObject json = new JSONObject();
 
-        json.put("MontantTVA", Float.parseFloat(FormatHelper.df.format(panier.getPrix() * 0.2)));
+        json.put("MontantTVA", Float.parseFloat(FormatHelper.df.format(panier.getPrix() * 0.2).trim()));
         json.put("PrixTotal", panier.getPrix());
         JSONObject jsonListeArticles = new JSONObject();
         for(Article a : panier.getPanier().keySet()){
