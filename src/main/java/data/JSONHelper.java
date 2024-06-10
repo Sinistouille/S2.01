@@ -2,19 +2,16 @@ package data;
 
 import modele.Article;
 import modele.Panier;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.Normalizer;
-import java.util.Map;
 
 public class JSONHelper {
-    public static void saveJSON(JSONObject json){
+    public static void saveJSON(JSONObject json, String chemin){
         try {
-            FileWriter f = new FileWriter(ImageHelper.dataLoc("data.json"));
+            FileWriter f = new FileWriter(ImageHelper.dataLoc(chemin));
             f.write(json.toString(4));
             //f.flush();
             f.close();

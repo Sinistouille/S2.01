@@ -5,11 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
+
+import modele.Panier;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.CardLayout;
-import javax.swing.BoxLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -28,7 +28,7 @@ public class FenetreCommande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreCommande frame = new FenetreCommande();
+					FenetreCommande frame = new FenetreCommande(new Panier());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,23 +40,14 @@ public class FenetreCommande extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenetreCommande() {
+	public FenetreCommande(Panier panier) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 548, 372);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignOnBaseline(true);
-		contentPane.add(panel, BorderLayout.NORTH);
-		
-		JLabel lblNewLabel = new JLabel("Récapitulatif de votre commande");
-		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -67,9 +58,23 @@ public class FenetreCommande extends JFrame {
 		textField.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panel_2.getLayout();
-		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_2, BorderLayout.SOUTH);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnNewButton_1 = new JButton("PDF");
+		panel_2.add(btnNewButton_1, BorderLayout.EAST);
+		
+		JButton btnNewButton = new JButton("Imprimer");
+		panel_2.add(btnNewButton, BorderLayout.WEST);
+		
+		JPanel panel = new JPanel();
+		panel_1.add(panel, BorderLayout.NORTH);
+		panel.setBackground(new Color(255, 255, 255));
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignOnBaseline(true);
+		
+		JLabel lblNewLabel = new JLabel("Récapitulatif de votre commande");
+		panel.add(lblNewLabel);
 	}
 
 }

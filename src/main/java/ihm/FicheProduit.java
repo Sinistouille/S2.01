@@ -1,8 +1,6 @@
 package ihm;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -105,7 +103,7 @@ public class FicheProduit extends JFrame {
 		this.getContentPane().add(panneauDescription, BorderLayout.SOUTH);
 
 		this.totalPrixLabel = new JLabel("Total : " + this.calculerTotalPrix(fromage) + "€");
-		this.ajouterPanierButton = new JButton("Ajouter le panier");
+		this.ajouterPanierButton = new JButton("Ajouter au panier");
 		this.annulerButton = new JButton("Annuler");
 
 		addListeners(panier, fromage, listeFromage);
@@ -126,7 +124,7 @@ public class FicheProduit extends JFrame {
 			//article sélectionné par la combobx
             Article article = fromage.getArticles().get(articleComboBox.getSelectedIndex());
 			//quantité sélectionnée par la combobox
-            int quantite = (int) quantiteComboBox.getSelectedItem();
+            int quantite = quantiteComboBox.getSelectedIndex();
 			//ajout de l'article au panier
             panier.ajouterArticle(article, quantite);
 			//mise à jour de la comboBox de quantité

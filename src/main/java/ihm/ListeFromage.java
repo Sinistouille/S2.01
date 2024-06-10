@@ -56,6 +56,7 @@ public class ListeFromage extends JFrame {
 	 * Create the frame.
 	 */
 	public ListeFromage() {
+		this.panier = new Panier();
 		this.setTitle("Ô fromage - Liste Fromages");
 		this.listeFromages = GenerationFromages.générationBaseFromages();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,7 +149,7 @@ public class ListeFromage extends JFrame {
 	public static void afficherPanier(Panier p) {
 		System.out.println("SYSTEM.OUT : Panier");
 		for (Article a : p.getPanier().keySet()) {
-			System.out.println("SYSTEM.OUT : " + a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + p.getPanier().get(a));
+			System.out.println("SYSTEM.OUT Panier : " + a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + p.getPanier().get(a));
 		}
 	}
 
