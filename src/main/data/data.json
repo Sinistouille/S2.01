@@ -1,12 +1,11 @@
 {
-    "MontantTVA": 1.68,
-    "PrixTotal": 8.4,
-    "Articles": {"-620583011": {
+    "PrixTotal": 17.400002,
+    "Articles": {"-2146864329": {
         "TypeVente": "",
-        "Prix": 8.4,
-        "Quantité": 1,
-        "TypeLait": "BREBIS",
-        "Fromage": "L'Encalat"
+        "Prix": 2.9,
+        "Quantité": 6,
+        "TypeLait": "CHEVRE",
+        "Fromage": "Rocamadour"
     }},
     "Panier": 3
 }

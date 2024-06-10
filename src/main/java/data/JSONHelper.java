@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.util.Map;
 
@@ -25,8 +26,8 @@ public class JSONHelper {
 
     public static JSONObject savePanier(Panier panier){
         JSONObject json = new JSONObject();
-
-        json.put("MontantTVA", Float.parseFloat(FormatHelper.df.format(panier.getPrix() * 0.2).trim()));
+        String tva = Double.toString(panier.getPrix() * 0.2);
+        BigDecimal bd = new BigDecimal(tva);
         json.put("PrixTotal", panier.getPrix());
         JSONObject jsonListeArticles = new JSONObject();
         for(Article a : panier.getPanier().keySet()){
