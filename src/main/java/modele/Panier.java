@@ -18,12 +18,6 @@ public class Panier {
 		this.UUID = (int) Math.pow(2, nbInstances) + nbInstances;
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-		nbInstances--;
-		super.finalize();
-	}
-
 	/*
 	 * ajouterArticle : ajoute au panier l'article a de la quantité q
 	 */
@@ -34,9 +28,9 @@ public class Panier {
 		} else {
 			a.préempterQuantité(q);
 		}
-		if (quantite + q >= 0) {
+		if (quantite + q > 0) {
 			this.panier.put(a, quantite + q);
-		} else {
+		} else if(quantite + q < 0){
 			this.retirerArticle(a);
 		}
 
