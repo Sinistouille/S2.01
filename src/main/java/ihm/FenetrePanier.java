@@ -156,21 +156,19 @@ public class FenetrePanier extends JFrame {
 		JLabel NomElement = new JLabel(article.getFromage().getDésignation());
 		TexteElement.add(NomElement);
 
-		JLabel PoidsElement = new JLabel("New label");
+		JLabel PoidsElement = new JLabel("poids");
 		TexteElement.add(PoidsElement);
 
 		JLabel PrixUnitElement = new JLabel(article.toStringPrix());
 		TexteElement.add(PrixUnitElement);
 
-		JComboBox QuantiteElement = new JComboBox();
-		QuantiteElement.setModel(
-				new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "67", "8", "9", "7", "5", "1" }));
+		JLabel QuantiteElement = new JLabel(article.getQuantitéPanier());
 		Element.add(QuantiteElement);
 
-		JLabel PrixTotalElement = new JLabel("New label");
+		JLabel PrixTotalElement = new JLabel("prix total");
 		Element.add(PrixTotalElement);
 
-		JLabel SupprimerElement = new JLabel("New label");
+		JLabel SupprimerElement = new JLabel("supprimmer");
 		Element.add(SupprimerElement);
 	}
 

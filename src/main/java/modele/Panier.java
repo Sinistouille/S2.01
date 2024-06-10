@@ -15,7 +15,7 @@ public class Panier {
 	public Panier() {
 		this.panier = new TreeMap<>();
 		nbInstances++;
-		this.UUID = (int) Math.pow(2,nbInstances) + nbInstances;
+		this.UUID = (int) Math.pow(2, nbInstances) + nbInstances;
 	}
 
 	@Override
@@ -29,10 +29,9 @@ public class Panier {
 	 */
 	public void ajouterArticle(Article a, int q) {
 		int quantite = this.panier.getOrDefault(a, 0);
-		if (q < 0){
+		if (q < 0) {
 			a.rendreQuantité(q);
-		}
-		else {
+		} else {
 			a.préempterQuantité(q);
 		}
 		if (quantite + q >= 0) {
@@ -79,7 +78,7 @@ public class Panier {
 	/*
 	 * getUUID : retourne l'identifiant du panier
 	 */
-	public int getUUID(){
+	public int getUUID() {
 		return this.UUID;
 	}
 }
