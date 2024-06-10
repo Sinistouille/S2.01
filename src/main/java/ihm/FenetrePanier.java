@@ -26,6 +26,7 @@ public class FenetrePanier extends JFrame {
 	private JPanel contentPane;
 
 	private int nombreElement = 14;
+	private int prixTotal = 0;
 
 	/**
 	 * Launch the application.
@@ -78,14 +79,14 @@ public class FenetrePanier extends JFrame {
 		JLabel SousTotalHT = new JLabel("Sous total HT");
 		panel_3.add(SousTotalHT);
 
-		JLabel PrixHT = new JLabel("126.00€");
+		JLabel PrixHT = new JLabel(panier.getPrix() + " €");
 		PrixHT.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel_3.add(PrixHT);
 
 		JLabel TVA = new JLabel("TVA (20%)");
 		panel_3.add(TVA);
 
-		JLabel PrixTVA = new JLabel("25.20€");
+		JLabel PrixTVA = new JLabel(panier.getPrix() * 0.2 + " €");
 		PrixTVA.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel_3.add(PrixTVA);
 
@@ -99,7 +100,7 @@ public class FenetrePanier extends JFrame {
 		JLabel TotalTTC = new JLabel("Total TTC");
 		panel_3.add(TotalTTC);
 
-		JLabel PrixTTC = new JLabel("151.20€");
+		JLabel PrixTTC = new JLabel(panier.getPrix() * 1.2 + " €");
 		PrixTTC.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel_3.add(PrixTTC);
 
@@ -162,10 +163,10 @@ public class FenetrePanier extends JFrame {
 		JLabel PrixUnitElement = new JLabel(article.toStringPrix());
 		TexteElement.add(PrixUnitElement);
 
-		JLabel QuantiteElement = new JLabel(article.getQuantitéPanier());
+		JLabel QuantiteElement = new JLabel(article.getQuantitéPanier() + "");
 		Element.add(QuantiteElement);
 
-		JLabel PrixTotalElement = new JLabel("prix total");
+		JLabel PrixTotalElement = new JLabel(article.getQuantitéPanier() * article.getPrixTTC() + " €");
 		Element.add(PrixTotalElement);
 
 		JLabel SupprimerElement = new JLabel("supprimmer");

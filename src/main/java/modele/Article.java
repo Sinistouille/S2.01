@@ -46,8 +46,8 @@ public class Article implements Comparable<Article> {
 		this.quantitéPanier = quantitéEnStock;
 	}
 
-	public String getQuantitéPanier() {
-		return this.quantitéPanier - this.quantitéEnStock + "";
+	public int getQuantitéPanier() {
+		return this.quantitéPanier - this.quantitéEnStock;
 	}
 
 	@Override
