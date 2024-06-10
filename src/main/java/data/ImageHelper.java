@@ -29,7 +29,7 @@ public class ImageHelper {
         return "src/main/" + chemin;
     }
     public static String dataLoc(String chemin){
-        return projetLoc("/data/" + chemin);
+        return projetLoc("data/" + chemin);
     }
 
 }

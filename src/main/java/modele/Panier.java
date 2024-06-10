@@ -30,7 +30,7 @@ public class Panier {
 		}
 		if (quantite + q > 0) {
 			this.panier.put(a, quantite + q);
-		} else if(quantite + q < 0){
+		} else if (quantite + q < 0) {
 			this.retirerArticle(a);
 		}
 
