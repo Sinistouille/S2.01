@@ -23,6 +23,8 @@ public class FenetrePanier extends JFrame {
 	private JPanel contentPane;
 
 	private int nombreElement = 14;
+	private JButton boutonViderPanier;
+	private JPanel contenuPanier;
 
 	/**
 	 * Launch the application.
@@ -43,13 +45,13 @@ public class FenetrePanier extends JFrame {
 		this.setContentPane(this.contentPane);
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 
-		JPanel panel = new JPanel();
-		this.contentPane.add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new GridLayout(0, 3, 0, 0));
+		JPanel panelPrincipal = new JPanel();
+		this.contentPane.add(panelPrincipal, BorderLayout.SOUTH);
+		panelPrincipal.setLayout(new GridLayout(0, 3, 5, 0));
 
 		JPanel panelLivraison = new JPanel();
 		panelLivraison.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
-		panel.add(panelLivraison);
+		panelPrincipal.add(panelLivraison);
 		panelLivraison.setLayout(new GridLayout(3, 1, 0, 0));
 		//combobox with all livreur
 		JComboBox<Livreur> comboBoxLivreurs = new JComboBox<>(Livreur.values());
@@ -65,16 +67,9 @@ public class FenetrePanier extends JFrame {
 		JLabel labelFraisDePort = new JLabel("Frais de port offert dès 120€ d'achat");
 		panelLivraison.add(labelFraisDePort);
 
-		JPanel panelMilieu = new JPanel();
-		panel.add(panelMilieu);
-
-		JPanel panelPrixBoutons = new JPanel();
-		panel.add(panelPrixBoutons);
-		panelPrixBoutons.setLayout(new GridLayout(2, 0, 0, 0));
-
 		JPanel panelDetailsPrix = new JPanel();
+		panelPrincipal.add(panelDetailsPrix);
 		panelDetailsPrix.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 0)));
-		panelPrixBoutons.add(panelDetailsPrix);
 		panelDetailsPrix.setLayout(new GridLayout(4, 2, 0, 0));
 
 		JLabel SousTotalHT = new JLabel("Sous total HT");
@@ -104,53 +99,57 @@ public class FenetrePanier extends JFrame {
 		JLabel PrixTTC = new JLabel();
 		PrixTTC.setHorizontalAlignment(SwingConstants.TRAILING);
 		panelDetailsPrix.add(PrixTTC);
+		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
+		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
 
-		JPanel panelBoutonsPanier = new JPanel();
-		panelPrixBoutons.add(panelBoutonsPanier);
-		panelBoutonsPanier.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel panelPrixBoutons = new JPanel();
+		panelPrincipal.add(panelPrixBoutons);
+		panelPrixBoutons.setLayout(new GridLayout(2, 1, 0, 5));
 
 		JButton boutonValiderPanier = new JButton("Valider le panier");
-		panelBoutonsPanier.add(boutonValiderPanier);
+		panelPrixBoutons.add(boutonValiderPanier);
+		boutonValiderPanier.setBackground(new Color(255, 255, 255));
 		boutonValiderPanier.addActionListener(e -> {
 			new Livraison(panier).setVisible(true);
 		});
 
-		JButton boutonViderPanier = new JButton("Vider le panier");
-		panelBoutonsPanier.add(boutonViderPanier);
+		boutonViderPanier = new JButton("Vider le panier");
+		panelPrixBoutons.add(boutonViderPanier);
+		boutonViderPanier.setBackground(new Color(255, 128, 128));
 
-		JPanel panel_1 = new JPanel();
-		this.contentPane.add(panel_1, BorderLayout.NORTH);
-		panel_1.setLayout(new BorderLayout(0, 0));
+
+		JPanel panelTitre = new JPanel();
+		this.contentPane.add(panelTitre, BorderLayout.NORTH);
+		panelTitre.setLayout(new BorderLayout(0, 0));
 
 		JLabel Recapitulatif = new JLabel("Récapitulatif");
 		Recapitulatif.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_1.add(Recapitulatif);
+		panelTitre.add(Recapitulatif);
 
 		JScrollPane scrollPane = new JScrollPane();
 		this.contentPane.add(scrollPane, BorderLayout.CENTER);
 
-		JPanel ContenuPanier = new JPanel();
-		scrollPane.setViewportView(ContenuPanier);
-		ContenuPanier.setLayout(new GridLayout(this.nombreElement, 0, 0, 0));
-		afficherTableau(panier, ContenuPanier);
-		boutonViderPanier.addActionListener(e -> {
-			panier.viderPanier();
-			affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
-			this.afficherTableau(panier, ContenuPanier);
-		});
-		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
+		contenuPanier = new JPanel();
+		scrollPane.setViewportView(contenuPanier);
+		contenuPanier.setLayout(new GridLayout(this.nombreElement, 0, 0, 0));
+		afficherTableau(panier, contenuPanier);
+		addListeners(panier);
+		
 	}
 	private void reAfficheLivraison(Livreur livreur) {
-		
+
 	}
-	
-	private void addListeners() {
-		
+
+	private void addListeners(Panier panier) {
+		boutonViderPanier.addActionListener(e -> {
+			panier.viderPanier();
+			this.afficherTableau(panier, contenuPanier);
+		});
 	}
 
 	private void affichePrix(Panier panier, JLabel labelMontantTVA, JLabel labelPrixHT, JLabel PrixTTC) {
 		labelMontantTVA.setText(FormatHelper.df.format(panier.getPrix()*0.2) + "€");
-		PrixTTC.setText(panier.getPrix() + FormatHelper.df.format(panier.getPrix()*0.2) + "€");
+		PrixTTC.setText(FormatHelper.df.format(panier.getPrix()*1.2) + "€");
 		labelPrixHT.setText(panier.getPrix() + "€");
 	}
 
@@ -161,6 +160,7 @@ public class FenetrePanier extends JFrame {
 			this.ligneTableau(contenuPanier, a, panier.getPanier().get(a));
 		}
 	}
+	
 	private void ligneTableau(JPanel tablePanier, Article article, int quantite) {
 		//création de la ligne
 		JPanel nouvelleLigneFromage = new JPanel();

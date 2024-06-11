@@ -9,11 +9,9 @@ import modele.Article;
 import modele.Fromage;
 import data.ImageHelper;
 import modele.Panier;
+import javax.swing.border.EmptyBorder;
 
 public class FicheProduit extends JFrame {
-
-	private JLabel nomFromageLabel;
-	private JLabel poidsLabel;
 	private ButtonGroup groupePoids;
 	private JLabel prixUnitaireLabel;
 	private JComboBox<Integer> quantiteComboBox = new JComboBox<>();
@@ -37,119 +35,132 @@ public class FicheProduit extends JFrame {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout());
 
-		this.nomFromageLabel = new JLabel(fromage.getDésignation());
-		this.nomFromageLabel.setFont(new Font("Arial", Font.BOLD, 24));
-
-		this.poidsLabel = new JLabel("Poids");
-		this.poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
-
 		// Panneau de sélection de l'article
-		JPanel panneauPoids = new JPanel(new GridLayout(3, 1));
-		this.articleComboBox = new JComboBox<>(fromage.getArticles());
-		this.articleComboBox.setSelectedItem(fromage.getArticles().get(0));
-		panneauPoids.add(this.articleComboBox);
-
-
-		this.updateModelQuantiteComboBox();
-
-		this.labelImageFromage = new JLabel(new ImageIcon("lien"));
-		ImageHelper.displayImage(labelImageFromage, fromage);
+		JPanel panneauPoids = new JPanel(new GridLayout(0, 1));
 
 		this.descriptionFromage = fromage.getDescription();
-		this.descriptionArea = new JTextArea(this.getDescriptionFromage());
-		this.descriptionArea.setLineWrap(true);
-		this.descriptionArea.setWrapStyleWord(true);
-		this.descriptionArea.setEditable(false);
-		
-		JScrollPane descriptionScrollPane = new JScrollPane(this.descriptionArea);
-
-		// Panneau supérieur avec le nom du fromage et le poids
-		JPanel panneauHaut = new JPanel(new BorderLayout());
-		panneauHaut.add(this.nomFromageLabel, BorderLayout.NORTH);
-		panneauHaut.add(this.poidsLabel, BorderLayout.SOUTH);
 
 
 
 		// Panneau de sélection du prix et de la quantité
-		JPanel panneauPrix = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panneauPrix.add(new JLabel("Quantité "));
+		JPanel panneauPrix = new JPanel();
+		panneauPrix.setBorder(new EmptyBorder(0, 5, 0, 0));
+		panneauPrix.setLayout(new GridLayout(4, 2, 0, 0));
+
+		this.prixUnitaireLabel = new JLabel("Prix unitaire : " + "€");
+		panneauPrix.add(prixUnitaireLabel);
+		this.articleComboBox = new JComboBox<>(fromage.getArticles());
+		panneauPrix.add(articleComboBox);
+		this.articleComboBox.setSelectedItem(fromage.getArticles().get(0));
+		JLabel label = new JLabel("Quantité ");
+		panneauPrix.add(label);
 		panneauPrix.add(this.quantiteComboBox);
 
 		JPanel panneauMilieu = new JPanel(new GridLayout(3, 1));
 		panneauMilieu.add(panneauPoids);
-		
-		this.prixUnitaireLabel = new JLabel("Prix unitaire : " + "€");
-		panneauPoids.add(prixUnitaireLabel);
+		this.updateModelQuantiteComboBox();
 		panneauMilieu.add(panneauPrix);
-		updatePrixUnitaire();
 
 		// Panneau d'image
-		JPanel panneauImage = new JPanel(new BorderLayout());
-		panneauImage.add(this.labelImageFromage, BorderLayout.CENTER);
+		JPanel panneauImage = new JPanel();
 
 		// Panneau principal combinant panneauAction et panneauImage
 		JPanel panneauPrincipal = new JPanel(new BorderLayout());
-		panneauPrincipal.add(panneauHaut, BorderLayout.NORTH);
 		panneauPrincipal.add(panneauMilieu, BorderLayout.WEST);
-		panneauPrincipal.add(panneauImage, BorderLayout.CENTER);
 
-		// Panneau de description
-		JPanel panneauDescription = new JPanel(new BorderLayout());
-		panneauDescription.setBorder(BorderFactory.createTitledBorder("Description"));
-		panneauDescription.add(descriptionScrollPane, BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(0, 5, 5, 0));
+		panneauMilieu.add(panel);
+		panel.setLayout(new GridLayout(3, 0, 0, 5));
+
+		this.totalPrixLabel = new JLabel("Total : " + this.calculerTotalPrix(fromage) + "€");
+		panel.add(totalPrixLabel);
+		this.ajouterPanierButton = new JButton("Ajouter au panier");
+		panel.add(ajouterPanierButton);
+		ajouterPanierButton.setBackground(new Color(255, 255, 255));
+		this.annulerButton = new JButton("Annuler");
+		panel.add(annulerButton);
+		annulerButton.setBackground(new Color(255, 128, 128));
+		panneauPrincipal.add(panneauImage, BorderLayout.CENTER);
+		panneauImage.setLayout(new BorderLayout(0, 0));
+
+		JPanel panelInformationsFromage = new JPanel();
+		panneauImage.add(panelInformationsFromage, BorderLayout.CENTER);
+		panelInformationsFromage.setLayout(new GridLayout(0, 1, 0, 0));
+
+		this.labelImageFromage = new JLabel(new ImageIcon("lien"));
+		panelInformationsFromage.add(labelImageFromage);
+		ImageHelper.displayImage(labelImageFromage, fromage);
+
+		JPanel panel_1 = new JPanel();
+		panelInformationsFromage.add(panel_1);
+		panel_1.setBorder(new EmptyBorder(0, 10, 10, 0));
+		panel_1.setLayout(new GridLayout(2, 1, 0, 0));
+
+		JLabel lblNewLabel = new JLabel("Description");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(lblNewLabel);
+		this.descriptionArea = new JTextArea(this.getDescriptionFromage());
+		descriptionArea.setTabSize(40);
+		panel_1.add(descriptionArea);
+		this.descriptionArea.setLineWrap(true);
+		this.descriptionArea.setWrapStyleWord(true);
+		this.descriptionArea.setEditable(false);
+
+		JPanel panelDesignationFromage = new JPanel();
+		panneauImage.add(panelDesignationFromage, BorderLayout.NORTH);
+		panelDesignationFromage.setLayout(new GridLayout(0, 1, 0, 0));
+
+		JLabel nomFromageLabel = new JLabel(fromage.getDésignation());
+		nomFromageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nomFromageLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		panelDesignationFromage.add(nomFromageLabel);
+
+		JLabel poidsLabel = new JLabel(fromage.getArticles().get(0).getClé());
+		poidsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		poidsLabel.setFont(new Font("Arial", Font.ITALIC, 18));
+		panelDesignationFromage.add(poidsLabel);
 
 		// Ajout des panneaux au frame
 		this.getContentPane().add(panneauPrincipal, BorderLayout.CENTER);
-		this.getContentPane().add(panneauDescription, BorderLayout.SOUTH);
-
-		this.totalPrixLabel = new JLabel("Total : " + this.calculerTotalPrix(fromage) + "€");
-		this.ajouterPanierButton = new JButton("Ajouter au panier");
-		ajouterPanierButton.setBackground(new Color(255, 255, 255));
-		this.annulerButton = new JButton("Annuler");
-		annulerButton.setBackground(new Color(255, 255, 255));
-
+		updatePrixUnitaire();
 		addListeners(panier, fromage, listeFromage);
-		// Panneau pour le prix total, le bouton ajouter au panier et le bouton annuler
-		JPanel panneauAction = new JPanel(new GridLayout(3, 1));
-		panneauDescription.add(panneauAction, BorderLayout.EAST);
-		panneauAction.add(this.totalPrixLabel);
-		panneauAction.add(this.ajouterPanierButton);
-		panneauAction.add(this.annulerButton);
-
 		// Mise à jour du prix total lorsque la quantité ou le poids change
-		this.quantiteComboBox.addActionListener(e -> this.updateTotalPrix(fromage));
 	}
 
 	private void addListeners(Panier panier, Fromage fromage, ListeFromage listeFromage) {
 		this.ajouterPanierButton.addActionListener(e -> {
-            // Action lors du clic sur le bouton 'Ajouter le panier'
+			// Action lors du clic sur le bouton 'Ajouter le panier'
 			//article sélectionné par la combobx
-            Article article = fromage.getArticles().get(articleComboBox.getSelectedIndex());
+			Article article = fromage.getArticles().get(articleComboBox.getSelectedIndex());
 			//quantité sélectionnée par la combobox
-            int quantite = quantiteComboBox.getSelectedIndex();
+			int quantite = quantiteComboBox.getSelectedIndex();
 			//ajout de l'article au panier
-            panier.ajouterArticle(article, quantite);
+			panier.ajouterArticle(article, quantite);
 			//mise à jour de la comboBox de quantité
 			updateModelQuantiteComboBox();
 			//mise à jour des frais de livraisons
 			listeFromage.updateLivraisonGratuite();
 
-        });
+		});
+
+		this.quantiteComboBox.addActionListener(e -> this.updateTotalPrix(fromage));
+
 		this.articleComboBox.addActionListener (e -> {
 			updatePrixUnitaire();
 			updateModelQuantiteComboBox();
+			updateTotalPrix(fromage);
 		});
 
 		this.annulerButton.addActionListener(e -> {
-            // Action lors du clic sur le bouton 'Annuler'
-            dispose();
-        });
+			// Action lors du clic sur le bouton 'Annuler'
+			dispose();
+		});
 	}
 
 	private void updatePrixUnitaire() {
 		Article a = (Article) articleComboBox.getSelectedItem();
 		prixUnitaireLabel.setText("Prix unitaire : " + a.getPrixTTC() + "€");
-		poidsLabel.setText(a.getClé());
 	}
 
 	private String getDescriptionFromage() {

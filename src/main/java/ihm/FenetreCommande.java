@@ -53,19 +53,19 @@ public class FenetreCommande extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		textField = new JTextField();
 		panel_1.add(textField, BorderLayout.CENTER);
 		textField.setColumns(10);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JButton btnNewButton = new JButton("Imprimer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -74,17 +74,17 @@ public class FenetreCommande extends JFrame {
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		panel_2.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("PDF");
 		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		panel_2.add(btnNewButton_1);
-		
+
 		JPanel panel = new JPanel();
 		panel_1.add(panel, BorderLayout.NORTH);
 		panel.setBackground(new Color(255, 255, 255));
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignOnBaseline(true);
-		
+
 		JLabel lblNewLabel = new JLabel("Récapitulatif de votre commande");
 		panel.add(lblNewLabel);
 	}

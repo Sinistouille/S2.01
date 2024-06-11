@@ -8,15 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +23,7 @@ public class ListeFromage extends JFrame {
 	private JTable Fromages;
 	private Fromages listeFromages;
 	private JCheckBox[] checkboxs_types_fromages = new JCheckBox[3];
-	private Panier panier = new Panier();
+	private Panier panier;
 	private JLabel labelImageFromage;
 	private JLabel Livraison_Gratuite;
 
@@ -52,11 +44,8 @@ public class ListeFromage extends JFrame {
 
 
 	public ListeFromage() {
-		this.panier = new Panier();
-		this.Livraison_Gratuite = new JLabel("Il reste 120.00 euros avant la livraison gratuite");
 		this.setTitle("Ô fromage - Liste Fromages");
-		this.listeFromages = GenerationFromages.générationBaseFromages();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		//get the window width and height
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
@@ -65,12 +54,15 @@ public class ListeFromage extends JFrame {
 		this.PanneauPrincipal = new JPanel();
 		this.PanneauPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		this.panier = new Panier();
+		this.listeFromages = GenerationFromages.générationBaseFromages();
+		this.Livraison_Gratuite = new JLabel("Il reste 120.00 euros avant la livraison gratuite");
+
 		// Panel principal
 		this.setContentPane(this.PanneauPrincipal);
 
 		Image image = new ImageIcon(ImageHelper.accueilLoc("vitrine")).getImage();
 		image = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-		this.updateLivraisonGratuite();
 		PanneauPrincipal.setLayout(new BorderLayout(0, 0));
 
 		JPanel panelSelection = new JPanel();
@@ -135,7 +127,7 @@ public class ListeFromage extends JFrame {
 
 		JButton boutonAfficherPanier = new JButton("Panier");
 		panelBoutons.add(boutonAfficherPanier);
-		boutonAfficherPanier.setBackground(new Color(0, 128, 255));
+		boutonAfficherPanier.setBackground(new Color(255, 255, 255));
 
 		JButton BoutonQuitter = new JButton("Quitter");
 		panelBoutons.add(BoutonQuitter);
@@ -145,6 +137,7 @@ public class ListeFromage extends JFrame {
 			FenetrePanier p = new FenetrePanier(ListeFromage.this.panier);
 			p.setVisible(true);
 		});
+		this.updateLivraisonGratuite();
 		this.setupCheckbox();
 		this.reload();
 	}
@@ -191,7 +184,7 @@ public class ListeFromage extends JFrame {
 			this.Livraison_Gratuite.setText("Livraison gratuite");
 		}
 		else {
-			this.Livraison_Gratuite.setText("Il manque " + FormatHelper.df.format(120 - this.panier.getPrix()) + " euros avant la livraison gratuite");
+			this.Livraison_Gratuite.setText("Il manque " + FormatHelper.df.format(120 - this.panier.getPrix()) +  " euros avant la livraison gratuite");
 		}
 	}
 }

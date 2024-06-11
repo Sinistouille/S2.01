@@ -8,13 +8,14 @@ public enum Livreur {
 	RelaisColis("RelaisColis",4,7),
 	DHL("DHL",2,11),
 	FedEx("FedEx",15,5),
-	UPS("UPS",20,3);
-	
+	UPS("UPS",20,3),
+	CHRONOFRESH("CHRONOFRESH",1,15);
+
 	private String nom;
 
 	private int delaislivraisons;
 	private int prixlivraisons;
-	
+
 	private Livreur(String nom, int delais, int prix) {
 		this.nom = nom;
 		this.delaislivraisons = delais;
