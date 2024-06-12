@@ -1,5 +1,27 @@
 {
-    "PrixTotal": 0,
-    "Articles": {},
+    "PrixTotal": 1218.62,
+    "Articles": {
+        "-1330290562": {
+            "TypeVente": "",
+            "Prix": 5.6,
+            "Quantité": 39,
+            "TypeLait": "VACHE",
+            "Fromage": "Camembert de Normandie AOP"
+        },
+        "-620583011": {
+            "TypeVente": "",
+            "Prix": 8.4,
+            "Quantité": 57,
+            "TypeLait": "BREBIS",
+            "Fromage": "L'Encalat"
+        },
+        "-524896826": {
+            "TypeVente": "250 g",
+            "Prix": 8.99,
+            "Quantité": 58,
+            "TypeLait": "BREBIS",
+            "Fromage": "Tomme d'Estaing"
+        }
+    },
     "Panier": 3
 }

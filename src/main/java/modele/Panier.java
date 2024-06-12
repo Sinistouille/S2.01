@@ -1,7 +1,10 @@
 package modele;
 
+import data.FormatHelper;
 import data.JSONHelper;
+import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,7 +39,7 @@ public class Panier {
         } else if(quantite + q < 0){
             this.retirerArticle(a);
         }
-        JSONHelper.saveJSON(JSONHelper.savePanier(this),"panier.json");
+        JSONHelper.saveJSON(this.saveJSON(),"panier.json");
     }
 
     /*
@@ -44,7 +47,7 @@ public class Panier {
      */
     public void retirerArticle(Article a) {
         this.panier.remove(a);
-        JSONHelper.saveJSON(JSONHelper.savePanier(this),"panier.json");
+        JSONHelper.saveJSON(this.saveJSON(),"panier.json");
     }
 
     /*
@@ -63,7 +66,7 @@ public class Panier {
         for (Article a : this.panier.keySet()) {
             prix += a.getPrixTTC() * this.panier.get(a);
         }
-        return prix;
+        return Float.parseFloat(FormatHelper.DecimalFormat(prix));
     }
 
     /*
@@ -74,7 +77,7 @@ public class Panier {
             a.rendreQuantité(this.panier.get(a));
         }
         this.panier.clear();
-        JSONHelper.saveJSON(JSONHelper.savePanier(this),"panier.json");
+        JSONHelper.saveJSON(this.saveJSON(),"panier.json");
     }
 
     /*
@@ -82,5 +85,38 @@ public class Panier {
      */
     public int getUUID() {
         return this.UUID;
+    }
+
+    /*
+        * toString : affiche le panier
+        * @return String
+     */
+    public String toString(){
+        String affichage = "Panier numéro " + this.getUUID() + "\n";
+        affichage += "Prix total du Panier : " + this.getPrix() + "\n";
+        affichage += "Nombre d'articles : " + this.getPanier().size() + "\n";
+        for (Article a : this.panier.keySet()) {
+                affichage += a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a) + " Prix Unitaire : " + a.getPrixTTC() + " Total : " + FormatHelper.DecimalFormat(a.getPrixTTC() * this.panier.get(a)) + "\n";
+        }
+        return affichage;
+    }
+
+    public JSONObject saveJSON(){
+        JSONObject json = new JSONObject();
+        String tva = Double.toString(this.getPrix() / 1.2);
+        json.put("PrixTotal", this.getPrix());
+        JSONObject jsonListeArticles = new JSONObject();
+        for(Article a : this.getPanier().keySet()){
+            JSONObject jsonArticle = new JSONObject();
+            jsonArticle.put("Fromage",a.getFromage().getDésignation());
+            jsonArticle.put("TypeVente",a.getClé());
+            jsonArticle.put("Prix",a.getPrixTTC());
+            jsonArticle.put("Quantité",this.getPanier().get(a));
+            jsonArticle.put("TypeLait", a.getFromage().getTypeFromage());
+            jsonListeArticles.put(String.valueOf(a.getCode()),jsonArticle);
+        }
+        json.put("Articles",jsonListeArticles);
+        json.put("Panier", this.getUUID());
+        return json;
     }
 }

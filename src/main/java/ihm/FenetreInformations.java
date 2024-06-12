@@ -5,7 +5,7 @@ import modele.Panier;
 import javax.swing.*;
 import java.awt.*;
 
-public class Livraison extends JFrame {
+public class FenetreInformations extends JFrame {
 
     private JTextField prenomField;
     private JTextField nomField;
@@ -29,18 +29,18 @@ public class Livraison extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Livraison(new Panier()).setVisible(true);
+                new FenetreInformations(new Panier()).setVisible(true);
             }
         });
     }
 
-    public Livraison(Panier panier) {
-        setTitle("Ô fromage Livraison");
+    public FenetreInformations(Panier panier) {
+        setTitle("Ô fromage FenetreInformations");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int)dimension.getHeight();
         int width  = (int)dimension.getWidth();
         this.setBounds((width-600)/2, (height-500)/2, 600, 700);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
         JPanel PanneauPrincipal = new JPanel();
@@ -52,7 +52,7 @@ public class Livraison extends JFrame {
         panelInformations.setLayout(new BorderLayout(0, 0));
 
         // Title
-        JLabel Titre = new JLabel("Livraison");
+        JLabel Titre = new JLabel("FenetreInformations");
         panelInformations.add(Titre, BorderLayout.NORTH);
         Titre.setHorizontalAlignment(SwingConstants.CENTER);
         Titre.setFont(new Font("Arial", Font.BOLD, 24));
@@ -116,7 +116,7 @@ public class Livraison extends JFrame {
         // Event listeners
         validateButton.addActionListener(e -> {
             // Action lors du clic sur le bouton 'Valider'
-            JOptionPane.showMessageDialog(Livraison.this, "Commande validée !");
+            new FenetreCommande(panier).setVisible(true);
         });
         boutonAnnuler = new JButton("Annuler");
         panel.add(boutonAnnuler);

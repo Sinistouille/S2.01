@@ -5,7 +5,7 @@ import modele.Fromage;
 import javax.swing.*;
 import java.awt.*;
 
-public class ImageHelper {
+public class LocHelper {
     public static String fromageLoc(String nomFromage){
         return resourceLoc("images/fromages/hauteur200/" + nomFromage + ".jpg");
     }

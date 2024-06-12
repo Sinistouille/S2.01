@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class TestImageHelper {
+public class TestLocHelper {
 
-	private ImageHelper a;
+	private LocHelper a;
 
 	@Test
 	public void testAcceuilDoc() {

@@ -2,8 +2,7 @@ package ihm;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import modele.Panier;
@@ -11,20 +10,15 @@ import modele.Panier;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+import java.awt.print.PrinterException;
 
 public class FenetreCommande extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextArea textField;
 
 	/**
 	 * Launch the application.
@@ -46,7 +40,7 @@ public class FenetreCommande extends JFrame {
 	 * Create the frame.
 	 */
 	public FenetreCommande(Panier panier) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 548, 372);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +52,7 @@ public class FenetreCommande extends JFrame {
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		textField = new JTextField();
+		textField = new JTextArea(panier.toString());
 		panel_1.add(textField, BorderLayout.CENTER);
 		textField.setColumns(10);
 
@@ -66,18 +60,17 @@ public class FenetreCommande extends JFrame {
 		panel_1.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 
-		JButton btnNewButton = new JButton("Imprimer");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panel_2.add(btnNewButton);
+		JButton boutonImprimer = new JButton("Imprimer");
+		boutonImprimer.addActionListener(e -> {
 
-		JButton btnNewButton_1 = new JButton("PDF");
-		btnNewButton_1.setBackground(new Color(255, 255, 255));
-		panel_2.add(btnNewButton_1);
+		});
+		boutonImprimer.setBackground(new Color(255, 255, 255));
+		boutonImprimer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_2.add(boutonImprimer);
+
+		JButton boutonPdf = new JButton("PDF");
+		boutonPdf.setBackground(new Color(255, 255, 255));
+		panel_2.add(boutonPdf);
 
 		JPanel panel = new JPanel();
 		panel_1.add(panel, BorderLayout.NORTH);
@@ -87,6 +80,13 @@ public class FenetreCommande extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Récapitulatif de votre commande");
 		panel.add(lblNewLabel);
+		boutonImprimer.addActionListener(e -> {
+            try {
+                textField.print();
+            } catch (PrinterException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 	}
 
 }

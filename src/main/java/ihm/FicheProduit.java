@@ -7,7 +7,7 @@ import javax.swing.*;
 import data.FormatHelper;
 import modele.Article;
 import modele.Fromage;
-import data.ImageHelper;
+import data.LocHelper;
 import modele.Panier;
 import javax.swing.border.EmptyBorder;
 
@@ -26,7 +26,7 @@ public class FicheProduit extends JFrame {
 	private String descriptionFromage;
 	private double prixUnitaire = 5.20;
 
-	public FicheProduit(Panier panier, Fromage fromage, ListeFromage listeFromage) {
+	public FicheProduit(Panier panier, Fromage fromage, FenetreSelection fenetreSelection) {
 		this.setTitle("Ô fromage - Fiche produit");
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
@@ -50,10 +50,12 @@ public class FicheProduit extends JFrame {
 		this.prixUnitaireLabel = new JLabel("Prix unitaire : " + "€");
 		panneauPrix.add(prixUnitaireLabel);
 		this.articleComboBox = new JComboBox<>(fromage.getArticles());
+		articleComboBox.setBackground(new Color(255, 255, 255));
 		panneauPrix.add(articleComboBox);
 		this.articleComboBox.setSelectedItem(fromage.getArticles().get(0));
 		JLabel label = new JLabel("Quantité ");
 		panneauPrix.add(label);
+		quantiteComboBox.setBackground(new Color(255, 255, 255));
 		panneauPrix.add(this.quantiteComboBox);
 
 		JPanel panneauMilieu = new JPanel(new GridLayout(3, 1));
@@ -90,7 +92,7 @@ public class FicheProduit extends JFrame {
 
 		this.labelImageFromage = new JLabel(new ImageIcon("lien"));
 		panelInformationsFromage.add(labelImageFromage);
-		ImageHelper.displayImage(labelImageFromage, fromage);
+		LocHelper.displayImage(labelImageFromage, fromage);
 
 		JPanel panel_1 = new JPanel();
 		panelInformationsFromage.add(panel_1);
@@ -124,11 +126,11 @@ public class FicheProduit extends JFrame {
 		// Ajout des panneaux au frame
 		this.getContentPane().add(panneauPrincipal, BorderLayout.CENTER);
 		updatePrixUnitaire();
-		addListeners(panier, fromage, listeFromage);
+		addListeners(panier, fromage, fenetreSelection);
 		// Mise à jour du prix total lorsque la quantité ou le poids change
 	}
 
-	private void addListeners(Panier panier, Fromage fromage, ListeFromage listeFromage) {
+	private void addListeners(Panier panier, Fromage fromage, FenetreSelection fenetreSelection) {
 		this.ajouterPanierButton.addActionListener(e -> {
 			// Action lors du clic sur le bouton 'Ajouter le panier'
 			//article sélectionné par la combobx
@@ -140,7 +142,7 @@ public class FicheProduit extends JFrame {
 			//mise à jour de la comboBox de quantité
 			updateModelQuantiteComboBox();
 			//mise à jour des frais de livraisons
-			listeFromage.updateLivraisonGratuite();
+			fenetreSelection.updateLivraisonGratuite();
 
 		});
 

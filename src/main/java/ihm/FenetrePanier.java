@@ -3,15 +3,13 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import data.FormatHelper;
-import data.ImageHelper;
+import data.LocHelper;
 import data.JSONHelper;
 import modele.Article;
 import modele.Livreur;
@@ -35,9 +33,8 @@ public class FenetrePanier extends JFrame {
 	 */
 	public FenetrePanier(Panier panier) {
 		this.setTitle("Ô fromage - Panier");
-		ListeFromage.afficherPanier(panier);
-		JSONHelper.saveJSON(JSONHelper.savePanier(panier), "panier.json");
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		System.out.println(panier);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setBounds(100, 100, 600, 500);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,6 +52,7 @@ public class FenetrePanier extends JFrame {
 		panelLivraison.setLayout(new GridLayout(3, 1, 0, 0));
 		//combobox with all livreur
 		JComboBox<Livreur> comboBoxLivreurs = new JComboBox<>(Livreur.values());
+		comboBoxLivreurs.setBackground(new Color(255, 255, 255));
 		comboBoxLivreurs.addActionListener(e -> {
 			Livreur livreur = (Livreur) comboBoxLivreurs.getSelectedItem();
 			this.reAfficheLivraison(livreur);
@@ -110,7 +108,7 @@ public class FenetrePanier extends JFrame {
 		panelPrixBoutons.add(boutonValiderPanier);
 		boutonValiderPanier.setBackground(new Color(255, 255, 255));
 		boutonValiderPanier.addActionListener(e -> {
-			new Livraison(panier).setVisible(true);
+			new FenetreInformations(panier).setVisible(true);
 		});
 
 		boutonViderPanier = new JButton("Vider le panier");
@@ -134,7 +132,7 @@ public class FenetrePanier extends JFrame {
 		contenuPanier.setLayout(new GridLayout(this.nombreElement, 0, 0, 0));
 		afficherTableau(panier, contenuPanier);
 		addListeners(panier);
-		
+
 	}
 	private void reAfficheLivraison(Livreur livreur) {
 
@@ -160,7 +158,7 @@ public class FenetrePanier extends JFrame {
 			this.ligneTableau(contenuPanier, a, panier.getPanier().get(a));
 		}
 	}
-	
+
 	private void ligneTableau(JPanel tablePanier, Article article, int quantite) {
 		//création de la ligne
 		JPanel nouvelleLigneFromage = new JPanel();
@@ -170,7 +168,7 @@ public class FenetrePanier extends JFrame {
 		//image du fromage
 		JLabel labelImageFromage = new JLabel();
 		nouvelleLigneFromage.add(labelImageFromage);
-		ImageHelper.displayImage(labelImageFromage, article.getFromage(),100,100);
+		LocHelper.displayImage(labelImageFromage, article.getFromage(),100,100);
 
 		JPanel TexteElement = new JPanel();
 		nouvelleLigneFromage.add(TexteElement);
