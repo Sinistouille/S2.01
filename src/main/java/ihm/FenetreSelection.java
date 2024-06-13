@@ -215,7 +215,7 @@ public class FenetreSelection extends JFrame {
     }
     public void updateLivraisonGratuite() {
         if(this.panier.getPrixHT() >= 120) {
-            this.labelLivraisonGratuite.setText("FenetreInformations gratuite");
+            this.labelLivraisonGratuite.setText("Livraison gratuite");
         }
         else {
             this.labelLivraisonGratuite.setText("Il manque " + FormatHelper.df.format(120 - this.panier.getPrixHT()) +  " euros avant la livraison gratuite");
