@@ -214,11 +214,11 @@ public class FenetreSelection extends JFrame {
         }
     }
     public void updateLivraisonGratuite() {
-        if(this.panier.getPrix() >= 120) {
+        if(this.panier.getPrixHT() >= 120) {
             this.labelLivraisonGratuite.setText("FenetreInformations gratuite");
         }
         else {
-            this.labelLivraisonGratuite.setText("Il manque " + FormatHelper.df.format(120 - this.panier.getPrix()) +  " euros avant la livraison gratuite");
+            this.labelLivraisonGratuite.setText("Il manque " + FormatHelper.df.format(120 - this.panier.getPrixHT()) +  " euros avant la livraison gratuite");
         }
     }
 }

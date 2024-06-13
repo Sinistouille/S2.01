@@ -4,7 +4,6 @@ import data.FormatHelper;
 import data.JSONHelper;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,7 +38,6 @@ public class Panier {
         } else if(quantite + q < 0){
             this.retirerArticle(a);
         }
-        JSONHelper.saveJSON(this.saveJSON(),"panier.json");
     }
 
     /*
@@ -47,7 +45,6 @@ public class Panier {
      */
     public void retirerArticle(Article a) {
         this.panier.remove(a);
-        JSONHelper.saveJSON(this.saveJSON(),"panier.json");
     }
 
     /*
@@ -61,12 +58,19 @@ public class Panier {
      * getPrix : retourne le prix du panier parcourt la liste des articles et
      * multilplie le prix de chaque par la quantité
      */
-    public float getPrix() {
+    public float getPrixHT() {
         float prix = 0;
         for (Article a : this.panier.keySet()) {
-            prix += a.getPrixTTC() * this.panier.get(a);
+            prix += a.getPrixHT() * this.panier.get(a);
         }
         return Float.parseFloat(FormatHelper.DecimalFormat(prix));
+    }
+    public float getPrixTTC() {
+        return Float.parseFloat(FormatHelper.DecimalFormat(this.getPrixHT() * 1.2F));
+    }
+
+    public float montantTVA() {
+        return Float.parseFloat(FormatHelper.DecimalFormat(this.getPrixHT() * 0.2F));
     }
 
     /*
@@ -77,7 +81,6 @@ public class Panier {
             a.rendreQuantité(this.panier.get(a));
         }
         this.panier.clear();
-        JSONHelper.saveJSON(this.saveJSON(),"panier.json");
     }
 
     /*
@@ -93,24 +96,24 @@ public class Panier {
      */
     public String toString(){
         String affichage = "Panier numéro " + this.getUUID() + "\n";
-        affichage += "Prix total du Panier : " + this.getPrix() + "\n";
+        affichage += "Prix total du Panier : " + this.getPrixHT() + "\n";
         affichage += "Nombre d'articles : " + this.getPanier().size() + "\n";
         for (Article a : this.panier.keySet()) {
-                affichage += a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a) + " Prix Unitaire : " + a.getPrixTTC() + " Total : " + FormatHelper.DecimalFormat(a.getPrixTTC() * this.panier.get(a)) + "\n";
+                affichage += a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a) + " Prix Unitaire : " + a.getPrixHT() + " Total : " + FormatHelper.DecimalFormat(a.getPrixHT() * this.panier.get(a)) + "\n";
         }
         return affichage;
     }
 
     public JSONObject saveJSON(){
         JSONObject json = new JSONObject();
-        String tva = Double.toString(this.getPrix() / 1.2);
-        json.put("PrixTotal", this.getPrix());
+        String tva = Double.toString(this.getPrixHT() / 1.2);
+        json.put("PrixTotal", this.getPrixHT());
         JSONObject jsonListeArticles = new JSONObject();
         for(Article a : this.getPanier().keySet()){
             JSONObject jsonArticle = new JSONObject();
             jsonArticle.put("Fromage",a.getFromage().getDésignation());
             jsonArticle.put("TypeVente",a.getClé());
-            jsonArticle.put("Prix",a.getPrixTTC());
+            jsonArticle.put("Prix",a.getPrixHT());
             jsonArticle.put("Quantité",this.getPanier().get(a));
             jsonArticle.put("TypeLait", a.getFromage().getTypeFromage());
             jsonListeArticles.put(String.valueOf(a.getCode()),jsonArticle);
@@ -118,5 +121,23 @@ public class Panier {
         json.put("Articles",jsonListeArticles);
         json.put("Panier", this.getUUID());
         return json;
+    }
+
+    public void savePanier(){
+        JSONHelper.saveJSON(this.saveJSON(), "panier.json");
+    }
+
+    public void loadPanier(Fromages fromages){
+        JSONObject json = JSONHelper.loadJSON("panier.json");
+
+        this.UUID = json.getInt("Panier");
+        nbInstances--;
+
+        JSONObject jsonListeArticles = json.getJSONObject("Articles");
+        for(String key : jsonListeArticles.keySet()) {
+            JSONObject jsonArticle = jsonListeArticles.getJSONObject(key);
+            Article a = fromages.getArticle(jsonArticle.getString("Fromage"),jsonArticle.getString("TypeVente"));
+            this.ajouterArticle(a,jsonArticle.getInt("Quantité"));
+        }
     }
 }

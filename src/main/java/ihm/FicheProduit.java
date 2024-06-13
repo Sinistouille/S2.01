@@ -162,7 +162,7 @@ public class FicheProduit extends JFrame {
 
 	private void updatePrixUnitaire() {
 		Article a = (Article) articleComboBox.getSelectedItem();
-		prixUnitaireLabel.setText("Prix unitaire : " + a.getPrixTTC() + "€");
+		prixUnitaireLabel.setText("Prix unitaire : " + a.getPrixHT() + "€");
 	}
 
 	private String getDescriptionFromage() {
@@ -174,8 +174,8 @@ public class FicheProduit extends JFrame {
 	private String calculerTotalPrix(Fromage fromage) {
 		Article a = fromage.getArticles().get(articleComboBox.getSelectedIndex());
 		int quantite = (int) quantiteComboBox.getSelectedItem();
-		FormatHelper.df.format(a.getPrixTTC() * quantite);
-		return FormatHelper.df.format(a.getPrixTTC() * quantite);
+		FormatHelper.df.format(a.getPrixHT() * quantite);
+		return FormatHelper.df.format(a.getPrixHT() * quantite);
 	}
 
 	private void updateTotalPrix(Fromage fromage) {

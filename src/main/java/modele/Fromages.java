@@ -9,7 +9,7 @@ public class Fromages {
 	private List<Fromage> fromages;
 
 	public Fromages() {
-		this.fromages = new LinkedList<Fromage>();
+		this.fromages = new LinkedList<>();
 	}
 
 	public void addFromages(List<Fromage> fromages) {

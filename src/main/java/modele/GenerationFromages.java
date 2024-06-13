@@ -1,5 +1,10 @@
 package modele;
 
+import data.JSONHelper;
+import data.LocHelper;
+import org.json.JSONObject;
+
+import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -801,5 +806,16 @@ public class GenerationFromages {
 			f.updateTypeFromage(TypeLait.VACHE);
 		}
 		return fromagesAuLaitDeVache;
+	}
+
+	public Fromages loadFromages(String chemin){
+		Fromages fromages = new Fromages();
+		try {
+			JSONObject jsonObject = JSONHelper.loadJSON(chemin);
+		}catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return fromages;
 	}
 }

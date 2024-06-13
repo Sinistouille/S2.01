@@ -1,5 +1,6 @@
 package ihm;
 
+import modele.Client;
 import modele.Panier;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class FenetreInformations extends JFrame {
     private JButton boutonAnnuler;
     private JPanel leftPanelInfo;
     private JPanel rightPanelInfo;
+    private Client client;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -35,6 +37,7 @@ public class FenetreInformations extends JFrame {
     }
 
     public FenetreInformations(Panier panier) {
+        this.client = new Client();
         setTitle("Ô fromage FenetreInformations");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int)dimension.getHeight();
@@ -116,7 +119,7 @@ public class FenetreInformations extends JFrame {
         // Event listeners
         validateButton.addActionListener(e -> {
             // Action lors du clic sur le bouton 'Valider'
-            new FenetreCommande(panier).setVisible(true);
+            new FenetreCommande(panier, client).setVisible(true);
         });
         boutonAnnuler = new JButton("Annuler");
         panel.add(boutonAnnuler);

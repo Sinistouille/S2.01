@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import modele.Client;
+import modele.GenerationFacture;
 import modele.Panier;
 
 import java.awt.BorderLayout;
@@ -27,7 +29,7 @@ public class FenetreCommande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreCommande frame = new FenetreCommande(new Panier());
+					FenetreCommande frame = new FenetreCommande(new Panier(), new Client());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +41,7 @@ public class FenetreCommande extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenetreCommande(Panier panier) {
+	public FenetreCommande(Panier panier, Client client) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 548, 372);
 		contentPane = new JPanel();
@@ -87,6 +89,9 @@ public class FenetreCommande extends JFrame {
                 throw new RuntimeException(ex);
             }
         });
+		boutonPdf.addActionListener(e -> {
+			GenerationFacture.genererFacture(panier, client);
+		});
 	}
 
 }

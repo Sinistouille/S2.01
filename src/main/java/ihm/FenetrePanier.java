@@ -9,11 +9,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import data.FormatHelper;
-import data.LocHelper;
 import data.JSONHelper;
+import data.LocHelper;
 import modele.Article;
+import modele.GenerationFromages;
 import modele.Livreur;
 import modele.Panier;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FenetrePanier extends JFrame {
 
@@ -98,7 +101,6 @@ public class FenetrePanier extends JFrame {
 		PrixTTC.setHorizontalAlignment(SwingConstants.TRAILING);
 		panelDetailsPrix.add(PrixTTC);
 		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
-		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC);
 
 		JPanel panelPrixBoutons = new JPanel();
 		panelPrincipal.add(panelPrixBoutons);
@@ -121,8 +123,21 @@ public class FenetrePanier extends JFrame {
 		panelTitre.setLayout(new BorderLayout(0, 0));
 
 		JLabel Recapitulatif = new JLabel("Récapitulatif");
-		Recapitulatif.setHorizontalAlignment(SwingConstants.LEFT);
+		Recapitulatif.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitre.add(Recapitulatif);
+		
+		JButton boutonEnregistrerPanier = new JButton("Enregistrer le Panier");
+		boutonEnregistrerPanier.addActionListener(e -> {
+			panier.savePanier();
+		});
+		panelTitre.add(boutonEnregistrerPanier, BorderLayout.EAST);
+		
+		JButton boutonChargerPanier = new JButton("Charger le panier");
+		boutonChargerPanier.addActionListener(e -> {
+			panier.loadPanier(GenerationFromages.générationBaseFromages());
+			this.afficherTableau(panier, contenuPanier);
+		});
+		panelTitre.add(boutonChargerPanier, BorderLayout.WEST);
 
 		JScrollPane scrollPane = new JScrollPane();
 		this.contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -146,9 +161,9 @@ public class FenetrePanier extends JFrame {
 	}
 
 	private void affichePrix(Panier panier, JLabel labelMontantTVA, JLabel labelPrixHT, JLabel PrixTTC) {
-		labelMontantTVA.setText(FormatHelper.df.format(panier.getPrix()*0.2) + "€");
-		PrixTTC.setText(FormatHelper.df.format(panier.getPrix()*1.2) + "€");
-		labelPrixHT.setText(panier.getPrix() + "€");
+		labelMontantTVA.setText(panier.montantTVA() + "€");
+		PrixTTC.setText(panier.getPrixTTC() + "€");
+		labelPrixHT.setText(panier.getPrixHT() + "€");
 	}
 
 	private void afficherTableau(Panier panier, JPanel contenuPanier) {
@@ -189,11 +204,10 @@ public class FenetrePanier extends JFrame {
 		QuantiteElement.setBackground(null);
 		nouvelleLigneFromage.add(QuantiteElement);
 
-		JLabel prixTotalLigneFromage = new JLabel(article.getPrixTTC() * quantite + "€");
+		JLabel prixTotalLigneFromage = new JLabel(article.getPrixHT() * quantite + "€");
 		nouvelleLigneFromage.add(prixTotalLigneFromage);
 
 		JLabel SupprimerElement = new JLabel("New label");
 		nouvelleLigneFromage.add(SupprimerElement);
 	}
-
 }

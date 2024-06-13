@@ -4,15 +4,15 @@ public class Article implements Comparable<Article> {
 
 	private Fromage fromage;
 	private String clé;
-	private float prixTTC;
+	private float prixHT;
 	private int quantitéEnStock;
 	private int code;
 	private int quantitéPanier;
 
-	public Article(Fromage fromage, String clé, float prixTTC) {
+	public Article(Fromage fromage, String clé, float prixHT) {
 		this.fromage = fromage;
 		this.clé = clé;
-		this.prixTTC = prixTTC;
+		this.prixHT = prixHT;
 		this.quantitéEnStock = 0;
 		this.code = (fromage.getDésignation() + clé).hashCode();
 	}
@@ -21,8 +21,8 @@ public class Article implements Comparable<Article> {
 		return this.fromage;
 	}
 
-	public float getPrixTTC() {
-		return this.prixTTC;
+	public float getPrixHT() {
+		return this.prixHT;
 	}
 
 	public int getQuantitéEnStock() {
@@ -53,14 +53,14 @@ public class Article implements Comparable<Article> {
 	@Override
 	public String toString() {
 		if (this.clé.equals("")) {
-			return this.fromage.getDésignation() + ", Prix TTC : " + this.getPrixTTC() + " €";
+			return this.fromage.getDésignation() + ", Prix TTC : " + this.getPrixHT() + " €";
 		} else {
-			return this.fromage.getDésignation() + ", " + this.clé + ", Prix TTC : " + this.getPrixTTC() + " €";
+			return this.fromage.getDésignation() + ", " + this.clé + ", Prix TTC : " + this.getPrixHT() + " €";
 		}
 	}
 
 	public String toStringPrix() {
-		return this.getPrixTTC() + " €";
+		return this.getPrixHT() + " €";
 	}
 
 	public String toStringAvecStock() {
