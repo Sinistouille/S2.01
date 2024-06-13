@@ -55,6 +55,10 @@ public abstract class Fromage implements Comparable<Fromage> {
 		        + this.typeFromage.getTypeDeLait();
 	}
 
+	public void addArticle(String clé, float prixTTC, int quantite) {
+		this.articles.add(new Article(this, clé, prixTTC, quantite));
+	}
+
 	public void addArticle(String clé, float prixTTC) {
 		this.articles.add(new Article(this, clé, prixTTC));
 	}

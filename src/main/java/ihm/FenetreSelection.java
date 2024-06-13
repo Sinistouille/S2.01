@@ -131,7 +131,7 @@ public class FenetreSelection extends JFrame {
         panelLivraisonGratuite.setLayout(new GridLayout(0, 1, 0, 0));
         panelLivraisonGratuite.add(labelLivraisonGratuite);
         panelLeft.add(panelLivraisonGratuite);
-
+        GenerationFromages.saveFromages("fromages.json");
         //PanelBoutons
 
         JButton boutonAfficherPanier = new JButton("Panier");
@@ -150,7 +150,7 @@ public class FenetreSelection extends JFrame {
 
     private void setupVariables() {
         this.panier = new Panier();
-        this.listeFromages = GenerationFromages.générationBaseFromages();
+        this.listeFromages = GenerationFromages.loadFromages("fromages.json");
     }
 
     private void setupLabelImageFromage() {

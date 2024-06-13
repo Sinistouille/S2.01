@@ -1,5 +1,5 @@
 {
-    "PrixTotal": 600.6,
+    "PrixTotal": 924.9,
     "Articles": {
         "-2146864329": {
             "TypeVente": "",
@@ -7,6 +7,20 @@
             "Quantité": 54,
             "TypeLait": "CHEVRE",
             "Fromage": "Rocamadour"
+        },
+        "-887422567": {
+            "TypeVente": "250 g",
+            "Prix": 8.95,
+            "Quantité": 24,
+            "TypeLait": "VACHE",
+            "Fromage": "Comté 18 mois"
+        },
+        "-1021524071": {
+            "TypeVente": "250 g",
+            "Prix": 10.95,
+            "Quantité": 10,
+            "TypeLait": "CHEVRE",
+            "Fromage": "Persillé de Chèvre"
         },
         "841197178": {
             "TypeVente": "250 g",

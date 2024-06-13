@@ -1,10 +1,9 @@
 package modele;
 
 import data.JSONHelper;
-import data.LocHelper;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
+import java.lang.reflect.Constructor;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class GenerationFromages {
 	}
 
 	private static List<Fromage> GenerationFromageBrebis() {
-		List<Fromage> fromagesAuLaitDeBrebis = new LinkedList<Fromage>();
+		List<Fromage> fromagesAuLaitDeBrebis = new LinkedList<>();
 		SaisieFromage[] fromages = { new SaisieFromage("Brebis au Bleu",
 		        "brebis_au_bleu",
 		        "Le brebis au bleu a une pâte très fondante, onctueuse fine et non friable. "
@@ -808,14 +807,70 @@ public class GenerationFromages {
 		return fromagesAuLaitDeVache;
 	}
 
-	public Fromages loadFromages(String chemin){
+	public static Fromages loadFromages(String chemin){
 		Fromages fromages = new Fromages();
+		List<Fromage> fromagesList = fromages.getFromages();
 		try {
-			JSONObject jsonObject = JSONHelper.loadJSON(chemin);
+			JSONObject jsonFromages = JSONHelper.loadJSON("fromages.json");
+			for(String key : jsonFromages.keySet()){
+				JSONObject jsonFromage = jsonFromages.getJSONObject(key);
+				String nomImage = key;
+				JSONObject articles = jsonFromage.getJSONObject("Articles");
+				Fromage f = getFromage(jsonFromage.getString("Classe"),jsonFromage.getString("Nom"));
+				if (f != null) {
+					f.addDescription(jsonFromage.getString("Description"));
+					f.addNomImage(nomImage);
+					f.updateTypeFromage(TypeLait.valueOf(jsonFromage.getString("Type")));
+					for(String keyArticle : articles.keySet()){
+						JSONObject jsonArticle = articles.getJSONObject(keyArticle);
+						f.addArticle(keyArticle, jsonArticle.getFloat("Prix"), jsonArticle.getInt("Stock"));
+					}
+					fromagesList.add(f);
+				}
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 
 		}
+		fromages.addFromages(fromagesList);
 		return fromages;
+	}
+
+	public static void saveFromages(String chemin){
+		Fromages fromages = générationBaseFromages();
+		JSONObject jsonFromages = new JSONObject();
+		for (Fromage f : fromages.getFromages()) {
+			JSONObject jsonFromage = new JSONObject();
+			jsonFromage.put("Nom", f.getDésignation());
+			jsonFromage.put("Type", f.getTypeFromage());
+			jsonFromage.put("Description", f.getDescription());
+			jsonFromage.put("Classe", f.getClass().getSimpleName());
+			JSONObject jsonArticles = new JSONObject();
+			for (Article a : f.getArticles()) {
+				JSONObject jsonArticle = new JSONObject();
+				jsonArticle.put("Prix", a.getPrixHT());
+				jsonArticle.put("Stock", a.getQuantitéEnStock());
+				jsonArticles.put(a.getClé(),jsonArticle);
+			}
+			jsonFromage.put("Articles",jsonArticles);
+			jsonFromages.put(f.getNomImage(),jsonFromage);
+		}
+		JSONHelper.saveJSON(jsonFromages, chemin);
+	}
+
+	public static Fromage getFromage(String nomClasse,String nom) {
+		switch(nomClasse) {
+			case "FromageALaCoupe":
+				return new FromageALaCoupe(nom);
+			case "FromageALUnite":
+				return new FromageALUnité(nom);
+			case "FromageALUnitéPlusieursChoix":
+				return new FromageALUnitéPlusieursChoix(nom);
+			case "FromageEntierOuMoitié":
+				return new FromageEntierOuMoitié(nom);
+			case "FromagePourXPersonnes":
+				return new FromagePourXPersonnes(nom);
+		}
+		return null;
 	}
 }

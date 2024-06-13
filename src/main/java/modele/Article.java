@@ -9,6 +9,13 @@ public class Article implements Comparable<Article> {
 	private int code;
 	private int quantitéPanier;
 
+	public Article(Fromage fromage, String clé, float prixHT, int quantitéEnStock) {
+		this.fromage = fromage;
+		this.clé = clé;
+		this.prixHT = prixHT;
+		this.quantitéEnStock = quantitéEnStock;
+		this.code = (fromage.getDésignation() + clé).hashCode();
+	}
 	public Article(Fromage fromage, String clé, float prixHT) {
 		this.fromage = fromage;
 		this.clé = clé;
