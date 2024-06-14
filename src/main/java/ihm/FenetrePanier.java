@@ -21,6 +21,10 @@ import java.awt.event.ActionEvent;
 public class FenetrePanier extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private final JButton boutonValiderPanier;
+	private final JButton boutonEnregistrerPanier;
+	private final JComboBox<Livreur> comboBoxLivreurs;
+	private final JButton boutonChargerPanier;
 	private JPanel contentPane;
 
 	private int nombreElement = 14;
@@ -54,7 +58,7 @@ public class FenetrePanier extends JFrame {
 		panelPrincipal.add(panelLivraison);
 		panelLivraison.setLayout(new GridLayout(3, 1, 0, 0));
 		//combobox with all livreur
-		JComboBox<Livreur> comboBoxLivreurs = new JComboBox<>(Livreur.values());
+		comboBoxLivreurs = new JComboBox<>(Livreur.values());
 		comboBoxLivreurs.setSelectedIndex(0);
 		comboBoxLivreurs.setBackground(new Color(255, 255, 255));
 
@@ -97,19 +101,14 @@ public class FenetrePanier extends JFrame {
 		JLabel PrixTTC = new JLabel();
 		PrixTTC.setHorizontalAlignment(SwingConstants.TRAILING);
 		panelDetailsPrix.add(PrixTTC);
-		affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC, labelPrixFraisDePort, (Livreur) comboBoxLivreurs.getSelectedItem());
 
 		JPanel panelPrixBoutons = new JPanel();
 		panelPrincipal.add(panelPrixBoutons);
 		panelPrixBoutons.setLayout(new GridLayout(2, 1, 0, 5));
 
-		JButton boutonValiderPanier = new JButton("Valider le panier");
+		boutonValiderPanier = new JButton("Valider le panier");
 		panelPrixBoutons.add(boutonValiderPanier);
 		boutonValiderPanier.setBackground(new Color(255, 255, 255));
-		boutonValiderPanier.addActionListener(e -> {
-			new FenetreInformations(panier).setVisible(true);
-		});
-
 		boutonViderPanier = new JButton("Vider le panier");
 		panelPrixBoutons.add(boutonViderPanier);
 		boutonViderPanier.setBackground(new Color(255, 128, 128));
@@ -122,15 +121,12 @@ public class FenetrePanier extends JFrame {
 		JLabel Recapitulatif = new JLabel("Récapitulatif");
 		Recapitulatif.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitre.add(Recapitulatif);
-		
-		JButton boutonEnregistrerPanier = new JButton("Enregistrer le Panier");
+
+		boutonEnregistrerPanier = new JButton("Enregistrer le Panier");
 		boutonEnregistrerPanier.setBackground(new Color(192, 192, 192));
-		boutonEnregistrerPanier.addActionListener(e -> {
-			panier.savePanier();
-		});
 		panelTitre.add(boutonEnregistrerPanier, BorderLayout.EAST);
-		
-		JButton boutonChargerPanier = new JButton("Charger le panier");
+
+		boutonChargerPanier = new JButton("Charger le panier");
 		boutonChargerPanier.setBackground(new Color(192, 192, 192));
 		panelTitre.add(boutonChargerPanier, BorderLayout.WEST);
 
@@ -140,20 +136,21 @@ public class FenetrePanier extends JFrame {
 		contenuPanier = new JPanel();
 		scrollPane.setViewportView(contenuPanier);
 		contenuPanier.setLayout(new GridLayout(this.nombreElement, 0, 0, 0));
-		afficherTableau(panier, contenuPanier);
-		addListeners(panier,boutonEnregistrerPanier,boutonChargerPanier,labelMontantTVA,labelPrixHT,PrixTTC, labelPrixFraisDePort, comboBoxLivreurs);
+		this.afficherTableau(panier, contenuPanier);
+		this.affichePrix(panier, labelMontantTVA, labelPrixHT, PrixTTC, labelPrixFraisDePort, (Livreur) comboBoxLivreurs.getSelectedItem());
+		addListeners(panier,labelMontantTVA,labelPrixHT,PrixTTC, labelPrixFraisDePort);
 
 	}
 
-	private void addListeners(Panier panier, JButton boutonEnregistrerPanier, JButton boutonChargerPanier, JLabel labelMontantTVA, JLabel labelPrixHT, JLabel PrixTTC, JLabel labelFraisDePort, JComboBox comboBoxLivreurs) {
+	private void addListeners(Panier panier, JLabel labelMontantTVA, JLabel labelPrixHT, JLabel PrixTTC, JLabel labelFraisDePort) {
 		boutonViderPanier.addActionListener(e -> {
 			panier.viderPanier();
 			Livreur livreur = (Livreur) comboBoxLivreurs.getSelectedItem();
 			this.raffraichirFenetre(panier, labelMontantTVA, labelPrixHT, PrixTTC, labelFraisDePort, livreur);
 		});
-		boutonEnregistrerPanier.addActionListener(e -> {
-			panier.savePanier();
-		});
+
+		boutonEnregistrerPanier.addActionListener(e -> panier.savePanier());
+
 		boutonChargerPanier.addActionListener(e -> {
 			panier.loadPanier(GenerationFromages.générationBaseFromages());
 			Livreur livreur = (Livreur) comboBoxLivreurs.getSelectedItem();
@@ -162,6 +159,14 @@ public class FenetrePanier extends JFrame {
 		comboBoxLivreurs.addActionListener(e -> {
 			Livreur livreur = (Livreur) comboBoxLivreurs.getSelectedItem();
 			this.raffraichirFenetre(panier, labelMontantTVA, labelPrixHT, PrixTTC, labelFraisDePort, livreur);
+		});
+		boutonValiderPanier.addActionListener(e -> {
+			Livreur livreur = (Livreur) comboBoxLivreurs.getSelectedItem();
+			panier.setLivreur(livreur);
+			new FenetreInformations(panier).setVisible(true);
+		});
+		boutonEnregistrerPanier.addActionListener(e -> {
+			panier.savePanier();
 		});
 	}
 

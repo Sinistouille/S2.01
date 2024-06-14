@@ -12,6 +12,7 @@ public class Panier {
     private Map<Article, Integer> panier;
     private int UUID;
     private static int nbInstances = 0;
+    private Livreur livreur;;
     /*
      * Constructeur de la classe Panier
      */
@@ -45,6 +46,14 @@ public class Panier {
      */
     public void retirerArticle(Article a) {
         this.panier.remove(a);
+    }
+
+    public void setLivreur(Livreur livreur){
+        this.livreur = livreur;
+    }
+
+    public Livreur getLivreur(){
+        return this.livreur;
     }
 
     /*
