@@ -175,8 +175,7 @@ public class FicheProduit extends JFrame {
 	private String calculerTotalPrix(Fromage fromage) {
 		Article a = fromage.getArticles().get(articleComboBox.getSelectedIndex());
 		int quantite = (int) quantiteComboBox.getSelectedItem();
-		FormatHelper.df.format(a.getPrixHT() * quantite);
-		return FormatHelper.df.format(a.getPrixHT() * quantite);
+		return FormatHelper.DecimalFormat(a.getPrixHT() * quantite);
 	}
 
 	private void updateTotalPrix(Fromage fromage) {
