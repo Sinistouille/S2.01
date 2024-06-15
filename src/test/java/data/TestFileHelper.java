@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class TestLocHelper {
+public class TestFileHelper {
 
-	private LocHelper a;
+	private FileHelper a;
 
 	@Test
 	public void testAcceuilDoc() {

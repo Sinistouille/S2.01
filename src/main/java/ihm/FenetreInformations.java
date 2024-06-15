@@ -8,16 +8,16 @@ import java.awt.*;
 
 public class FenetreInformations extends JFrame {
 
-    private JTextField prenomField;
-    private JTextField nomField;
-    private JTextField emailField;
-    private JTextField phoneField;
-    private JTextField mobileField;
-    private JTextField addressField;
-    private JTextField address2Field;
-    private JTextField postalCodeField;
-    private JTextField cityField;
-    private JComboBox<String> countryComboBox;
+    private JTextField fieldFirstName;
+    private JTextField fieldName;
+    private JTextField fieldEmail;
+    private JTextField fieldPhone;
+    private JTextField fieldMobilePhone;
+    private JTextField fieldAdresse;
+    private JTextField fieldComplementAdresse;
+    private JTextField fieldPostalCode;
+    private JTextField fieldCity;
+    private JComboBox<String> comboBoxCountry;
     private JRadioButton creditCardButton;
     private JRadioButton paypalButton;
     private JRadioButton checkButton;
@@ -29,73 +29,51 @@ public class FenetreInformations extends JFrame {
     private Client client;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new FenetreInformations(new Panier()).setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new FenetreInformations(new Panier()).setVisible(true));
     }
 
     public FenetreInformations(Panier panier) {
-        this.client = new Client();
         setTitle("Ô fromage FenetreInformations");
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int)dimension.getHeight();
         int width  = (int)dimension.getWidth();
         this.setBounds((width-600)/2, (height-500)/2, 600, 700);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new BorderLayout());
 
-        JPanel PanneauPrincipal = new JPanel();
-        PanneauPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));;
-        PanneauPrincipal.setLayout(new BoxLayout(PanneauPrincipal, BoxLayout.Y_AXIS));
+        // Initialisation du panneau principal
+        JPanel panneauPrincipal = new JPanel();
+        panneauPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panneauPrincipal.setLayout(new BoxLayout(panneauPrincipal, BoxLayout.Y_AXIS));
 
-        JPanel panelInformations = new JPanel();
-        PanneauPrincipal.add(panelInformations);
-        panelInformations.setLayout(new BorderLayout(0, 0));
+        // Panneau des informations
+        JPanel panelInformations = new JPanel(new BorderLayout(0, 0));
+        panneauPrincipal.add(panelInformations);
 
-        // Title
-        JLabel Titre = new JLabel("FenetreInformations");
-        panelInformations.add(Titre, BorderLayout.NORTH);
-        Titre.setHorizontalAlignment(SwingConstants.CENTER);
-        Titre.setFont(new Font("Arial", Font.BOLD, 24));
-        Titre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // Titre
+        JLabel titre = new JLabel("FenetreInformations");
+        titre.setHorizontalAlignment(SwingConstants.CENTER);
+        titre.setFont(new Font("Arial", Font.BOLD, 24));
+        titre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelInformations.add(titre, BorderLayout.NORTH);
 
-        // Panel for form fields
-        JPanel panelChamps = new JPanel();
+        // Panneau des champs de formulaire
+        JPanel panelChamps = new JPanel(new GridLayout(0, 2, 0, 0));
         panelInformations.add(panelChamps, BorderLayout.CENTER);
-        leftPanelInfo = new JPanel();
-        rightPanelInfo = new JPanel();
-        leftPanelInfo.setLayout(new GridLayout(0, 1, 0, 0));
-        rightPanelInfo.setLayout(new GridLayout(0, 1, 0, 0));
 
-        // Adding components to formPanel
-        createRowPanel("Civilité", createTitlePanel(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Prénom", prenomField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        panelChamps.setLayout(new GridLayout(0, 2, 0, 0));
-        createRowPanel("Nom", nomField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Adresse Email", emailField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Numéro de téléphone fixe", phoneField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Numéro de téléphone Portable", mobileField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Adresse", addressField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Complément d'adresse", address2Field = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Code postal", postalCodeField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Ville", cityField = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Pays", countryComboBox = new JComboBox<>(new String[]{"France"}), leftPanelInfo, rightPanelInfo);
-
+        leftPanelInfo = new JPanel(new GridLayout(0, 1, 0, 0));
+        rightPanelInfo = new JPanel(new GridLayout(0, 1, 0, 0));
         panelChamps.add(leftPanelInfo);
         panelChamps.add(rightPanelInfo);
 
+        // Groupe de boutons pour les méthodes de paiement
         ButtonGroup paymentGroup = new ButtonGroup();
 
-        // Newsletter subscription checkbox
-        JPanel newsletterPanel = new JPanel();
-        PanneauPrincipal.add(newsletterPanel);
-        newsletterPanel.setLayout(new GridLayout(3, 1, 0, 0));
+        // Panneau pour l'abonnement à la newsletter
+        JPanel newsletterPanel = new JPanel(new GridLayout(3, 1, 0, 0));
+        panneauPrincipal.add(newsletterPanel);
 
-        // Payment method panel
+        // Panneau des méthodes de paiement
         JPanel paymentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        newsletterPanel.add(paymentPanel);
         paymentPanel.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
         creditCardButton = new JRadioButton("Carte de crédit");
         paypalButton = new JRadioButton("Paypal");
@@ -106,19 +84,33 @@ public class FenetreInformations extends JFrame {
         paymentPanel.add(creditCardButton);
         paymentPanel.add(paypalButton);
         paymentPanel.add(checkButton);
+        newsletterPanel.add(paymentPanel);
+
+        // Case à cocher pour l'abonnement à la newsletter
         newsletterCheckBox = new JCheckBox("S'abonner à la Newsletter");
         newsletterPanel.add(newsletterCheckBox);
 
-        JPanel panel = new JPanel();
-        newsletterPanel.add(panel);
-        panel.setLayout(new GridLayout(0, 2, 10, 0));
-        validateButton = new JButton("Valider");
-        panel.add(validateButton);
-        validateButton.setBackground(new Color(255, 255, 255));
+        // Panneau des boutons de validation
+        JPanel panelBoutons = new JPanel(new GridLayout(0, 2, 10, 0));
+        newsletterPanel.add(panelBoutons);
 
+        validateButton = new JButton("Valider");
+        validateButton.setBackground(new Color(255, 255, 255));
+        panelBoutons.add(validateButton);
+
+
+        this.addListeners(panier, panelBoutons);
+
+        // Add panel to frame
+        this.setContentPane(panneauPrincipal);
+        createPanelInformations();
+    }
+
+    private void addListeners(Panier panier, JPanel panel) {
         // Event listeners
         validateButton.addActionListener(e -> {
             // Action lors du clic sur le bouton 'Valider'
+            this.client = this.getInformations();
             new FenetreCommande(panier, client).setVisible(true);
         });
         boutonAnnuler = new JButton("Annuler");
@@ -129,9 +121,34 @@ public class FenetreInformations extends JFrame {
             // Action lors du clic sur le bouton 'Annuler'
             dispose();
         });
+    }
 
-        // Add panel to frame
-        getContentPane().add(PanneauPrincipal, BorderLayout.CENTER);
+    private Client getInformations(){
+        Client client = new Client(fieldName.getText(),fieldFirstName.getText());
+        client.setAdresse(fieldAdresse.getText());
+        client.setVille(fieldCity.getText());
+        client.setMobilePhone(fieldMobilePhone.getText());
+        client.setPhone(fieldPhone.getText());
+        client.setCodePostal(fieldPostalCode.getText());
+        client.setEmail(fieldEmail.getText());
+        client.setCountry((String) comboBoxCountry.getSelectedItem());
+        client.setComplementAdresse(fieldComplementAdresse.getText());
+        return client;
+    }
+
+    private void createPanelInformations() {
+        // Adding components to formPanel
+        createRowPanel("Civilité", createTitlePanel(), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Prénom", fieldFirstName = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Nom", fieldName = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Adresse Email", fieldEmail = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Numéro de téléphone fixe", fieldPhone = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Numéro de téléphone Portable", fieldMobilePhone = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Adresse", fieldAdresse = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Complément d'adresse", fieldComplementAdresse = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Code postal", fieldPostalCode = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Ville", fieldCity = new JTextField(20), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Pays", comboBoxCountry = new JComboBox<>(new String[]{"France"}), leftPanelInfo, rightPanelInfo);
     }
 
     private void createRowPanel(String labelText, JComponent field, JPanel leftPanel, JPanel rightPanel) {
@@ -163,4 +180,5 @@ public class FenetreInformations extends JFrame {
         CivilitéPanel.add(mlleButton);
         return CivilitéPanel;
     }
+
 }

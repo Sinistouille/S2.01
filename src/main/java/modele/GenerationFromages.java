@@ -11,6 +11,7 @@ public class GenerationFromages {
 
 	public static void main(String[] args) {
 		Fromages mesArticles = générationBaseFromages();
+		saveFromages("fromages.json");
 		System.out.println("Liste des fromages et articles :");
 		System.out.println();
 		System.out.println(mesArticles.toStringFromagesEtArticles());
@@ -858,7 +859,7 @@ public class GenerationFromages {
 		JSONHelper.saveJSON(jsonFromages, chemin);
 	}
 
-	public static Fromage getFromage(String nomClasse,String nom) {
+	public static Fromage getFromage (String nomClasse,String nom) {
 		switch(nomClasse) {
 			case "FromageALaCoupe":
 				return new FromageALaCoupe(nom);

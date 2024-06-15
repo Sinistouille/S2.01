@@ -29,14 +29,19 @@ public class Panier {
     public void ajouterArticle(Article a, int q) {
         int quantite = this.panier.getOrDefault(a, 0);
         if (q < 0) {
-            a.rendreQuantité(q);
+            a.rendreQuantité(Math.abs(q));
         } else {
-            a.préempterQuantité(q);
+            try {
+                a.préempterQuantité(q);
+            }catch(IllegalArgumentException e){
+                System.out.println("SYSTEM.OUT : Stock insuffisant");
+                return;
+            }
         }
         if (quantite + q > 0) {
             this.panier.put(a, quantite + q);
             System.out.println("SYSTEM.OUT : Bien ajouté au panier : " + a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a));
-        } else if(quantite + q < 0){
+        } else {
             this.retirerArticle(a);
         }
     }
@@ -137,6 +142,7 @@ public class Panier {
     }
 
     public void loadPanier(Fromages fromages){
+        this.viderPanier();
         JSONObject json = JSONHelper.loadJSON("panier.json");
 
         this.UUID = json.getInt("Panier");

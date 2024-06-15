@@ -1,7 +1,6 @@
 package ihm;
 
 import java.awt.*;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,18 +11,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import data.FormatHelper;
-import data.LocHelper;
+import data.FileHelper;
 import modele.*;
 
 public class FenetreSelection extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private final JButton boutonAfficherPanier;
+    private final JButton boutonQuitter;
     private JPanel panelTypeFromage;
     private JPanel panelLivraisonGratuite;
     private JPanel panelBoutons;
     private JPanel panelListe;
     private JPanel PanneauPrincipal;
-    private JTable Fromages;
+    private JTable tableFromages;
     private Fromages listeFromages;
     private JCheckBox[] checkboxs_types_fromages = new JCheckBox[3];
     private Panier panier;
@@ -31,6 +32,8 @@ public class FenetreSelection extends JFrame {
     private JLabel labelLivraisonGratuite;
     private JPanel panelSelection;
     private JPanel panelLeft;
+    private JPanel panel;
+    private JLabel labelTitre;
 
 
     public static void main(String[] args) {
@@ -61,58 +64,60 @@ public class FenetreSelection extends JFrame {
         int width  = (int)dimension.getWidth();
         this.setBounds((width-600)/2, (height-500)/2, 600, 500);
 
-        //Panel principal
-        this.PanneauPrincipal = new JPanel();
-        this.PanneauPrincipal.setBackground(new Color(255, 255, 255));
-        this.PanneauPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-        this.PanneauPrincipal.setLayout(new BorderLayout(0, 0));
-        this.setContentPane(this.PanneauPrincipal);
+        // Panel Principal Initialization
+        PanneauPrincipal = new JPanel();
+        PanneauPrincipal.setBackground(new Color(255, 255, 255));
+        PanneauPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+        PanneauPrincipal.setLayout(new BorderLayout(0, 0));
+        setContentPane(PanneauPrincipal);
 
-        //Panel boutons
+        // Panel Boutons Initialization
         panelBoutons = new JPanel();
         panelBoutons.setOpaque(false);
         panelBoutons.setLayout(new GridLayout(0, 2, 10, 0));
-        this.PanneauPrincipal.add(this.panelBoutons, BorderLayout.SOUTH);
+        PanneauPrincipal.add(panelBoutons, BorderLayout.SOUTH);
 
-        //Panel selection
+        // Panel Selection Initialization
         panelSelection = new JPanel();
         panelSelection.setOpaque(false);
         panelSelection.setLayout(new GridLayout(0, 2, 10, 0));
-        this.PanneauPrincipal.add(this.panelSelection, BorderLayout.CENTER);
+        PanneauPrincipal.add(panelSelection, BorderLayout.CENTER);
 
-        //Panel contenant les checkbox pour trier les fromages selon leur type
+        // Panel Type Fromage Initialization
         panelTypeFromage = new JPanel();
         panelTypeFromage.setOpaque(false);
         panelTypeFromage.setLayout(new GridLayout(1, 3, 0, 0));
 
-        //Checkbox pour les types de fromage
         JCheckBox checkbox_Chevre = new JCheckBox("Chévre");
         panelTypeFromage.add(checkbox_Chevre);
-        this.checkboxs_types_fromages[0] = checkbox_Chevre;
+        checkboxs_types_fromages[0] = checkbox_Chevre;
+
         JCheckBox checkbox_Brebis = new JCheckBox("Brebis");
         panelTypeFromage.add(checkbox_Brebis);
-        this.checkboxs_types_fromages[1] = checkbox_Brebis;
+        checkboxs_types_fromages[1] = checkbox_Brebis;
+
         JCheckBox checkbox_Vache = new JCheckBox("Vache");
         panelTypeFromage.add(checkbox_Vache);
-        this.checkboxs_types_fromages[2] = checkbox_Vache;
+        checkboxs_types_fromages[2] = checkbox_Vache;
 
-        //Label contenant l'image du fromage sélectionné
-        this.labelImageFromage = new JLabel();
-        labelImageFromage.setHorizontalAlignment(SwingConstants.CENTER);
-        
+        // Label Image Fromage Initialization
+        labelImageFromage = new JLabel();
+        labelImageFromage.setVerticalAlignment(SwingConstants.BOTTOM);
+        labelImageFromage.setHorizontalAlignment(SwingConstants.LEFT);
+
+        // Panel Left Initialization
         panelLeft = new JPanel();
         panelLeft.setOpaque(false);
         panelLeft.setLayout(new GridLayout(4, 0, 0, 0));
-        panelLeft.add(this.labelImageFromage);
+        panelLeft.add(labelImageFromage);
         panelLeft.add(panelTypeFromage);
 
-
-        //Table des fromages
-        this.Fromages = new JTable();
+        // Table Fromages Initialization
+        tableFromages = new JTable();
         JScrollPane scrollPaneFromages = new JScrollPane();
-        scrollPaneFromages.setViewportView(this.Fromages);
+        scrollPaneFromages.setViewportView(tableFromages);
 
-        //PanelListeFromages
+        // Panel Liste Fromages Initialization
         panelListe = new JPanel();
         panelListe.setLayout(new BorderLayout(0, 0));
         panelListe.add(scrollPaneFromages, BorderLayout.CENTER);
@@ -120,32 +125,40 @@ public class FenetreSelection extends JFrame {
         panelSelection.add(panelLeft);
         panelSelection.add(panelListe);
 
-        this.labelLivraisonGratuite = new JLabel("Il reste 120.00 euros avant la livraison gratuite");
+        // Label Livraison Gratuite Initialization
+        labelLivraisonGratuite = new JLabel("Il reste 120.00 euros avant la livraison gratuite");
         labelLivraisonGratuite.setHorizontalAlignment(SwingConstants.CENTER);
-        //PanelSelection
 
-
-        //Panel contenant le label pour la livraison gratuite
+        // Panel Livraison Gratuite Initialization
         panelLivraisonGratuite = new JPanel();
         panelLivraisonGratuite.setOpaque(false);
         panelLivraisonGratuite.setLayout(new GridLayout(0, 1, 0, 0));
         panelLivraisonGratuite.add(labelLivraisonGratuite);
         panelLeft.add(panelLivraisonGratuite);
-        GenerationFromages.saveFromages("fromages.json");
-        //PanelBoutons
 
-        JButton boutonAfficherPanier = new JButton("Panier");
+        // Panel Boutons Initialization
+        boutonAfficherPanier = new JButton("Panier");
         boutonAfficherPanier.setBackground(new Color(255, 255, 255));
         panelBoutons.add(boutonAfficherPanier);
-        JButton BoutonQuitter = new JButton("Quitter");
-        BoutonQuitter.setBackground(new Color(255, 128, 128));
-        panelBoutons.add(BoutonQuitter);
+
+        boutonQuitter = new JButton("Quitter");
+        boutonQuitter.setBackground(new Color(255, 128, 128));
+        panelBoutons.add(boutonQuitter);
+
+        panel = new JPanel();
+        panel.setBackground(new Color(255, 255, 255));
+
+        labelTitre = new JLabel("Ô'Fromage");
+        labelTitre.setFont(new Font("Arial", Font.BOLD, 24));
+        panel.add(labelTitre);
+
+        PanneauPrincipal.add(panel, BorderLayout.NORTH);
 
         //Listeners pour les boutons
-        this.addListeners(BoutonQuitter, boutonAfficherPanier);
-        this.setupLabelImageFromage();
+        this.addListeners(boutonQuitter, boutonAfficherPanier);
         this.updateLivraisonGratuite();
         this.reload();
+        this.setupIcons();
     }
 
     private void setupVariables() {
@@ -153,18 +166,19 @@ public class FenetreSelection extends JFrame {
         this.listeFromages = GenerationFromages.loadFromages("fromages.json");
     }
 
-    private void setupLabelImageFromage() {
-        Image image = new ImageIcon(LocHelper.accueilLoc("vitrine")).getImage();
-        image = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-        this.labelImageFromage.setIcon(new ImageIcon(image));
+
+    private void setupIcons(){
+        labelImageFromage.setIcon(FileHelper.setIcon(FileHelper.accueilLoc("vitrine.jpg"),148,100));
+        boutonAfficherPanier.setIcon(FileHelper.setIcon(FileHelper.logoLoc("panier.png"), 20, 20));
+        boutonQuitter.setIcon(FileHelper.setIcon(FileHelper.logoLoc("quitter.png"), 20, 20));
     }
 
     private void addListeners(JButton BoutonQuitter, JButton boutonAfficherPanier) {
-        this.Fromages.addMouseListener(new MouseAdapter() {
+        this.tableFromages.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                Fromage f = listeFromages.getFromage(Fromages.getValueAt(Fromages.getSelectedRow(), 0).toString());
-                LocHelper.displayImage(labelImageFromage, f);
+                Fromage f = listeFromages.getFromage(tableFromages.getValueAt(tableFromages.getSelectedRow(), 0).toString());
+                labelImageFromage.setIcon(FileHelper.setIcon(FileHelper.fromageLoc(f.getNomImage() + ".jpg"), 148, 100));
                 if (e.getClickCount() == 2 && !e.isConsumed()) {
                     e.consume();
                     FicheProduit p = new FicheProduit(panier,f, FenetreSelection.this);
@@ -175,7 +189,7 @@ public class FenetreSelection extends JFrame {
         });
         BoutonQuitter.addActionListener(e -> System.exit(0));
         boutonAfficherPanier.addActionListener(e -> {
-            FenetrePanier p = new FenetrePanier(FenetreSelection.this.panier);
+            FenetrePanier p = new FenetrePanier(FenetreSelection.this.panier, FenetreSelection.this, FenetreSelection.this.listeFromages);
             p.setVisible(true);
         });
         setupCheckbox();
@@ -202,7 +216,7 @@ public class FenetreSelection extends JFrame {
             laits.add(TypeLait.VACHE);
         }
         model.setDataVector(this.listeFromages.arrayFromages(laits), new String[] { "Fromages" });
-        this.Fromages.setModel(model);
+        this.tableFromages.setModel(model);
     }
 
     private void setupCheckbox() {

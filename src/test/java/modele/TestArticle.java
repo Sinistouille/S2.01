@@ -34,7 +34,7 @@ public class TestArticle {
 	public void TestQuantitéPanier() {
 		this.a.setQuantitéEnStock(12);
 		this.a.préempterQuantité(4);
-		assertEquals(this.a.getQuantitéPanier(), 4);
+		assertEquals(this.a.getQuantiteMax(), 4);
 	}
 
 	@Test

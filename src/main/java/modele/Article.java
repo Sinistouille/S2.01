@@ -7,21 +7,23 @@ public class Article implements Comparable<Article> {
 	private float prixHT;
 	private int quantitéEnStock;
 	private int code;
-	private int quantitéPanier;
+	private int QuantiteMax;
 
 	public Article(Fromage fromage, String clé, float prixHT, int quantitéEnStock) {
 		this.fromage = fromage;
 		this.clé = clé;
 		this.prixHT = prixHT;
 		this.quantitéEnStock = quantitéEnStock;
+		this.QuantiteMax = quantitéEnStock;
 		this.code = (fromage.getDésignation() + clé).hashCode();
 	}
+
 	public Article(Fromage fromage, String clé, float prixHT) {
 		this.fromage = fromage;
 		this.clé = clé;
 		this.prixHT = prixHT;
 		this.quantitéEnStock = 0;
-		this.code = (fromage.getDésignation() + clé).hashCode();
+        this.code = (fromage.getDésignation() + clé).hashCode();
 	}
 
 	public Fromage getFromage() {
@@ -40,21 +42,27 @@ public class Article implements Comparable<Article> {
 		return this.clé;
 	}
 
-	public void préempterQuantité(int q) {
+	public void préempterQuantité(int q) throws IllegalArgumentException {
+		if (q > this.quantitéEnStock || q < 0) {
+			throw new IllegalArgumentException("Quantité insuffisante en stock");
+		}
 		this.quantitéEnStock -= q;
 	}
 
-	public void rendreQuantité(int q) {
+	public void rendreQuantité(int q) throws IllegalArgumentException{
+		if (q < 0) {
+			throw new IllegalArgumentException("Quantité négative");
+		}
 		this.quantitéEnStock += q;
 	}
 
 	public void setQuantitéEnStock(int quantitéEnStock) {
 		this.quantitéEnStock = quantitéEnStock;
-		this.quantitéPanier = quantitéEnStock;
+		this.QuantiteMax = quantitéEnStock;
 	}
 
-	public int getQuantitéPanier() {
-		return this.quantitéPanier - this.quantitéEnStock;
+	public int getQuantiteMax() {
+		return this.QuantiteMax - this.quantitéEnStock;
 	}
 
 	@Override
@@ -71,7 +79,7 @@ public class Article implements Comparable<Article> {
 	}
 
 	public String toStringAvecStock() {
-		return this.toString() + ", Quantité en stock : " + this.quantitéEnStock;
+		return this + ", Quantité en stock : " + this.quantitéEnStock;
 	}
 
 	@Override

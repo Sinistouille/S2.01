@@ -1,33 +1,33 @@
 {
-    "PrixTotal": 924.9,
+    "PrixTotal": 261.56,
     "Articles": {
-        "-2146864329": {
-            "TypeVente": "",
-            "Prix": 2.9,
-            "Quantité": 54,
-            "TypeLait": "CHEVRE",
-            "Fromage": "Rocamadour"
-        },
-        "-887422567": {
-            "TypeVente": "250 g",
-            "Prix": 8.95,
-            "Quantité": 24,
+        "418399328": {
+            "TypeVente": "moitié",
+            "Prix": 6.8,
+            "Quantité": 5,
             "TypeLait": "VACHE",
-            "Fromage": "Comté 18 mois"
+            "Fromage": "Montbriac"
         },
-        "-1021524071": {
+        "-86161598": {
             "TypeVente": "250 g",
-            "Prix": 10.95,
-            "Quantité": 10,
-            "TypeLait": "CHEVRE",
-            "Fromage": "Persillé de Chèvre"
+            "Prix": 10.7,
+            "Quantité": 13,
+            "TypeLait": "VACHE",
+            "Fromage": "Gruyère Suisse"
         },
-        "841197178": {
+        "991822435": {
+            "TypeVente": "moitié",
+            "Prix": 8.99,
+            "Quantité": 4,
+            "TypeLait": "VACHE",
+            "Fromage": "Reblochon"
+        },
+        "1344548449": {
             "TypeVente": "250 g",
-            "Prix": 9.25,
-            "Quantité": 48,
-            "TypeLait": "BREBIS",
-            "Fromage": "Roquefort Papillon"
+            "Prix": 8.75,
+            "Quantité": 6,
+            "TypeLait": "VACHE",
+            "Fromage": "Gouda aux truffes"
         }
     },
     "Panier": 3
