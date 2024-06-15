@@ -232,7 +232,7 @@ public class FenetreSelection extends JFrame {
             this.labelLivraisonGratuite.setText("Livraison gratuite");
         }
         else {
-            this.labelLivraisonGratuite.setText("Il manque " + FormatHelper.df.format(120f - this.panier.getPrixHT()) +  " euros avant la livraison gratuite");
+            this.labelLivraisonGratuite.setText("Il manque " + FormatHelper.DecimalFormat(120f - this.panier.getPrixHT()) +  " euros avant la livraison gratuite");
         }
     }
 }
