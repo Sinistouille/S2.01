@@ -29,16 +29,14 @@ public class FenetreCommande extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FenetreCommande frame = new FenetreCommande(new Panier(), new Client("Prank", "Ratio"));
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		EventQueue.invokeLater(() -> {
+            try {
+                FenetreCommande frame = new FenetreCommande(new Panier(), new Client("Prank", "Ratio"));
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 	}
 
 	/**
