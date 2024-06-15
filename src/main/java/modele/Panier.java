@@ -139,15 +139,14 @@ public class Panier {
 
     public void savePanier(){
         JSONHelper.saveJSON(this.saveJSON(), "panier.json");
+
     }
 
     public void loadPanier(Fromages fromages){
         this.viderPanier();
         JSONObject json = JSONHelper.loadJSON("panier.json");
-
         this.UUID = json.getInt("Panier");
         nbInstances--;
-
         JSONObject jsonListeArticles = json.getJSONObject("Articles");
         for(String key : jsonListeArticles.keySet()) {
             JSONObject jsonArticle = jsonListeArticles.getJSONObject(key);
