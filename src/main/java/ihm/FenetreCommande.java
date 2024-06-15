@@ -1,6 +1,6 @@
 package ihm;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,11 +12,6 @@ import modele.GenerationFacture;
 import modele.Panier;
 import org.json.JSONObject;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.print.PrinterException;
 
 public class FenetreCommande extends JFrame {
@@ -44,7 +39,10 @@ public class FenetreCommande extends JFrame {
 	 */
 	public FenetreCommande(Panier panier, Client client) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 548, 372);
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int)dimension.getHeight();
+		int width  = (int)dimension.getWidth();
+		setBounds((width-550)/2, (height-400)/2, 550, 400);
 
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setLayout(new BorderLayout(0, 0));
