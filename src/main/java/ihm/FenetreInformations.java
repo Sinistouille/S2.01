@@ -28,9 +28,6 @@ public class FenetreInformations extends JFrame {
     private JPanel panelInfoRight;
     private Client client;
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new FenetreInformations(new Panier()).setVisible(true));
-    }
 
     public FenetreInformations(Panier panier) {
         setTitle("Ô fromage FenetreInformations");
