@@ -43,7 +43,7 @@ public class Client {
         this.phone = phone;
     }
 
-    public String getCountry() {
+    public String getPays() {
         return country;
     }
 

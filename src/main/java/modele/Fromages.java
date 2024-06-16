@@ -1,8 +1,6 @@
 package modele;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Fromages {
 
@@ -13,7 +11,9 @@ public class Fromages {
 	}
 
 	public void addFromages(List<Fromage> fromages) {
-		this.fromages.addAll(fromages);
+		Set<Fromage> set = new HashSet<>(this.fromages);
+		set.addAll(fromages);
+		this.fromages = new LinkedList<>(set);
 	}
 
 	public String toStringFromagesEtArticles() {

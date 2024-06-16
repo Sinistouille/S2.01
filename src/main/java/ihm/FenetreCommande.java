@@ -13,6 +13,8 @@ import modele.Panier;
 import org.json.JSONObject;
 
 import java.awt.print.PrinterException;
+import java.io.File;
+import java.io.IOException;
 
 public class FenetreCommande extends JFrame {
 
@@ -84,6 +86,11 @@ public class FenetreCommande extends JFrame {
         });
 		boutonPdf.addActionListener(e -> {
 			GenerationFacture.genererFacture(panier, client);
-		});
+            try {
+                Desktop.getDesktop().open(new File(FileHelper.dataLoc("facture.pdf")));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Erreur lors de l'ouverture du fichier PDF");
+            }
+        });
 	}
 }

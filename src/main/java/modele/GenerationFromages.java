@@ -812,15 +812,14 @@ public class GenerationFromages {
 		Fromages fromages = new Fromages();
 		List<Fromage> fromagesList = fromages.getFromages();
 		try {
-			JSONObject jsonFromages = JSONHelper.loadJSON("fromages.json");
+			JSONObject jsonFromages = JSONHelper.loadJSON(chemin);
 			for(String key : jsonFromages.keySet()){
 				JSONObject jsonFromage = jsonFromages.getJSONObject(key);
-				String nomImage = key;
 				JSONObject articles = jsonFromage.getJSONObject("Articles");
-				Fromage f = getFromage(jsonFromage.getString("Classe"),jsonFromage.getString("Nom"));
+				Fromage f = GenerationFromages.getFromage(jsonFromage.getString("Classe"),jsonFromage.getString("Nom"));
 				if (f != null) {
 					f.addDescription(jsonFromage.getString("Description"));
-					f.addNomImage(nomImage);
+					f.addNomImage(key);
 					f.updateTypeFromage(TypeLait.valueOf(jsonFromage.getString("Type")));
 					for(String keyArticle : articles.keySet()){
 						JSONObject jsonArticle = articles.getJSONObject(keyArticle);
@@ -859,7 +858,7 @@ public class GenerationFromages {
 		JSONHelper.saveJSON(jsonFromages, chemin);
 	}
 
-	public static Fromage getFromage (String nomClasse,String nom) {
+	public static Fromage getFromage(String nomClasse,String nom) {
 		switch(nomClasse) {
 			case "FromageALaCoupe":
 				return new FromageALaCoupe(nom);

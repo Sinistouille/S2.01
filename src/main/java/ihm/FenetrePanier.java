@@ -248,22 +248,16 @@ public class FenetrePanier extends JFrame {
 				int quantitePanier = panier.getPanier().get(article);
 				int quantiteStock = article.getQuantitéEnStock();
 
-				System.out.println("SYSTEM.OUT : quantitePanier : " + quantitePanier + "; QuantiteEnStock : " + quantiteStock + "; variation : " + (q-quantitePanier));
-
 				if (q <= 0) {//suppression de l'article du panier car quantité nulle ou négative
 					panier.ajouterArticle(article, q-quantitePanier);
 					JOptionPane.showMessageDialog(this, "L'article a été supprimé du panier", "Article supprimé", JOptionPane.INFORMATION_MESSAGE);
-					//System.out.println("SYSTEM.OUT : suppression de l'article du Panier");
-
 				}else if(article.getQuantitéEnStock() >= q - quantitePanier){ //modification de la quantité de l'article dans le panier car la quantité est inférieure ou égale au stock disponible
 					textFieldQuantiteElement.setText(String.valueOf(q));
 					panier.ajouterArticle(article, q - quantitePanier);
 					JOptionPane.showMessageDialog(this, "Quantité bien modifié à " + q, "Quantité modifiée", JOptionPane.INFORMATION_MESSAGE);
-					//System.out.println("SYSTEM.OUT : modification de la quantite du Panier en : " + (q - quantitePanier));
 				} else { //quantité supérieure à la quantité en stock
 					textFieldQuantiteElement.setText(String.valueOf(quantitePanier));
 					JOptionPane.showMessageDialog(this, "Il n'y a que " + (quantitePanier + quantiteStock) + " unités disponibles", "Quantité en stock insuffisante", JOptionPane.ERROR_MESSAGE);
-					//System.out.println("SYSTEM.OUT : Modif invalide");
 				}
 				this.raffraichirFenetre();
 			}

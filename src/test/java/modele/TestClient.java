@@ -22,7 +22,7 @@ public class TestClient {
         assertEquals("", client.getVille());
         assertEquals("", client.getCodePostal());
         assertEquals("", client.getEmail());
-        assertEquals("", client.getCountry());
+        assertEquals("", client.getPays());
         assertEquals("", client.getPhone());
         assertEquals("", client.getMobilePhone());
         assertEquals("", client.getComplementAdresse());
@@ -53,9 +53,9 @@ public class TestClient {
     }
 
     @Test
-    public void testSetAndGetCountry() {
+    public void testSetAndGetPays() {
         client.setCountry("USA");
-        assertEquals("USA", client.getCountry());
+        assertEquals("USA", client.getPays());
     }
 
     @Test
