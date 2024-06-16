@@ -23,7 +23,7 @@ public class FenetreSelection extends JFrame {
     private JPanel panelLivraisonGratuite;
     private JPanel panelBoutons;
     private JPanel panelListe;
-    private JPanel PanneauPrincipal;
+    private JPanel panelPrincipal;
     private JTable tableFromages;
     private Fromages listeFromages;
     private JCheckBox[] checkboxs_types_fromages = new JCheckBox[3];
@@ -32,7 +32,7 @@ public class FenetreSelection extends JFrame {
     private JLabel labelLivraisonGratuite;
     private JPanel panelSelection;
     private JPanel panelLeft;
-    private JPanel panel;
+    private JPanel panelTitre;
     private JLabel labelTitre;
 
 
@@ -65,23 +65,23 @@ public class FenetreSelection extends JFrame {
         this.setBounds((width-600)/2, (height-500)/2, 600, 500);
 
         // Panel Principal Initialization
-        PanneauPrincipal = new JPanel();
-        PanneauPrincipal.setBackground(new Color(255, 255, 255));
-        PanneauPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-        PanneauPrincipal.setLayout(new BorderLayout(0, 0));
-        setContentPane(PanneauPrincipal);
+        panelPrincipal = new JPanel();
+        panelPrincipal.setBackground(new Color(255, 255, 255));
+        panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+        panelPrincipal.setLayout(new BorderLayout(0, 0));
+        setContentPane(panelPrincipal);
 
         // Panel Boutons Initialization
         panelBoutons = new JPanel();
         panelBoutons.setOpaque(false);
         panelBoutons.setLayout(new GridLayout(0, 2, 10, 0));
-        PanneauPrincipal.add(panelBoutons, BorderLayout.SOUTH);
+        panelPrincipal.add(panelBoutons, BorderLayout.SOUTH);
 
         // Panel Selection Initialization
         panelSelection = new JPanel();
         panelSelection.setOpaque(false);
         panelSelection.setLayout(new GridLayout(0, 2, 10, 0));
-        PanneauPrincipal.add(panelSelection, BorderLayout.CENTER);
+        panelPrincipal.add(panelSelection, BorderLayout.CENTER);
 
         // Panel Type Fromage Initialization
         panelTypeFromage = new JPanel();
@@ -145,14 +145,14 @@ public class FenetreSelection extends JFrame {
         boutonQuitter.setBackground(new Color(255, 128, 128));
         panelBoutons.add(boutonQuitter);
 
-        panel = new JPanel();
-        panel.setBackground(new Color(255, 255, 255));
+        panelTitre = new JPanel();
+        panelTitre.setBackground(new Color(255, 255, 255));
 
         labelTitre = new JLabel("Ô'Fromage");
         labelTitre.setFont(new Font("Arial", Font.BOLD, 24));
-        panel.add(labelTitre);
+        panelTitre.add(labelTitre);
 
-        PanneauPrincipal.add(panel, BorderLayout.NORTH);
+        panelPrincipal.add(panelTitre, BorderLayout.NORTH);
 
         //Listeners pour les boutons
         this.addListeners(boutonQuitter, boutonAfficherPanier);

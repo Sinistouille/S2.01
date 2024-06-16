@@ -61,7 +61,7 @@ public class Article implements Comparable<Article> {
 		this.QuantiteMax = quantitéEnStock;
 	}
 
-	public int getQuantiteMax() {
+	public int getQuantitePanier() {
 		return this.QuantiteMax - this.quantitéEnStock;
 	}
 

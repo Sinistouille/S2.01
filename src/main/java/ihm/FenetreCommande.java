@@ -18,7 +18,7 @@ public class FenetreCommande extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextArea textFieldCommande;
+	private JTextArea textAreaCommande;
 
 	/**
 	 * Launch the application.
@@ -48,9 +48,9 @@ public class FenetreCommande extends JFrame {
 		panelPrincipal.setLayout(new BorderLayout(0, 0));
 		setContentPane(panelPrincipal);
 
-		textFieldCommande = new JTextArea(panier.toString() + "\n" + client.toString());
-		panelPrincipal.add(textFieldCommande, BorderLayout.CENTER);
-		textFieldCommande.setColumns(10);
+		textAreaCommande = new JTextArea(panier.toString() + "\n" + client.toString());
+		panelPrincipal.add(textAreaCommande, BorderLayout.CENTER);
+		textAreaCommande.setColumns(10);
 
 		JPanel panelBoutons = new JPanel();
 		panelPrincipal.add(panelBoutons, BorderLayout.SOUTH);
@@ -77,7 +77,7 @@ public class FenetreCommande extends JFrame {
 	private void addListeners(Panier panier, Client client, JButton boutonImprimer, JButton boutonPdf) {
 		boutonImprimer.addActionListener(e -> {
             try {
-                textFieldCommande.print();
+                textAreaCommande.print();
             } catch (PrinterException ex) {
                 throw new RuntimeException(ex);
             }

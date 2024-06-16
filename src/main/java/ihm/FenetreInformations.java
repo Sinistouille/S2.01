@@ -18,14 +18,14 @@ public class FenetreInformations extends JFrame {
     private JTextField fieldPostalCode;
     private JTextField fieldCity;
     private JComboBox<String> comboBoxCountry;
-    private JRadioButton creditCardButton;
-    private JRadioButton paypalButton;
-    private JRadioButton checkButton;
-    private JCheckBox newsletterCheckBox;
-    private JButton validateButton;
+    private JRadioButton radioBoxCreditCard;
+    private JRadioButton radioBoxPaypal;
+    private JRadioButton radioBoxCheque;
+    private JCheckBox checkBoxNewsLetter;
+    private JButton boutonValider;
     private JButton boutonAnnuler;
-    private JPanel leftPanelInfo;
-    private JPanel rightPanelInfo;
+    private JPanel panelInfoLeft;
+    private JPanel panelInfoRight;
     private Client client;
 
     public static void main(String[] args) {
@@ -41,74 +41,74 @@ public class FenetreInformations extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Initialisation du panneau principal
-        JPanel panneauPrincipal = new JPanel();
-        panneauPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panneauPrincipal.setLayout(new BoxLayout(panneauPrincipal, BoxLayout.Y_AXIS));
+        JPanel panelPrincipal = new JPanel();
+        panelPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.Y_AXIS));
 
         // Panneau des informations
         JPanel panelInformations = new JPanel(new BorderLayout(0, 0));
-        panneauPrincipal.add(panelInformations);
+        panelPrincipal.add(panelInformations);
 
         // Titre
-        JLabel titre = new JLabel("FenetreInformations");
-        titre.setHorizontalAlignment(SwingConstants.CENTER);
-        titre.setFont(new Font("Arial", Font.BOLD, 24));
-        titre.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelInformations.add(titre, BorderLayout.NORTH);
+        JLabel labelTitre = new JLabel("FenetreInformations");
+        labelTitre.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitre.setFont(new Font("Arial", Font.BOLD, 24));
+        labelTitre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelInformations.add(labelTitre, BorderLayout.NORTH);
 
         // Panneau des champs de formulaire
         JPanel panelChamps = new JPanel(new GridLayout(0, 2, 0, 0));
         panelInformations.add(panelChamps, BorderLayout.CENTER);
 
-        leftPanelInfo = new JPanel(new GridLayout(0, 1, 0, 0));
-        rightPanelInfo = new JPanel(new GridLayout(0, 1, 0, 0));
-        panelChamps.add(leftPanelInfo);
-        panelChamps.add(rightPanelInfo);
+        panelInfoLeft = new JPanel(new GridLayout(0, 1, 0, 0));
+        panelInfoRight = new JPanel(new GridLayout(0, 1, 0, 0));
+        panelChamps.add(panelInfoLeft);
+        panelChamps.add(panelInfoRight);
 
         // Groupe de boutons pour les méthodes de paiement
         ButtonGroup paymentGroup = new ButtonGroup();
 
         // Panneau pour l'abonnement à la newsletter
-        JPanel newsletterPanel = new JPanel(new GridLayout(3, 1, 0, 0));
-        panneauPrincipal.add(newsletterPanel);
+        JPanel panelPaiement = new JPanel(new GridLayout(3, 1, 0, 0));
+        panelPrincipal.add(panelPaiement);
 
         // Panneau des méthodes de paiement
-        JPanel paymentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        paymentPanel.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
-        creditCardButton = new JRadioButton("Carte de crédit");
-        paypalButton = new JRadioButton("Paypal");
-        checkButton = new JRadioButton("Paiement par chèque");
-        paymentGroup.add(creditCardButton);
-        paymentGroup.add(paypalButton);
-        paymentGroup.add(checkButton);
-        paymentPanel.add(creditCardButton);
-        paymentPanel.add(paypalButton);
-        paymentPanel.add(checkButton);
-        newsletterPanel.add(paymentPanel);
+        JPanel panelMoyenPaiement = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelMoyenPaiement.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
+        radioBoxCreditCard = new JRadioButton("Carte de crédit");
+        radioBoxPaypal = new JRadioButton("Paypal");
+        radioBoxCheque = new JRadioButton("Paiement par chèque");
+        paymentGroup.add(radioBoxCreditCard);
+        paymentGroup.add(radioBoxPaypal);
+        paymentGroup.add(radioBoxCheque);
+        panelMoyenPaiement.add(radioBoxCreditCard);
+        panelMoyenPaiement.add(radioBoxPaypal);
+        panelMoyenPaiement.add(radioBoxCheque);
+        panelPaiement.add(panelMoyenPaiement);
 
         // Case à cocher pour l'abonnement à la newsletter
-        newsletterCheckBox = new JCheckBox("S'abonner à la Newsletter");
-        newsletterPanel.add(newsletterCheckBox);
+        checkBoxNewsLetter = new JCheckBox("S'abonner à la Newsletter");
+        panelPaiement.add(checkBoxNewsLetter);
 
         // Panneau des boutons de validation
         JPanel panelBoutons = new JPanel(new GridLayout(0, 2, 10, 0));
-        newsletterPanel.add(panelBoutons);
+        panelPaiement.add(panelBoutons);
 
-        validateButton = new JButton("Valider");
-        validateButton.setBackground(new Color(255, 255, 255));
-        panelBoutons.add(validateButton);
+        boutonValider = new JButton("Valider");
+        boutonValider.setBackground(new Color(255, 255, 255));
+        panelBoutons.add(boutonValider);
 
 
         this.addListeners(panier, panelBoutons);
 
         // Add panel to frame
-        this.setContentPane(panneauPrincipal);
+        this.setContentPane(panelPrincipal);
         createPanelInformations();
     }
 
     private void addListeners(Panier panier, JPanel panel) {
         // Event listeners
-        validateButton.addActionListener(e -> {
+        boutonValider.addActionListener(e -> {
             // Action lors du clic sur le bouton 'Valider'
             this.client = this.getInformations();
             new FenetreCommande(panier, client).setVisible(true);
@@ -138,21 +138,21 @@ public class FenetreInformations extends JFrame {
 
     private void createPanelInformations() {
         // Adding components to formPanel
-        createRowPanel("Civilité", createTitlePanel(), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Prénom", fieldFirstName = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Nom", fieldName = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Adresse Email", fieldEmail = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Numéro de téléphone fixe", fieldPhone = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Numéro de téléphone Portable", fieldMobilePhone = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Adresse", fieldAdresse = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Complément d'adresse", fieldComplementAdresse = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Code postal", fieldPostalCode = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Ville", fieldCity = new JTextField(20), leftPanelInfo, rightPanelInfo);
-        createRowPanel("Pays", comboBoxCountry = new JComboBox<>(new String[]{"France"}), leftPanelInfo, rightPanelInfo);
+        createRowPanel("Civilité", createTitlePanel(), panelInfoLeft, panelInfoRight);
+        createRowPanel("Prénom", fieldFirstName = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Nom", fieldName = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Adresse Email", fieldEmail = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Numéro de téléphone fixe", fieldPhone = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Numéro de téléphone Portable", fieldMobilePhone = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Adresse", fieldAdresse = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Complément d'adresse", fieldComplementAdresse = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Code postal", fieldPostalCode = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Ville", fieldCity = new JTextField(20), panelInfoLeft, panelInfoRight);
+        createRowPanel("Pays", comboBoxCountry = new JComboBox<>(new String[]{"France"}), panelInfoLeft, panelInfoRight);
     }
 
     private void createRowPanel(String labelText, JComponent field, JPanel leftPanel, JPanel rightPanel) {
-        JLabel lblCivilit = new JLabel(labelText + " : ");
+        JLabel labelCivilite = new JLabel(labelText + " : ");
 
         JPanel leftline = new JPanel();
         leftline.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -160,7 +160,7 @@ public class FenetreInformations extends JFrame {
         rightline.setLayout(new FlowLayout(FlowLayout.LEFT));
         //lblCivilit.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        leftline.add(lblCivilit);
+        leftline.add(labelCivilite);
         rightline.add(field);
         leftPanel.add(leftline);
         rightPanel.add(rightline);
