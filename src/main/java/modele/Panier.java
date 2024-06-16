@@ -34,13 +34,13 @@ public class Panier {
             try {
                 a.préempterQuantité(q);
             }catch(IllegalArgumentException e){
-                System.out.println("SYSTEM.OUT : Stock insuffisant");
+                //System.out.println("SYSTEM.OUT : Stock insuffisant");
                 return;
             }
         }
         if (quantite + q > 0) {
             this.panier.put(a, quantite + q);
-            System.out.println("SYSTEM.OUT : Bien ajouté au panier : " + a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a));
+            //System.out.println("SYSTEM.OUT : Bien ajouté au panier : " + a.getFromage().getDésignation() + " " + a.getClé() + " quantité : " + this.panier.get(a));
         } else {
             this.retirerArticle(a);
         }

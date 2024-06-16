@@ -4,28 +4,39 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class TestFileHelper {
 
-	private FileHelper a;
-
 	@Test
-	public void testAcceuilDoc() {
-		assertEquals(this.a.accueilLoc("vitrine"), "src/main/resources/images/accueil/vitrine.jpg");
+	public void testAccueilDoc() {
+		assertEquals(FileHelper.accueilLoc("vitrine"), "src/main/resources/images/accueil/vitrine");
 	}
 
 	@Test
 	public void testResourceLoc() {
-		assertEquals(this.a.resourceLoc("fromages"), "src/main/resources/fromages");
+		assertEquals(FileHelper.resourceLoc("fromages"), "src/main/resources/fromages");
 	}
 
 	@Test
 	public void testProjetLoc() {
-		assertEquals(this.a.projetLoc("java"), "src/main/java");
+		assertEquals(FileHelper.projetLoc("java"), "src/main/java");
 	}
 
 	@Test
 	public void testDataLoc() {
-		assertEquals(this.a.dataLoc("data.json"), "src/main/data/data.json");
+		assertEquals(FileHelper.dataLoc("data.json"), "src/main/data/data.json");
+	}
+
+	@Test
+	public void testFromageLoc() {
+		assertEquals(FileHelper.fromageLoc("fromage"), "src/main/resources/images/fromages/hauteur200/fromage");
+	}
+	@Test
+	public void testLogoLoc(){
+		assertEquals(FileHelper.logoLoc("logo"), "src/main/resources/images/logo/logo");
+
 	}
 
 }

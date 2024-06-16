@@ -126,10 +126,9 @@ public class FicheProduit extends JFrame {
 		panelDesignationFromage.add(poidsLabel);
 
 		this.updateModelQuantiteComboBox();
-		updatePrixUnitaire();
+		this.updatePrixUnitaire();
 		this.setIconFromage(fromage);
-
-		addListeners(panier, fromage, fenetreSelection);
+		this.addListeners(panier, fromage, fenetreSelection);
 		// Mise à jour du prix total lorsque la quantité ou le poids change
 	}
 
