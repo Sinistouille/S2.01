@@ -5,7 +5,7 @@ public enum TypeLait {
 
 	private String typeDeLait;
 
-	private TypeLait(String typeDeLait) {
+	TypeLait(String typeDeLait) {
 		this.typeDeLait = typeDeLait;
 	}
 
