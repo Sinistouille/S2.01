@@ -3,7 +3,7 @@ package ihm;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
@@ -215,7 +215,7 @@ public class FenetreSelection extends JFrame {
         if (this.checkboxs_types_fromages[2].isSelected()) {
             laits.add(TypeLait.VACHE);
         }
-        model.setDataVector(this.listeFromages.arrayFromages(laits), new String[] { "Fromages" });
+        model.setDataVector(this.listeFromages.arrayFromages(laits), new Vector<>(Collections.singletonList("Fromage")));
         this.tableFromages.setModel(model);
     }
 

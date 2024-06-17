@@ -832,6 +832,7 @@ public class GenerationFromages {
 			e.printStackTrace();
 
 		}
+		System.out.println("GenerationFromages " + fromagesList);
 		fromages.addFromages(fromagesList);
 		return fromages;
 	}
@@ -862,7 +863,7 @@ public class GenerationFromages {
 		switch(nomClasse) {
 			case "FromageALaCoupe":
 				return new FromageALaCoupe(nom);
-			case "FromageALUnite":
+			case "FromageALUnité":
 				return new FromageALUnité(nom);
 			case "FromageALUnitéPlusieursChoix":
 				return new FromageALUnitéPlusieursChoix(nom);

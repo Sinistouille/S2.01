@@ -14,5 +14,4 @@ public class FormatHelper {
     public static String DecimalFormat(float f){
         return Math.round(f*100)/100.0 + "";
     }
-
 }

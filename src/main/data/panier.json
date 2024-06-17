@@ -1,5 +1,5 @@
 {
-    "PrixTotal": 261.56,
+    "PrixTotal": 122.46,
     "Articles": {
         "418399328": {
             "TypeVente": "moitié",
@@ -7,13 +7,6 @@
             "Quantité": 5,
             "TypeLait": "VACHE",
             "Fromage": "Montbriac"
-        },
-        "-86161598": {
-            "TypeVente": "250 g",
-            "Prix": 10.7,
-            "Quantité": 13,
-            "TypeLait": "VACHE",
-            "Fromage": "Gruyère Suisse"
         },
         "991822435": {
             "TypeVente": "moitié",
