@@ -2,6 +2,7 @@ package modele;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 public abstract class Fromage implements Comparable<Fromage> {
 
@@ -9,11 +10,11 @@ public abstract class Fromage implements Comparable<Fromage> {
 	private String nomImage;
 	private String description;
 	private TypeLait typeFromage;
-	private List<Article> articles;
+	private Vector<Article> articles;
 
 	public Fromage(String désignation) {
 		this.désignation = désignation;
-		this.articles = new LinkedList<Article>();
+		this.articles = new Vector<>();
 	}
 
 	public String getDésignation() {
@@ -54,6 +55,10 @@ public abstract class Fromage implements Comparable<Fromage> {
 		        + this.typeFromage.getTypeDeLait();
 	}
 
+	public void addArticle(String clé, float prixTTC, int quantite) {
+		this.articles.add(new Article(this, clé, prixTTC, quantite));
+	}
+
 	public void addArticle(String clé, float prixTTC) {
 		this.articles.add(new Article(this, clé, prixTTC));
 	}
@@ -62,7 +67,7 @@ public abstract class Fromage implements Comparable<Fromage> {
 		return this.articles.size();
 	}
 
-	public List<Article> getArticles() {
+	public Vector<Article> getArticles() {
 		return this.articles;
 	}
 

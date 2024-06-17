@@ -1,19 +1,20 @@
 package modele;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Fromages {
 
 	private List<Fromage> fromages;
 
 	public Fromages() {
-		this.fromages = new LinkedList<Fromage>();
+		this.fromages = new LinkedList<>();
 	}
 
 	public void addFromages(List<Fromage> fromages) {
-		this.fromages.addAll(fromages);
+		Set<Fromage> set = new HashSet<>(this.fromages);
+		set.addAll(fromages);
+		this.fromages = new LinkedList<>(set);
+		Collections.sort(this.fromages);
 	}
 
 	public String toStringFromagesEtArticles() {
@@ -57,20 +58,16 @@ public class Fromages {
 		return this.fromages;
 	}
 	
-	public String[][] arrayFromages(List<TypeLait> laits){
-		int nombreFromages = 0;
-		for(TypeLait t : laits) {
-			nombreFromages += this.fromagesAuLaitDe(t).size();
-		}
-		String[][] tabFromages = new String[nombreFromages][2];
-		int i = 0;
+	public Vector<Vector<String>> arrayFromages(List<TypeLait> listeLaits){
+		Vector<Vector<String>> fromages = new Vector<>();
 		for(Fromage c : this.fromages) {
-			if(laits.contains(c.getTypeFromage())) {
-				tabFromages[i][0] = c.getDésignation();
-				i += 1;
+			if(listeLaits.contains(c.getTypeFromage())) {
+				Vector<String> vf = new Vector<>();
+				vf.add(c.getDésignation());
+				fromages.add(vf);
 			}
 		}
-		return tabFromages;
+		return fromages;
 	}
 
 	public Fromage getFromage(String désignation) {

@@ -31,11 +31,11 @@ public class TestSaisieFromage {
 		assertEquals("brie_de_melun", f.getNomImage());
 		assertEquals(3, f.nombreArticles());
 		assertEquals("250 g", f.getArticles().get(0).getClé());
-		assertEquals(9.15F, f.getArticles().get(0).getPrixTTC(), 0F);
+		assertEquals(9.15F, f.getArticles().get(0).getPrixHT(), 0F);
 		assertEquals("500 g", f.getArticles().get(1).getClé());
-		assertEquals(18.3F, f.getArticles().get(1).getPrixTTC(), 0F);
+		assertEquals(18.3F, f.getArticles().get(1).getPrixHT(), 0F);
 		assertEquals("1 Kg", f.getArticles().get(2).getClé());
-		assertEquals(36.6F, f.getArticles().get(2).getPrixTTC(), 0F);
+		assertEquals(36.6F, f.getArticles().get(2).getPrixHT(), 0F);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class TestSaisieFromage {
 		assertEquals("brique_de_brebis_fermiere", f.getNomImage());
 		assertEquals(1, f.nombreArticles());
 		assertEquals("", f.getArticles().get(0).getClé());
-		assertEquals(7.89F, f.getArticles().get(0).getPrixTTC(), 0F);
+		assertEquals(7.89F, f.getArticles().get(0).getPrixHT(), 0F);
 	}
 
 	@Test
@@ -87,9 +87,9 @@ public class TestSaisieFromage {
 		assertEquals("brin_d_amour_corse", f.getNomImage());
 		assertEquals(2, f.nombreArticles());
 		assertEquals("moitié", f.getArticles().get(0).getClé());
-		assertEquals(8.5F, f.getArticles().get(0).getPrixTTC(), 0F);
+		assertEquals(8.5F, f.getArticles().get(0).getPrixHT(), 0F);
 		assertEquals("entier", f.getArticles().get(1).getClé());
-		assertEquals(16.8F, f.getArticles().get(1).getPrixTTC(), 0F);
+		assertEquals(16.8F, f.getArticles().get(1).getPrixHT(), 0F);
 	}
 
 	@Test
@@ -119,10 +119,10 @@ public class TestSaisieFromage {
 		assertEquals(2, f.nombreArticles());
 		assertEquals("Moelleux cendré - Jeune et doux",
 		        f.getArticles().get(0).getClé());
-		assertEquals(3.39F, f.getArticles().get(0).getPrixTTC(), 0F);
+		assertEquals(3.39F, f.getArticles().get(0).getPrixHT(), 0F);
 		assertEquals("Moelleux blanc - Jeune et doux",
 		        f.getArticles().get(1).getClé());
-		assertEquals(3.39F, f.getArticles().get(1).getPrixTTC(), 0F);
+		assertEquals(3.39F, f.getArticles().get(1).getPrixHT(), 0F);
 	}
 
 	@Test
@@ -147,10 +147,10 @@ public class TestSaisieFromage {
 		assertEquals("fondue_savoyarde", f.getNomImage());
 		assertEquals(3, f.nombreArticles());
 		assertEquals("pour 3 personnes", f.getArticles().get(0).getClé());
-		assertEquals(22.5F, f.getArticles().get(0).getPrixTTC(), 0F);
+		assertEquals(22.5F, f.getArticles().get(0).getPrixHT(), 0F);
 		assertEquals("pour 5 personnes", f.getArticles().get(1).getClé());
-		assertEquals(33.75F, f.getArticles().get(1).getPrixTTC(), 0F);
+		assertEquals(33.75F, f.getArticles().get(1).getPrixHT(), 0F);
 		assertEquals("pour 10 personnes", f.getArticles().get(2).getClé());
-		assertEquals(67.5F, f.getArticles().get(2).getPrixTTC(), 0F);
+		assertEquals(67.5F, f.getArticles().get(2).getPrixHT(), 0F);
 	}
 }

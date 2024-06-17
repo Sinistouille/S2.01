@@ -1,0 +1,27 @@
+{
+    "PrixTotal": 122.46,
+    "Articles": {
+        "418399328": {
+            "TypeVente": "moitié",
+            "Prix": 6.8,
+            "Quantité": 5,
+            "TypeLait": "VACHE",
+            "Fromage": "Montbriac"
+        },
+        "991822435": {
+            "TypeVente": "moitié",
+            "Prix": 8.99,
+            "Quantité": 4,
+            "TypeLait": "VACHE",
+            "Fromage": "Reblochon"
+        },
+        "1344548449": {
+            "TypeVente": "250 g",
+            "Prix": 8.75,
+            "Quantité": 6,
+            "TypeLait": "VACHE",
+            "Fromage": "Gouda aux truffes"
+        }
+    },
+    "Panier": 3
+}
